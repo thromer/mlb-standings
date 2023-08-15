@@ -5,12 +5,16 @@ Invariants:
 * Spreadsheet rows are either complete for a date or empty.
 
 Loosely speaking:
+* Run the following every hour, with
+  * 'today' = yesterday, pacific time.
+
 * Let spreadsheet_max_date = date of the latest spreadsheet row with data
 * Corner case: If there is *no* data in the spreadsheet, use opening day - 1.
 * # Shortcut: If it is for today, we're done.
-* Backfill: for date = spreadsheet_max_date + 1 through today
+* Backfill: for date in [spreadsheet_max_date + 1, 'today']
   * Are all games from date complete, one way or another?
-    * Special cases:
+    * Probably it suffices if baseball reference has published standings.
+    * Future work: Special cases:
       * Rainouts
       * Suspended games -- I'm unclear on what this will look like on baseball-reference :(
         * Example: 2023-07-14 WSN vs STL
