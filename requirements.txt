@@ -1,3 +1,15 @@
 beautifulsoup4==4.12.2
 bs4==0.0.1
+exceptiongroup==1.1.3
+iniconfig==2.0.0
+mypy==1.5.0
+mypy-extensions==1.0.0
+packaging==23.1
+pkg_resources==0.0.0
+pluggy==1.2.0
+pytest==7.4.0
 soupsieve==2.4.1
+tomli==2.0.1
+types-beautifulsoup4==4.12.0.6
+types-html5lib==1.1.11.15
+typing_extensions==4.7.1

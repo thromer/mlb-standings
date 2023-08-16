@@ -1,4 +1,6 @@
-#!/usr/bin/env python3
+import datetime
+
+from typing_protocols import *
 
 """
 Invariants:
@@ -6,7 +8,8 @@ Invariants:
 
 Loosely speaking:
 * Run the following every hour, with
-  * 'today' = yesterday, pacific time.
+  * 'today' = yesterday, pacific time; so that starting at midnight PT, we
+    see if we have all the results from 
 
 * Let spreadsheet_max_date = date of the latest spreadsheet row with data
 * Corner case: If there is *no* data in the spreadsheet, use opening day - 1.
@@ -25,3 +28,16 @@ Loosely speaking:
 
 * Supporting function: W-L as of date. We just use whatever baseball-reference tells us.
 """
+
+# TODO inject rate limiter so that tests aren't limited?
+class Updater:
+  def __init__(self, 
+               now: datetime.datetime, 
+               drive: DriveLike, 
+               web: WebLike) -> None:
+    self.now = now
+    self.drive = drive
+    self.web = web
+
+  def update(self) -> None:
+    pass

@@ -6,6 +6,8 @@ import sys
 from functools import cache
 from functools import reduce
 
+from typing import List
+
 CANONICAL_ABBRS = {
   'TBR': 'TB',
   'KCR': 'KC',
@@ -20,22 +22,20 @@ TEAMS = {
 }
 
 @cache
-def canonicalize_abbr(abbr):
+def canonicalize_abbr(abbr: str) -> str:
   if abbr in CANONICAL_ABBRS:
     return CANONICAL_ABBRS[abbr]
   return abbr
 
-def division(soup, league, division):
-  # we want to know:
-  #   each team's win loss record
-  #   list of teams in first (not the prettiest place to do it)
-  pass
-
-
-
-def work(league, data):
+def work(league: str, data: str) -> List[str]:
   soup = bs4.BeautifulSoup(data, features='html.parser')
-  overall_table = soup.find(id=f'standings-upto-{league}-overall').tbody
+  table_id = f'standings-upto-{league}-overall'
+  overall_table = soup.find(id=table_id)
+  if overall_table is not None and type(overall_table) == bs4.element.Tag:
+    overall_table = overall_table.tbody
+  if overall_table is None or type(overall_table) != bs4.element.Tag:
+    raise ValueError(f'{table_id} is missing or exists with no tbody')
+  print(type(overall_table))
 
   # Get everyone's stats
   stats = {}
@@ -80,9 +80,9 @@ def work(league, data):
   wc_teams = set(all_teams) - sole_leaders
   wc_order = sorted(sorted(wc_teams), key=lambda t: -stats[t]['pct'])
 
-  return plus_minus + div_order + wc_order
+  return [str(x) for x in plus_minus] + div_order + wc_order
   
-def main():
+def main() -> None:
   data = sys.stdin.read()
   full_result = ['2023-04-30'] + work('AL', data)
   print(','.join([str(x) for x in full_result]))
