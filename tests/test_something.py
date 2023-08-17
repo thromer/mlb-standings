@@ -11,4 +11,3 @@ def testSomething() -> None:
   u = Updater(now, drive, web)
   u.update()
   # TODO: see what results we got
-  return 3
