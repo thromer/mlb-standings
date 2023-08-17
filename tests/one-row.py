@@ -38,6 +38,7 @@ def work(league: str, data: str) -> List[str]:
   print(type(overall_table))
 
   # Get everyone's stats
+  # TODO make sure the row header is correct
   stats = {}
   for tr in overall_table.find_all('tr'):
     tds = tr.find_all('td')
