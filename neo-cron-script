@@ -1,0 +1,2 @@
+#!/bin/sh
+cd /home/ted/src/mlb-standings && git pull && . venv/bin/activate && pip -q install -r requirements.txt && PYTHONPATH=src bin/update.py
