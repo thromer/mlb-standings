@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
-import updater
-print('hi!')
+from updater import Updater
 
+def main() -> None:
+  pass
+
+main()

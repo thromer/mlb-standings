@@ -31,6 +31,7 @@ class Updater:
     * Let spreadsheet_max_date = date of the latest spreadsheet row with data
     * Corner case: If there is *no* data in the spreadsheet, use opening day - 1.
     * # Shortcut: If it is for today, we're done.
+    * max_day = min('today', first day of post-season + a couple for buffer)
     * Backfill: for date in [spreadsheet_max_date + 1, 'today']
       * Are all games from date complete, one way or another?
         * Probably it suffices if baseball reference has published standings.
@@ -41,6 +42,8 @@ class Updater:
           * Doubleheaders
           * All-star break
           * Today: some games complete, some not
+          * 1994: no post-season! Hard to see a solution besides a flag
+            somewhere saying "last day of the season was X"
         * Good news: even if we handle a special case wrong, it'll get better the next day, probably.
     """
     pass
