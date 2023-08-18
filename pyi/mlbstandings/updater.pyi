@@ -1,4 +1,4 @@
-from typing_protocols import *
+from mlbstandings.typing_protocols import *
 from _typeshed import Incomplete
 from datetime import datetime
 

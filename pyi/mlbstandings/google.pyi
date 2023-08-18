@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from google.auth.transport.requests import Request as Request
-from google.oauth2.credentials import Credentials as Credentials
+from google.oauth2.credentials import Credentials
 
 class LocalCreds:
     creds: Incomplete

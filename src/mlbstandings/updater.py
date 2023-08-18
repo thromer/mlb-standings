@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from typing_protocols import *
+from mlbstandings.typing_protocols import *
 
 """
 Invariants:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from updater import Updater
+from mlbstandings.updater import Updater
 
 def main() -> None:
   pass

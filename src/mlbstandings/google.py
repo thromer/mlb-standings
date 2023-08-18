@@ -1,5 +1,7 @@
 import os
 
+from typing import List
+
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -7,7 +9,7 @@ from googleapiclient.discovery import build
 
 # TODO this is too specific to running locally and has hardcoded filenames
 class LocalCreds:
-  def __init__(self, scopes) -> None:
+  def __init__(self, scopes: List[str]) -> None:
     self.creds = None
     home_dir = os.environ['HOME']
     token_file = home_dir + '/mlb-standings.json'
@@ -22,6 +24,8 @@ class LocalCreds:
             flow = InstalledAppFlow.from_client_secrets_file(credentials_file, scopes)
             self.creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
+        if self.creds is None:
+          raise ValueError('No creds even after refresh or run_local_server!')
         with open(token_file, 'w') as token:
             token.write(self.creds.to_json())
 

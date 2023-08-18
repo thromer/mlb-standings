@@ -1,4 +1,4 @@
-from typing_protocols import *
+from mlbstandings.typing_protocols import *
 
 from bs4 import BeautifulSoup
 from datetime import datetime

@@ -1,5 +1,5 @@
 from fakes import FakeWeb
-from baseballref import BaseballReference
+from mlbstandings.baseballref import BaseballReference
 
 from datetime import datetime
 

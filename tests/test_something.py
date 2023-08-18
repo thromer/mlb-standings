@@ -1,5 +1,5 @@
 from fakes import *
-from updater import Updater
+from mlbstandings.updater import Updater
 
 from zoneinfo import ZoneInfo
 from datetime import datetime
