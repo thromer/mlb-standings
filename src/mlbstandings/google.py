@@ -1,4 +1,5 @@
 import os
+import google.auth
 
 from typing import List
 
@@ -8,6 +9,10 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
 # ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive.metadata.readonly']
+
+class DefaultCreds:
+  def __init__(self, scopes: List[str]) -> None:
+    self.creds, _ = google.auth.default(scopes=scopes)
 
 # TODO this is too specific to running locally and has hardcoded filenames
 class LocalCreds:
