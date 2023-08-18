@@ -7,6 +7,8 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
+# ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive.metadata.readonly']
+
 # TODO this is too specific to running locally and has hardcoded filenames
 class LocalCreds:
   def __init__(self, scopes: List[str]) -> None:
@@ -30,13 +32,29 @@ class LocalCreds:
             token.write(self.creds.to_json())
 
 class Drive:
-  def __init__(self, creds: Credentials) -> None:
-    pass
+  def __init__(self, creds: LocalCreds) -> None:
+    self.service = build('drive', 'v3', credentials=creds.creds)
+
+  # TODO too much hard-coding!
+  def getSpreadsheetId(self, name: str) -> str:
+    esc_name = name.replace("'", "\\'")
+    query = (f"name='{esc_name}' and "
+             "'tromer@gmail.com' in owners and "
+             "mimeType = 'application/vnd.google-apps.spreadsheet'")
+    response = self.service.files().list(q=f"name='{esc_name}'",
+                                    spaces='drive',
+                                    fields='files(id)').execute()
+    files = response.get('files', [])
+    if len(files) == 0:
+      raise ValueError(f'{name} not found')
+    elif len(files) > 1:
+      raise ValueError(f'{len(files)} files named {name}')
+    id = files[0].get('id')
+    if not isinstance(id, str):
+      raise ValueError(f'{id} is not a string?!')
+    return id 
 
 class Spreadsheets:
-  def __init__(self, creds: Credentials) -> None:
-    service = build('sheets', 'v4', credentials=creds)
+  def __init__(self, creds: LocalCreds) -> None:
+    service = build('sheets', 'v4', credentials=creds.creds)
     self.spreadsheets = service.spreadsheets()
-
-  
-  
