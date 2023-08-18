@@ -12,7 +12,8 @@ from googleapiclient.discovery import build
 
 class DefaultCreds:
   def __init__(self, scopes: List[str]) -> None:
-    self.creds, _ = google.auth.default(scopes=scopes)
+    # TODO wtf
+    self.creds, _ = google.auth.default(scopes=scopes)  # type: ignore[attr-defined]
 
 # TODO this is too specific to running locally and has hardcoded filenames
 class LocalCreds:
