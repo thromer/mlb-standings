@@ -1,3 +1,5 @@
+from typing import Union
+
 class FakeDrive:
   def __init__(self) -> None:
     pass
@@ -5,11 +7,17 @@ class FakeDrive:
     # return something!
     raise ValueError('implement fake getSpreadsheetId!')
 
-class FakeSheet:
+class FakeSpreadsheet:
+  def __init__(self, id: str) -> None:
+    self.id = id
+  def set_named_cell(self, name: str, value: Union[str, int]) -> None:
+    raise ValueError('implement FakeSpreadsheet.set_named_cell')
+
+class FakeSpreadsheets:
   def __init__(self) -> None:
     pass
-  def sheet_stuff(self) -> None:
-    pass
+  def spreadsheet(self, id:str) -> FakeSpreadsheet:
+    return FakeSpreadsheet(id)
 
 class FakeWeb:
   def __init__(self, data_dir: str) -> None:

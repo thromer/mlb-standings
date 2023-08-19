@@ -1,7 +1,10 @@
-from typing_extensions import Protocol
+from typing_extensions import Protocol, Union
 
-class SheetLike(Protocol):
-  def sheet_stuff(self) -> None: ...
+class SpreadsheetLike(Protocol):
+  def set_named_cell(self, name: str, value: Union[str, int]) -> None: ...
+
+class SpreadsheetsLike(Protocol):
+  def spreadsheet(self, id:str) -> None: ...
 
 class WebLike(Protocol):
   def read(self, url: str) -> str: ...
