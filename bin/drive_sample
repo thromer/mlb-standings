@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+
+import mlbstandings.google
+scopes=['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive.metadata.readonly']
+dc = mlbstandings.google.DefaultCreds(scopes=scopes)
+drive=mlbstandings.google.Drive(dc)
+print(drive.getSpreadsheetId('MLB Standings 2023'))
