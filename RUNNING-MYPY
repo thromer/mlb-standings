@@ -1,1 +1,1 @@
-PYTHONPATH=src MYPYPATH=pyi mypy --strict src tests
+PYTHONPATH=src MYPYPATH=pyi mypy --strict src tests bin
