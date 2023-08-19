@@ -1,8 +1,9 @@
 class FakeDrive:
   def __init__(self) -> None:
     pass
-  def drive_stuff(self) -> None:
-    pass
+  def getSpreadsheetId(self, name: str) -> str:
+    # return something!
+    raise ValueError('implement fake getSpreadsheetId!')
 
 class FakeSheet:
   def __init__(self) -> None:
