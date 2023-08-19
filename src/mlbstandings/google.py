@@ -37,10 +37,18 @@ class Drive:
       raise ValueError(f'{id} is not a string?!')
     return id
 
+class Sheet:
+  def __init__(self, spreadsheet: Spreadsheet, name: str):
+    self.spreadsheet = spreadsheet
+    self.name = name
+
 class Spreadsheet:
   def __init__(self, spreadsheets: SheetsResource.SpreadsheetsResource, id: str) -> None:
     self.spreadsheets = spreadsheets
     self.id = id
+
+  def sheet(self, name:str) -> Sheet:
+    return Sheet(self, name)
 
   def set_named_cell(self, name: str, value: Union[str, int]) -> None:
     vals = [[value]]
