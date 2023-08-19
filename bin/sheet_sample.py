@@ -11,4 +11,4 @@ ss = mlbstandings.google.Spreadsheets(google.auth.default(scopes=scopes)[0])
 s = ss.spreadsheet(drive.getSpreadsheetId('MLB Standings 2023'))
 s.set_named_cell('last_day', 30)
 
-s.something()
+s.readValues('nl_uploaded', 'A:A')

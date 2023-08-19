@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, List
 
 if TYPE_CHECKING:
     from googleapiclient._apis.sheets.v4.resources import SheetsResource
     from googleapiclient._apis.drive.v3.resources import DriveResource
+    from google.auth.credentials import Credentials
 
-from typing import List
-
-from google.auth.credentials import Credentials
 from googleapiclient.discovery import build
 
 
@@ -64,21 +62,20 @@ class Spreadsheet:
                                           valueInputOption='RAW',
                                           body={'values': vals}).execute()
 
-    def something(self) -> None:
+    def readValues(self, sheetName, range) -> List[List[Union[str, int]]]:
         result = self.spreadsheets.values().get(
             spreadsheetId=self.id,
             majorDimension="COLUMNS",
             valueRenderOption="UNFORMATTED_VALUE",
             dateTimeRenderOption="SERIAL_NUMBER",
-            range='nl_uploaded!A:A'
+            range=f'{sheetName}!{range}'
         ).execute().get('values', [])
-        print(result)
-
+        return result
 
 class Spreadsheets:
     def __init__(self, creds: Credentials) -> None:
         service: SheetsResource = build('sheets', 'v4', credentials=creds)
         self.spreadsheets = service.spreadsheets()
 
-    def spreadsheet(self, id: str) -> Spreadsheet:
-        return Spreadsheet(self.spreadsheets, id)
+    def spreadsheet(self, spreadsheet_id: str) -> Spreadsheet:
+        return Spreadsheet(self.spreadsheets, spreadsheet_id)

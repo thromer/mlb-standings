@@ -1,11 +1,13 @@
 from typing import Union
 
+
 class FakeDrive:
   def __init__(self) -> None:
     pass
   def getSpreadsheetId(self, name: str) -> str:
     # return something!
     raise ValueError('implement fake getSpreadsheetId!')
+
 
 class FakeSpreadsheet:
   def __init__(self, id: str) -> None:
