@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Union, List
 
 if TYPE_CHECKING:
+    # noinspection PyProtectedMember
     from googleapiclient._apis.sheets.v4.resources import SheetsResource
     from googleapiclient._apis.drive.v3.resources import DriveResource
     from google.auth.credentials import Credentials

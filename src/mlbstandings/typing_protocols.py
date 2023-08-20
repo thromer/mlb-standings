@@ -1,4 +1,5 @@
-from typing_extensions import Protocol, Union
+from typing import Union
+from typing_extensions import Protocol
 
 class SheetLike(Protocol):
   pass
