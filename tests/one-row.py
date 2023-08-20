@@ -52,6 +52,7 @@ def work(league: str, data: str) -> List[str]:
   for div_teams in TEAMS.values():
     count_best = 0
     best = float('-inf')
+    sole = None
     for t in div_teams:
       pct = stats[t]['pct']
       if pct == best:
@@ -61,7 +62,7 @@ def work(league: str, data: str) -> List[str]:
         best = pct
         count_best = 1
         sole = t
-    if sole:
+    if sole is not None:
       sole_leaders.add(sole)
 
   all_teams = reduce(list.__add__, TEAMS.values())
