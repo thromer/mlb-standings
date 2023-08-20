@@ -64,7 +64,7 @@ class Spreadsheet:
                                           valueInputOption='RAW',
                                           body={'values': vals}).execute()
 
-    def readValues(self, sheetName, range) -> List[List[Union[str, int]]]:
+    def readValues(self, sheetName: str, range: str) -> List[List[Union[str, int]]]:
         result = self.spreadsheets.values().get(
             spreadsheetId=self.id,
             majorDimension="COLUMNS",
