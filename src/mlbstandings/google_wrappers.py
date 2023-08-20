@@ -41,6 +41,7 @@ class Sheet:
         self.id = spreadsheet.id
         self.name = name
 
+
 #    def read(self, r: str) -> List[List[Union[str, int]]]:
 #        something = self.spreadsheets.values().get(
 #          self.id,
@@ -72,6 +73,7 @@ class Spreadsheet:
             range=f'{sheetName}!{range}'
         ).execute().get('values', [])
         return result
+
 
 class Spreadsheets:
     def __init__(self, creds: Credentials) -> None:

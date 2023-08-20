@@ -3,7 +3,7 @@
 import google.auth
 import mlbstandings.google_wrappers
 
-scopes = ['https://www.googleapis.com/auth/spreadsheets', 
+scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive.metadata.readonly']
 drive = mlbstandings.google_wrappers.Drive(google.auth.default(scopes=scopes)[0])
 ss = mlbstandings.google_wrappers.Spreadsheets(google.auth.default(scopes=scopes)[0])

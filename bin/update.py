@@ -3,6 +3,7 @@
 # from mlbstandings.updater import Updater
 
 def main() -> None:
-  pass
+    pass
+
 
 main()

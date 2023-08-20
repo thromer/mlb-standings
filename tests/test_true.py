@@ -1,2 +1,2 @@
 def testTrue() -> None:
-  assert(True)
+    assert (True)
