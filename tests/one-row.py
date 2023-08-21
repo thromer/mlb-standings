@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from datetime import date, timedelta
 
 import bs4
 import sys
@@ -7,6 +8,10 @@ from functools import cache
 from functools import reduce
 
 from typing import List
+
+from mlbstandings.baseballref import BaseballReference
+from fakes import FakeWeb
+from fixtures import testdatadir
 
 CANONICAL_ABBRS = {
     'TBR': 'TB',
@@ -31,13 +36,14 @@ def canonicalize_abbr(abbr: str) -> str:
 
 def work(league: str, data: str) -> List[str]:
     soup = bs4.BeautifulSoup(data, features='html.parser')
+    # print(soup.find('span', class_='button2 current').text)
     table_id = f'standings-upto-{league}-overall'
     overall_table = soup.find(id=table_id)
     if overall_table is not None and type(overall_table) == bs4.element.Tag:
         overall_table = overall_table.tbody
     if overall_table is None or type(overall_table) != bs4.element.Tag:
         raise ValueError(f'{table_id} is missing or exists with no tbody')
-    print(type(overall_table))
+    # print(type(overall_table))
 
     # Get everyone's stats
     # TODO make sure the row header is correct
@@ -87,10 +93,13 @@ def work(league: str, data: str) -> List[str]:
     return [str(x) for x in plus_minus] + div_order + wc_order
 
 
-def main() -> None:
+def main2() -> None:
     data = sys.stdin.read()
     full_result = ['2023-04-30'] + work('AL', data)
     print(','.join([str(x) for x in full_result]))
 
 
-main()
+def test_main(testdatadir: str) -> None:
+    br = BaseballReference(FakeWeb(testdatadir))
+    print(f'first_day={br.first_day(date(2023, 1, 1))}')
+    print(br.something(date.today() - timedelta(days=5)))

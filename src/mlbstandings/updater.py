@@ -83,9 +83,13 @@ class Updater:
             league: self._get_newest_league_day(spreadsheet, league) for league in _LEAGUES
         }
         first_day_to_upload = max(first_day - _ONE_DAY, min(newest_league_upload_day.values()) + _ONE_DAY)
-        last_day_to_upload = date.fromordinal(self.now.toordinal()) - _ONE_DAY
+        last_day_to_upload = date.fromordinal(self.now.toordinal()) - _ONE_DAY  # Ugly, assumes we already did the conversion to America/Los_Angeles
         # TODO test oround midnight boundary (assuming that's what we want)
         # if first_day_to_upload > today
+        for day in [first_day_to_upload + timedelta(days=d)
+                    for d in range((last_day_to_upload - first_day_to_upload).days + 1)]:
+            self.baseballref.something(day)
+            pass
 
         # TODO handle -- and test -- case where each league has differrent newest day.
         last_day = date(MAXYEAR, 12, 31)
