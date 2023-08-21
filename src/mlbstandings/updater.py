@@ -1,4 +1,6 @@
-from datetime import date, datetime, MAXYEAR
+from datetime import MAXYEAR
+# noinspection PyUnresolvedReferences
+from datetime import date, datetime
 
 from mlbstandings.baseballref import *
 from mlbstandings.helpers import *
@@ -6,8 +8,7 @@ from mlbstandings.typing_protocols import *
 
 """
 Invariants:
-* Spreadsheet rows are either complete for a date or empty.
-
+* Spreadsheet rows are either complete for a date or empty
 Loosely speaking:
 * Run the following every hour, with
   * 'today' = yesterday, pacific time; so that starting at midnight PT, we

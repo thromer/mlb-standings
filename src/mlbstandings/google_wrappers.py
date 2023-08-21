@@ -16,7 +16,7 @@ class Drive:
         self.service: DriveResource = build('drive', 'v3', credentials=creds)
 
     # TODO too much hard-coding!
-    def getSpreadsheetId(self, name: str) -> str:
+    def get_spreadsheet_id(self, name: str) -> str:
         esc_name = name.replace("'", "\\'")
         query = (f"name='{esc_name}' and "
                  "'tromer@gmail.com' in owners and "
@@ -67,16 +67,16 @@ class Spreadsheet:
                                           valueInputOption='RAW',
                                           body={'values': vals}).execute()
 
-    def readValues(self, sheetName: str, range: str) -> List[List[Union[str, int]]]:
-        return self.getRange(f'{sheetName}!{range}')
+    def readValues(self, sheetName: str, sheet_range: str) -> List[List[Union[str, int]]]:
+        return self.getRange(f'{sheetName}!{sheet_range}')
 
-    def getRange(self, range: str) -> List[List[Union[str, int]]]:
+    def getRange(self, sheet_range: str) -> List[List[Union[str, int]]]:
         result = self.spreadsheets.values().get(
             spreadsheetId=self.id,
             majorDimension="COLUMNS",
             valueRenderOption="UNFORMATTED_VALUE",
             dateTimeRenderOption="SERIAL_NUMBER",
-            range=f'{range}'
+            range=f'{sheet_range}'
         ).execute().get('values', [])
         return result
 

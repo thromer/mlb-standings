@@ -1,29 +1,37 @@
+# noinspection PyUnresolvedReferences
 from typing import Union
+from mlbstandings.typing_protocols import *
 
 
 class FakeDrive:
     def __init__(self) -> None:
         pass
 
-    def getSpreadsheetId(self, name: str) -> str:
+    def get_spreadsheet_id(self, name: str) -> str:
         # return something!
         raise ValueError('implement fake getSpreadsheetId!')
 
 
 class FakeSpreadsheet:
-    def __init__(self, id: str) -> None:
-        self.id = id
+    def __init__(self, spreadsheet_id: str) -> None:
+        self.id = spreadsheet_id
+
+    def sheet(self, name: str) -> SheetLike:
+        raise NotImplementedError()
+
+    def get_named_cell(self, name: str) -> Union[str, int]:
+        raise NotImplementedError()
 
     def set_named_cell(self, name: str, value: Union[str, int]) -> None:
-        raise ValueError('implement FakeSpreadsheet.set_named_cell')
+        raise NotImplementedError()
 
 
 class FakeSpreadsheets:
     def __init__(self) -> None:
         pass
 
-    def spreadsheet(self, id: str) -> FakeSpreadsheet:
-        return FakeSpreadsheet(id)
+    def spreadsheet(self, spreadsheet_id: str) -> SpreadsheetLike:
+        return FakeSpreadsheet(spreadsheet_id)
 
 
 class FakeWeb:

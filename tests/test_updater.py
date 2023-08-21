@@ -1,5 +1,7 @@
 """Test updater.py"""
 from datetime import datetime
+from zoneinfo import ZoneInfo
+from fixtures import testdatadir
 
 import fakes
 import mlbstandings.google_wrappers
@@ -29,10 +31,11 @@ def test_zero_row_opening_day_done() -> None:
 
 def test_zero_row_multiple_days_done(testdatadir: str) -> None:
     """Add data from multiple days"""
-    now = datetime(2023, 3, 30)
+    now = datetime(2023, 3, 30, tzinfo=ZoneInfo('America/Los_Angeles'))
     drive = fakes.FakeDrive()
+    spreadsheets = fakes.FakeSpreadsheets()
     web = fakes.FakeWeb(testdatadir)
-    updater = mlbstandings.updater.Updater(now, drive, web)
-    updater.update()
+    updater = mlbstandings.updater.Updater(now, drive, spreadsheets, web)
+    # TODO updater.update()
     # TOOD get the data from the spreadsheet and compare to expected
-    assert False
+    # assert False
