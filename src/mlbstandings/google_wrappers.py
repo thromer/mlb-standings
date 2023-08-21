@@ -26,7 +26,7 @@ class Drive:
                                              fields='files(id)').execute()
         files = response.get('files', [])
         if len(files) == 0:
-            raise ValueError(f'{name} not found')
+            raise FileNotFoundError(f'{name} not found')
         elif len(files) > 1:
             raise ValueError(f'{len(files)} files named {name}')
         file_id = files[0].get('id')
@@ -57,6 +57,9 @@ class Spreadsheet:
     def sheet(self, name: str) -> Sheet:
         return Sheet(self, name)
 
+    def get_named_cell(self, name: str) -> Union[str, int]:
+        return self.getRange(name)[0][0]
+
     def set_named_cell(self, name: str, value: Union[str, int]) -> None:
         vals = [[value]]
         self.spreadsheets.values().update(spreadsheetId=self.id,
@@ -65,12 +68,15 @@ class Spreadsheet:
                                           body={'values': vals}).execute()
 
     def readValues(self, sheetName: str, range: str) -> List[List[Union[str, int]]]:
+        return self.getRange(f'{sheetName}!{range}')
+
+    def getRange(self, range: str) -> List[List[Union[str, int]]]:
         result = self.spreadsheets.values().get(
             spreadsheetId=self.id,
             majorDimension="COLUMNS",
             valueRenderOption="UNFORMATTED_VALUE",
             dateTimeRenderOption="SERIAL_NUMBER",
-            range=f'{sheetName}!{range}'
+            range=f'{range}'
         ).execute().get('values', [])
         return result
 
