@@ -1,5 +1,6 @@
-from typing import Union
-from typing_extensions import Protocol
+from typing import Union, Protocol
+
+from mlbstandings.shared_types import Dimension, SheetArray
 
 
 class SheetLike(Protocol):
@@ -12,6 +13,10 @@ class SpreadsheetLike(Protocol):
     def get_named_cell(self, name: str) -> Union[str, int]: ...
 
     def set_named_cell(self, name: str, value: Union[str, int]) -> None: ...
+
+    def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray: ...
+
+    def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray: ...
 
 
 class SpreadsheetsLike(Protocol):

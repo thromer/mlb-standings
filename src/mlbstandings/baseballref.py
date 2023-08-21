@@ -5,10 +5,11 @@ from datetime import date, datetime
 
 
 class BaseballReference:
+    # TODO enforce rate limiting!
     def __init__(self, web: WebLike) -> None:
         self.web = web
 
-    # TODO keep this in a persistent cache like python-cachier, diskcache, shelve ... though not for tests.
+    # TODO enforce rate-limiting!
     def first_day(self, year: date) -> date:
         if year != date(year.year, 1, 1):
             raise ValueError(f'year field should be for January 1, is {year}')

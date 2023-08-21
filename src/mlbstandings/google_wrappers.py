@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Union, List
 
+from mlbstandings.shared_types import Dimension
+
 if TYPE_CHECKING:
     # noinspection PyProtectedMember
     from googleapiclient._apis.sheets.v4.resources import SheetsResource
@@ -58,7 +60,7 @@ class Spreadsheet:
         return Sheet(self, name)
 
     def get_named_cell(self, name: str) -> Union[str, int]:
-        return self.getRange(name)[0][0]
+        return self.get_range(name)[0][0]
 
     def set_named_cell(self, name: str, value: Union[str, int]) -> None:
         vals = [[value]]
@@ -67,13 +69,13 @@ class Spreadsheet:
                                           valueInputOption='RAW',
                                           body={'values': vals}).execute()
 
-    def readValues(self, sheetName: str, sheet_range: str) -> List[List[Union[str, int]]]:
-        return self.getRange(f'{sheetName}!{sheet_range}')
+    def read_values(self, sheetName: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> List[List[Union[str, int]]]:
+        return self.get_range(f'{sheetName}!{sheet_range}', major_dimension)
 
-    def getRange(self, sheet_range: str) -> List[List[Union[str, int]]]:
+    def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> List[List[Union[str, int]]]:
         result = self.spreadsheets.values().get(
             spreadsheetId=self.id,
-            majorDimension="COLUMNS",
+            majorDimension=major_dimension,
             valueRenderOption="UNFORMATTED_VALUE",
             dateTimeRenderOption="SERIAL_NUMBER",
             range=f'{sheet_range}'

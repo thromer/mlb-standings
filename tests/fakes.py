@@ -1,6 +1,7 @@
 # noinspection PyUnresolvedReferences
 from typing import Union
 from mlbstandings.typing_protocols import *
+from mlbstandings.shared_types import *
 
 
 class FakeDrive:
@@ -25,6 +26,12 @@ class FakeSpreadsheet:
     def set_named_cell(self, name: str, value: Union[str, int]) -> None:
         raise NotImplementedError()
 
+    def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
+        raise NotImplementedError()
+
+    def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
+        raise NotImplementedError()
+
 
 class FakeSpreadsheets:
     def __init__(self) -> None:
@@ -41,5 +48,5 @@ class FakeWeb:
     def read(self, url: str) -> str:
         if url != 'https://www.baseball-reference.com/leagues/majors/2023-schedule.shtml':
             raise ValueError(f'{url} unsupported by FakeWeb')
-        with open(f'{self.data_dir}/{url.split("/")[-1]}', 'r') as f:
+        with open(f'{self.data_dir}/{url.split("/")[-1]}') as f:
             return f.read()
