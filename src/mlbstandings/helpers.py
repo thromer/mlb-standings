@@ -9,3 +9,4 @@ def date_from_excel_date(sheet_date: int) -> datetime.date:
 
 def date_to_excel_date(python_date: datetime.date) -> int:
     return datetime.date.fromordinal(python_date.toordinal() - _EXCEL_EPOCH).toordinal()
+

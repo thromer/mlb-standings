@@ -25,8 +25,10 @@ _LAST_DAY = 'last_day'
 _ONE_DAY = timedelta(days=1)
 _LEAGUES = ['al', 'nl']
 
+_MINDATE = date(MINYEAR, 1, 1)
 
 # TODO inject rate limiter so that tests aren't limited?
+
 class Updater:
     def __init__(self,
                  now: datetime,
@@ -88,8 +90,13 @@ class Updater:
         # if first_day_to_upload > today
         for day in [first_day_to_upload + timedelta(days=d)
                     for d in range((last_day_to_upload - first_day_to_upload).days + 1)]:
-            self.baseballref.something(day)
-            pass
+            if day == first_day - _ONE_DAY:
+                rows = self.baseballref.zeroday()
+            else:
+                # TODO handle None
+                rows = self.baseballref.something(day)
+            print(rows)
+        return
 
         # TODO handle -- and test -- case where each league has differrent newest day.
         last_day = date(MAXYEAR, 12, 31)
@@ -99,9 +106,13 @@ class Updater:
             spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
 
     def _get_newest_league_day(self, spreadsheet: SpreadsheetLike, league: str) -> date:
-        cell = spreadsheet.read_values(self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0][-1]
+        column = spreadsheet.read_values(
+            self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
+        if len(column) == 0:
+            return _MINDATE
+        cell = column[-1]
         if type(cell) is not int:
-            return date(MINYEAR, 1, 1)
+            return _MINDATE
         else:
             return date_from_excel_date(cell)
 

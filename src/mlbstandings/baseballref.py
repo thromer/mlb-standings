@@ -1,3 +1,5 @@
+import itertools
+
 from mlbstandings.typing_protocols import *
 
 from bs4 import BeautifulSoup
@@ -6,9 +8,8 @@ from datetime import date, datetime
 import bs4
 
 from functools import cache
-from functools import reduce
 
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Optional
 
 _CANONICAL_TEAM_ABBRS = {
     'TBR': 'TB',
@@ -31,6 +32,11 @@ LEAGUES = {
     }
 }
 
+LEAGUE_TEAMS = {
+    league: list(itertools.chain.from_iterable(LEAGUES[league].values()))
+    for league in LEAGUES.keys()
+}
+
 DIVISION_ORDER = ['E', 'C', 'W']
 
 
@@ -39,7 +45,7 @@ class Standings:
         self.league = league
         self.stats = stats
         self.divisions = LEAGUES[league]
-        self.all_teams = reduce(list.__add__, self.divisions.values())
+        self.all_teams = LEAGUE_TEAMS[league]
         # Get sole leader(s) for each division, so we can exclude them from WC list
         sole_leaders = set()
         for div_teams in self.divisions.values():
@@ -76,7 +82,7 @@ class Standings:
 
     def row(self) -> List[Union[str, int]]:
         pm = self.plus_minus()
-        div_orders: List[str] = reduce(list.__add__, [self.div_orders[d] for d in DIVISION_ORDER])
+        div_orders: List[str] = list(itertools.chain.from_iterable([self.div_orders[d] for d in DIVISION_ORDER]))
         plus_minus: List[int] = [pm[t] for t in div_orders]
         result = plus_minus + div_orders + self.wc_order
         return result
@@ -107,7 +113,7 @@ class BaseballReference:
         day_text = h3.text  # 'Thursday, March 30, 2023'
         return date.fromtimestamp(datetime.strptime(day_text, '%A, %B %d, %Y').timestamp())
 
-    def something(self, day: date) -> Union[None, Dict[str, List[Union[str, int]]]]:
+    def something(self, day: date) -> Optional[Dict[str, List[Union[str, int]]]]:
         """Returns ready-to-paste rows (other than day) for the day if available, None otherwise"""
         url = day.strftime('https://www.baseball-reference.com/boxes/?year=%Y&month=%m&day=%d')
         data = self.web.read(url)
@@ -142,3 +148,8 @@ class BaseballReference:
             stats[abbr] = {'w': wins, 'l': losses, 'pct': 0.5 if wins + losses == 0 else wins / (wins + losses)}
 
         return Standings(league, stats)
+
+    @staticmethod
+    def zeroday() -> Optional[Dict[str, List[Union[str, int]]]]:
+        stats = {abbr: {'w': 0, 'l': 0, 'pct': 0.5} for abbr in itertools.chain.from_iterable(LEAGUE_TEAMS.values())}
+        return {league: Standings(league, stats).row() for league in LEAGUES.keys()}
