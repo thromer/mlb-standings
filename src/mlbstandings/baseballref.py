@@ -13,7 +13,9 @@ from typing import List, Dict, Union
 _CANONICAL_TEAM_ABBRS = {
     'TBR': 'TB',
     'KCR': 'KC',
-    # TODO add national league versions
+    'SDP': 'SD',
+    'SFG': 'SF',
+    'WSN': 'WAS'
 }
 
 LEAGUES = {
@@ -118,7 +120,7 @@ class BaseballReference:
         if br_day != day:
             return None
         return {
-            league: self._work(league, soup) for league in LEAGUES
+            league: self._work(league, soup).row() for league in LEAGUES
         }
 
     def _work(self, league: str, soup: BeautifulSoup) -> Standings:
@@ -128,7 +130,6 @@ class BaseballReference:
             overall_table = overall_table.tbody
         if overall_table is None or type(overall_table) != bs4.element.Tag:
             raise ValueError(f'{table_id} is missing or exists with no tbody')
-        print(type(overall_table))
 
         # Get everyone's stats
         # TODO make sure the row header is correct

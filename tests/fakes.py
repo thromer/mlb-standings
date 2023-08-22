@@ -1,3 +1,4 @@
+import re
 # noinspection PyUnresolvedReferences
 from typing import Union
 from mlbstandings.typing_protocols import *
@@ -46,7 +47,19 @@ class FakeWeb:
         self.data_dir = data_dir
 
     def read(self, url: str) -> str:
-        if url != 'https://www.baseball-reference.com/leagues/majors/2023-schedule.shtml':
+        print(url)
+        fname = None
+        if url == 'https://www.baseball-reference.com/leagues/majors/2023-schedule.shtml':
+            fname = f'{self.data_dir}/{url.split("/")[-1]}'
+        else:
+            m = re.match(
+                r'https://www.baseball-reference.com/boxes/\?year=(\d{4})&month=(\d{2})&day=(\d{2})', url)
+            if m:
+                fname = f'{self.data_dir}/boxes-{m[1]}-{m[2]}-{m[3]}.html'
+
+        if fname is None:
             raise ValueError(f'{url} unsupported by FakeWeb')
-        with open(f'{self.data_dir}/{url.split("/")[-1]}') as f:
+
+        print(fname)
+        with open(fname) as f:
             return f.read()
