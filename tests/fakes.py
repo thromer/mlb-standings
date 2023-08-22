@@ -1,4 +1,5 @@
 import re
+from pathlib import PosixPath
 # noinspection PyUnresolvedReferences
 from typing import Union
 from mlbstandings.typing_protocols import *
@@ -15,11 +16,12 @@ class FakeDrive:
 
 
 class FakeSpreadsheet:
-    def __init__(self, spreadsheet_id: str) -> None:
+    def __init__(self, test_data_dir: PosixPath, spreadsheet_id: str) -> None:
+        self.test_data_dir = test_data_dir
         self.id = spreadsheet_id
 
-    def sheet(self, name: str) -> SheetLike:
-        raise NotImplementedError()
+    # def sheet(self, name: str) -> SheetLike:
+    #     raise NotImplementedError()
 
     def get_named_cell(self, name: str) -> Union[str, int]:
         raise NotImplementedError()
@@ -35,11 +37,18 @@ class FakeSpreadsheet:
 
 
 class FakeSpreadsheets:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, test_data_dir: PosixPath) -> None:
+        self.test_data_dir = test_data_dir
+        self.spreadsheets = []
+
+    def close(self):
+        for ss in self.spreadsheets:
+            ss.close()
 
     def spreadsheet(self, spreadsheet_id: str) -> SpreadsheetLike:
-        return FakeSpreadsheet(spreadsheet_id)
+        ss = FakeSpreadsheet(self.test_data_dir, spreadsheet_id)
+        self.spreadsheets.append(ss)
+        return ss
 
 
 class FakeWeb:

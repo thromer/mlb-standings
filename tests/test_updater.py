@@ -19,12 +19,19 @@ def test_empty_unknown_opening_day() -> None:
 
 
 @pytest.mark.datafiles(TEST_DATA_DIR / 'fun.csv', TEST_DATA_DIR / 'fun.json')
-def example_test_empty_before_opening_day(datafiles: pathlib.PosixPath) -> None:
+def test_empty_before_opening_day(datafiles: pathlib.PosixPath) -> None:
     """Opening day known, so fill in openingDay-1 row"""
     # for f in datafiles.iterdir():
     #     print(f)
     #     print(f.name)
-    pass
+    now = datetime(2023, 3, 30, tzinfo=ZoneInfo('America/Los_Angeles'))
+    drive = fakes.FakeDrive()
+    try:
+        spreadsheets = fakes.FakeSpreadsheets(datafiles)
+        web = fakes.FakeWeb(TEST_DATA_DIR)
+        updater = mlbstandings.updater.Updater(now, drive, spreadsheets, web)
+    finally:
+        spreadsheets.close()
 
 
 # def test_empty_opening_day_done() -> None:
