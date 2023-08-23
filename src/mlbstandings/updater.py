@@ -1,11 +1,13 @@
 from datetime import timedelta, MINYEAR, MAXYEAR
-# noinspection PyUnresolvedReferences
-from datetime import date, datetime
 from zoneinfo import ZoneInfo
 
 from mlbstandings.baseballref import *
 from mlbstandings.helpers import *
 from mlbstandings.typing_protocols import *
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from datetime import date, datetime
 
 """
 Invariants:
@@ -28,6 +30,7 @@ _LEAGUES = ['al', 'nl']
 _MINDATE = date(MINYEAR, 1, 1)
 
 # TODO inject rate limiter so that tests aren't limited?
+
 
 class Updater:
     def __init__(self,
@@ -82,34 +85,51 @@ class Updater:
             first_day = self.baseballref.first_day(date(self.now.year, 1, 1))
             spreadsheet.set_named_cell(_FIRST_DAY, date_to_excel_date(first_day))
         newest_league_upload_day = {
-            league: self._get_newest_league_day(spreadsheet, league) for league in _LEAGUES
+            league: self._get_newest_league_day(spreadsheet, league, first_day) for league in _LEAGUES
         }
         first_day_to_upload = max(first_day - _ONE_DAY, min(newest_league_upload_day.values()) + _ONE_DAY)
         last_day_to_upload = date.fromordinal(self.now.toordinal()) - _ONE_DAY  # Ugly, assumes we already did the conversion to America/Los_Angeles
         # TODO test oround midnight boundary (assuming that's what we want)
-        # if first_day_to_upload > today
         for day in [first_day_to_upload + timedelta(days=d)
                     for d in range((last_day_to_upload - first_day_to_upload).days + 1)]:
             if day == first_day - _ONE_DAY:
                 rows = self.baseballref.zeroday()
             else:
-                # TODO handle None
+                # TODO handle None -- e.g. if baseball reference doesn't have results yet.
                 rows = self.baseballref.something(day)
-            print(rows)
-        return
+            if rows is None:
+                break
+            row_index = (day - first_day).days + 2
+            for league in _LEAGUES:
+                values = [date_to_excel_date(day)] + rows[league]
+                sheet_range = rc0_range_to_sheet_range(((row_index, 0), (row_index, len(values) - 1)))
+                spreadsheet.write_values(self._upload_sheet_name(league), sheet_range, [values])
 
-        # TODO handle -- and test -- case where each league has differrent newest day.
-        last_day = date(MAXYEAR, 12, 31)
-        for league in _LEAGUES:
-            last_day = min(last_day, self._update_league(spreadsheet, first_day, league))
-        if last_day >= date(self.now.year, 1, 1):
-            spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
+        # preferably nothing left to do esp b/c break statement
+        # TODO what about last_day ?
 
-    def _get_newest_league_day(self, spreadsheet: SpreadsheetLike, league: str) -> date:
+        # # TODO handle -- and test -- case where each league has different newest day.
+        # last_day = date(MAXYEAR, 12, 31)
+        # for league in _LEAGUES:
+        #     last_day = min(last_day, self._update_league(spreadsheet, first_day, league))
+        # if last_day >= date(self.now.year, 1, 1):
+        #     spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
+
+    def _get_newest_league_day(self, spreadsheet: SpreadsheetLike, league: str, first_day: date) -> date:
         column = spreadsheet.read_values(
             self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
-        if len(column) == 0:
+        if len(column) <= 1:
             return _MINDATE
+        # Check that values sequentially increase starting with first_day - 1
+        want = first_day - _ONE_DAY
+        for sheet_val in column[1:]:
+            if type(sheet_val) != int:
+                raise ValueError(f'Unexpected value {sheet_val} in column A2:A')
+            got = date_from_excel_date(sheet_val)
+            if type(sheet_val) != int or got != want:
+                raise ValueError(f'Expected date {want} in {self._upload_sheet_name(league)} but got {got}')
+            want = want + _ONE_DAY
+
         cell = column[-1]
         if type(cell) is not int:
             return _MINDATE

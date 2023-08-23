@@ -1,16 +1,15 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, List
+from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
+from googleapiclient.discovery import build
 
-from mlbstandings.shared_types import Dimension
-
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     # noinspection PyProtectedMember
     from googleapiclient._apis.sheets.v4.resources import SheetsResource
+    # noinspection PyProtectedMember
     from googleapiclient._apis.drive.v3.resources import DriveResource
     from google.auth.credentials import Credentials
-
-from googleapiclient.discovery import build
 
 
 class Drive:
@@ -59,28 +58,43 @@ class Spreadsheet:
     def sheet(self, name: str) -> Sheet:
         return Sheet(self, name)
 
-    def get_named_cell(self, name: str) -> Union[str, int]:
+    def get_named_cell(self, name: str) -> SheetValue:
         return self.get_range(name)[0][0]
 
-    def set_named_cell(self, name: str, value: Union[str, int]) -> None:
+    def set_named_cell(self, name: str, value: SheetValue) -> None:
         vals = [[value]]
         self.spreadsheets.values().update(spreadsheetId=self.id,
                                           range=name,
                                           valueInputOption='RAW',
                                           body={'values': vals}).execute()
 
-    def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> List[List[Union[str, int]]]:
+    def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
         return self.get_range(f'{sheet_name}!{sheet_range}', major_dimension)
 
-    def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> List[List[Union[str, int]]]:
+    def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
         result = self.spreadsheets.values().get(
             spreadsheetId=self.id,
-            majorDimension=major_dimension,
-            valueRenderOption="UNFORMATTED_VALUE",
+            range=f'{sheet_range}',
             dateTimeRenderOption="SERIAL_NUMBER",
-            range=f'{sheet_range}'
+            majorDimension=major_dimension,
+            valueRenderOption="UNFORMATTED_VALUE"
         ).execute().get('values', [])
         return result
+
+    def write_values(self, sheet_name: str, sheet_range: str, values: SheetArray, major_dimension: Dimension = 'ROWS') -> None:
+        self.update_range(f'{sheet_name}!{sheet_range}', values, major_dimension)
+
+    def update_range(self, sheet_range: str, values: SheetArray, major_dimension: Dimension = 'ROWS') -> None:
+        self.spreadsheets.values().update(
+            spreadsheetId=self.id,
+            range=f'{sheet_range}',
+            body={
+                'values': values,
+                'majorDimension': major_dimension,
+            },
+            includeValuesInResponse=False,
+            valueInputOption="RAW"
+        ).execute()
 
 
 class Spreadsheets:
