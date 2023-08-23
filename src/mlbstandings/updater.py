@@ -3,11 +3,13 @@ from zoneinfo import ZoneInfo
 
 from mlbstandings.baseballref import *
 from mlbstandings.helpers import *
+from mlbstandings.shared_types import *
 from mlbstandings.typing_protocols import *
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from datetime import date, datetime
+    from typing import List, Union
 
 """
 Invariants:
@@ -25,7 +27,7 @@ Loosely speaking:
 _FIRST_DAY = 'first_day'
 _LAST_DAY = 'last_day'
 _ONE_DAY = timedelta(days=1)
-_LEAGUES = ['al', 'nl']
+_LEAGUES = ['AL', 'NL']
 
 _MINDATE = date(MINYEAR, 1, 1)
 
@@ -52,7 +54,7 @@ class Updater:
 
     @staticmethod
     def _upload_sheet_name(league: str) -> str:
-        return f'{league}_uploaded'
+        return f'{league.lower()}_uploaded'
 
     def update(self) -> None:
         """
@@ -84,8 +86,20 @@ class Updater:
             # TODO error handling
             first_day = self.baseballref.first_day(date(self.now.year, 1, 1))
             spreadsheet.set_named_cell(_FIRST_DAY, date_to_excel_date(first_day))
+        column_as = {
+            league: spreadsheet.read_values(self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
+            for league in _LEAGUES
+        }
+        for league in _LEAGUES:
+            if len(column_as[league]) == 0:
+                row = self.baseballref.header_row(league)
+                spreadsheet.write_values(
+                    self._upload_sheet_name(league),
+                    rc0_range_to_sheet_range(((0, 0), (0, len(row)))),
+                    [['Date'] + row])
         newest_league_upload_day = {
-            league: self._get_newest_league_day(spreadsheet, league, first_day) for league in _LEAGUES
+            league: self._get_newest_league_day(column_as[league], league, first_day)
+            for league in _LEAGUES
         }
         first_day_to_upload = max(first_day - _ONE_DAY, min(newest_league_upload_day.values()) + _ONE_DAY)
         last_day_to_upload = date.fromordinal(self.now.toordinal()) - _ONE_DAY  # Ugly, assumes we already did the conversion to America/Los_Angeles
@@ -115,9 +129,7 @@ class Updater:
         # if last_day >= date(self.now.year, 1, 1):
         #     spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
 
-    def _get_newest_league_day(self, spreadsheet: SpreadsheetLike, league: str, first_day: date) -> date:
-        column = spreadsheet.read_values(
-            self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
+    def _get_newest_league_day(self, column: List[SheetValue], league: str, first_day: date) -> date:
         if len(column) <= 1:
             return _MINDATE
         # Check that values sequentially increase starting with first_day - 1
@@ -136,10 +148,12 @@ class Updater:
         else:
             return date_from_excel_date(cell)
 
-    def _update_league(self, spreadsheet: SpreadsheetLike, first_day: date, league: str) -> date:
-        """Update league and returns last day of season if known, min day otherwise"""
-        #     * Let spreadsheet_max_date = date of the latest spreadsheet row with data
-        #     * Corner case: If there is *no* data in the spreadsheet, use opening day - 2.
-        # TODO TODO TODO raise ValueError('implement me')
-
-        return date(MINYEAR, 1, 1)
+    # def _update_league(self, spreadsheet: SpreadsheetLike, first_day: date, league: str) -> date:
+    #     """Update league and returns last day of season if known, min day otherwise"""
+    #     #     * Let spreadsheet_max_date = date of the latest spreadsheet row with data
+    #     #     * Corner case: If there is *no* data in the spreadsheet, use opening day - 2.
+    #     # TODO TODO TODO raise ValueError('implement me')
+    #
+    #     return date(MINYEAR, 1, 1)
+    #     column = spreadsheet.read_values(
+    #         self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]

@@ -19,6 +19,13 @@ _CANONICAL_TEAM_ABBRS = {
     'WSN': 'WAS'
 }
 
+_CANONICAL_DIVISION_NAMES = {
+    'E': 'East',
+    'C': 'Central',
+    'W': 'West'
+}
+
+# A bit of a cheat: league and division names are implicitly the same as used in baseball reference.
 LEAGUES = {
     'AL': {
         'E': ['BAL', 'BOS', 'NYY', 'TB', 'TOR'],
@@ -153,3 +160,12 @@ class BaseballReference:
     def zeroday() -> Optional[Dict[str, List[Union[str, int]]]]:
         stats = {abbr: {'w': 0, 'l': 0, 'pct': 0.5} for abbr in itertools.chain.from_iterable(LEAGUE_TEAMS.values())}
         return {league: Standings(league, stats).row() for league in LEAGUES.keys()}
+
+    @staticmethod
+    def header_row(league: str) -> List[str]:
+        divs = LEAGUES[league]
+        return list(
+            itertools.chain.from_iterable(
+                [list(itertools.chain.from_iterable(divs.values()))] +
+                [[f'{league} {x}'] + ['']*4 for x in [_CANONICAL_DIVISION_NAMES[div] for div in divs.keys()]] +
+                [['Wildcard']]))

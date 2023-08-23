@@ -5,12 +5,19 @@ import json
 import os.path
 import re
 import string
+# from functools import cache
 from pathlib import Path
+from typing import Union, cast
 
 from typing import TYPE_CHECKING
+
+# import numpy
+
+from mlbstandings.helpers import sheet_range_to_rc0_range
+
 if TYPE_CHECKING:
     from mlbstandings.shared_types import *
-    from typing import Union, Dict, List, cast
+    from typing import Dict, List
     from mlbstandings.typing_protocols import *
 
 
@@ -48,8 +55,32 @@ class FakeSheet:
         with open(csvpath, 'w', newline='') as f:
             csv.writer(f).writerows(self.values)
 
+    # @cache
+    # def transposed_values(self) -> SheetArray:
+    #     return numpy.transpose(self.values)
+
     def read_values(self, sheet_range: str, major_dimension: Dimension) -> SheetArray:
-        raise NotImplementedError('oops')
+        rc0_range = sheet_range_to_rc0_range(sheet_range)
+        print(rc0_range)
+        # if major_dimension == 'COLUMNS':
+        #     vals = self.transposed_values()
+        #     rc0_range = tuple(tuple(reversed(cell)) for cell in rc0_range)
+        # else:
+        #     vals = self.values()
+        # print(vals)
+        # # This may not mimic sheets behavior exactly but whatever
+        # fancy_range = (
+        #     (
+        #         0 if rc0_range[0][0] == -1 else rc0_range[0][0],
+        #         idunno
+        #     ),
+        #     (
+        #         len(vals) if rc0_range[1][0] == -1 else rc0_range[1][0],
+        #         idunno
+        #     )
+        # )
+        # print(fancy_range)
+        raise NotImplementedError(f'read_values({sheet_range}, {major_dimension})')
 
     def write_values(self, sheet_range: str, values: SheetArray, major_dimension: Dimension) -> None:
         raise NotImplementedError('oop')
@@ -63,9 +94,10 @@ class FakeSpreadsheet:
             self.named_ranges = json.load(nr)
         print(self.named_ranges)
         self.sheets = {
-            os.path.splitext(fpath)[0]: FakeSheet.fromcsv(fpath)
+            os.path.splitext(fpath.name)[0]: FakeSheet.fromcsv(fpath)
             for fpath in self.test_data_dir.glob('*.csv')
         }
+        print(self.sheets)
 
     def close(self) -> None:
         with (self.test_data_dir / 'named_ranges.json').open('w') as nr:

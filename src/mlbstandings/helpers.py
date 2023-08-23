@@ -1,4 +1,5 @@
 import datetime
+import re
 import string
 from typing import Tuple
 
@@ -40,3 +41,22 @@ def rc0_to_sheet(rc0: Tuple[int, int]) -> str:
 def rc0_range_to_sheet_range(rc0_range: Tuple[Tuple[int, int], Tuple[int, int]]) -> str:
     """Given start and end rc coordinates (zero-based), return corresponding sheets range string"""
     return rc0_to_sheet(rc0_range[0]) + ':' + rc0_to_sheet(rc0_range[1])
+
+
+def sheet_to_rc0(sheet_cell: str) -> Tuple[int, int]:
+    """Produce a rc0 tuple, and set to -1 if row or column is unspecified"""
+    m = re.match(r'^([A-Z]+)([1-9]?[0-9]+)$', sheet_cell)
+    if m:
+        return int(m[2])-1, sheet_coltoindex(m[1])
+    elif sheet_cell.isnumeric():
+        return int(sheet_cell), -1
+    else:
+        return -1, sheet_coltoindex(sheet_cell)
+
+
+def sheet_range_to_rc0_range(sheet_range: str) -> Tuple[Tuple[int, int], Tuple[int, int]]:
+    """Given sheets range string, return start and end rc coordinates (zero-based)."""
+    elements = sheet_range.split(':', 1)
+    if len(elements) == 1:
+        elements = elements * 2
+    return sheet_to_rc0(elements[0]), sheet_to_rc0(elements[1])
