@@ -62,6 +62,5 @@ def test_zero_row_multiple_days_done(datafiles: pathlib.Path) -> None:
         updater.update()
     finally:
         spreadsheets.close()
-    # TODO updater.update()
     # TOOD get the data from the spreadsheet and compare to expected
     # assert False
