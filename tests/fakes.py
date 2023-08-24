@@ -40,6 +40,11 @@ def sheet_coltoindex(col: str) -> int:
 
 class FakeSheet:
     def __init__(self, values: SheetArray):
+        print(f'values={values}')
+        self.col_count = len(values[0]) if len(values) > 0 else 0
+        for row in values[1:]:
+            if len(row) != self.col_count:
+                raise ValueError('Mismatched row lengths')
         self.values = values
 
     @staticmethod
@@ -61,7 +66,7 @@ class FakeSheet:
 
     def read_values(self, sheet_range: str, major_dimension: Dimension) -> SheetArray:
         rc0_range = sheet_range_to_rc0_range(sheet_range)
-        print(rc0_range)
+        print(f'{rc0_range=}')
         # if major_dimension == 'COLUMNS':
         #     vals = self.transposed_values()
         #     rc0_range = tuple(tuple(reversed(cell)) for cell in rc0_range)
@@ -80,6 +85,16 @@ class FakeSheet:
         #     )
         # )
         # print(fancy_range)
+        input_row_start = rc0_range[0][0] if rc0_range[0][0] != - 1 else 0
+        input_row_limit = rc0_range[1][0] - 1 if rc0_range[1][0] != -1 else len(self.values)
+        input_col_start = rc0_range[0][1] if rc0_range[0][1] != - 1 else 0
+        input_col_limit = rc0_range[1][0] -1 if rc0_range[1][0] != -1 else self.col_count
+        print(f'{input_row_start=} {input_row_limit=}')
+        print(f'{input_col_start=} {input_col_limit=}')
+        out_rows, out_cols = input_row_limit - input_row_start, input_col_limit - input_col_start
+        if major_dimension == 'COLUMNS':
+            out_rows, out_cols = out_cols, out_rows
+        result = [ [''] * out_cols for i in range(out_rows) ]
         raise NotImplementedError(f'read_values({sheet_range}, {major_dimension})')
 
     def write_values(self, sheet_range: str, values: SheetArray, major_dimension: Dimension) -> None:

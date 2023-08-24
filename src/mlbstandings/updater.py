@@ -6,7 +6,8 @@ from mlbstandings.helpers import *
 from mlbstandings.shared_types import *
 from mlbstandings.typing_protocols import *
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
+
 if TYPE_CHECKING:
     from datetime import date, datetime
     from typing import List, Union
@@ -96,7 +97,7 @@ class Updater:
                 spreadsheet.write_values(
                     self._upload_sheet_name(league),
                     rc0_range_to_sheet_range(((0, 0), (0, len(row)))),
-                    [['Date'] + row])
+                    [[cast(SheetValue, 'Date')] + row])
         newest_league_upload_day = {
             league: self._get_newest_league_day(column_as[league], league, first_day)
             for league in _LEAGUES
