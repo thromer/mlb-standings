@@ -5,16 +5,12 @@ import json
 import os.path
 import re
 import string
-# from functools import cache
+
 from pathlib import Path
-from typing import Union, cast
-
-from typing import TYPE_CHECKING
-
-# import numpy
-
+from typing import cast, Union
 from mlbstandings.helpers import sheet_range_to_rc0_range
 
+from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mlbstandings.shared_types import *
     from typing import Dict, List
@@ -41,9 +37,14 @@ def sheet_coltoindex(col: str) -> int:
 class FakeSheet:
     def __init__(self, values: SheetArray):
         print(f'values={values}')
-        self.col_count = len(values[0]) if len(values) > 0 else 0
+        self.c_min = 0
+        self.r_min = 0
+        self.r_max = len(values) - 1
+        self.c_max = len(values[0]) - 1 if len(values) > 0 else -1
+        print(f'{self.r_min=} {self.r_max=}')
+        print(f'{self.c_min=} {self.c_max=}')
         for row in values[1:]:
-            if len(row) != self.col_count:
+            if len(row) != self.c_max + 1:
                 raise ValueError('Mismatched row lengths')
         self.values = values
 
@@ -84,18 +85,33 @@ class FakeSheet:
         #         idunno
         #     )
         # )
-        # print(fancy_range)
-        input_row_start = rc0_range[0][0] if rc0_range[0][0] != - 1 else 0
-        input_row_limit = rc0_range[1][0] - 1 if rc0_range[1][0] != -1 else len(self.values)
-        input_col_start = rc0_range[0][1] if rc0_range[0][1] != - 1 else 0
-        input_col_limit = rc0_range[1][0] -1 if rc0_range[1][0] != -1 else self.col_count
-        print(f'{input_row_start=} {input_row_limit=}')
-        print(f'{input_col_start=} {input_col_limit=}')
-        out_rows, out_cols = input_row_limit - input_row_start, input_col_limit - input_col_start
+        # print
+        # input_row_start = rc0_range[0][0] if rc0_range[0][0] != - 1 else 0
+        # input_row_limit = rc0_range[1][0] + 1 if rc0_range[1][0] != -1 else len(self.values)
+        # input_col_start = rc0_range[0][1] if rc0_range[0][1] != - 1 else 0
+        # input_col_limit = rc0_range[1][1] + 1 if rc0_range[1][1] != -1 else self.col_limit
+        r_min = rc0_range[0][0] if rc0_range[0][0] != -1 else self.r_min
+        r_max = rc0_range[1][0] if rc0_range[1][0] != -1 else self.r_max
+        c_min = rc0_range[0][1] if rc0_range[0][1] != -1 else self.c_min
+        c_max = rc0_range[1][1] if rc0_range[1][1] != -1 else self.c_max
+        print(f'{r_min=} {r_max=}')
+        print(f'{c_min=} {c_max=}')
+        if r_max < r_min or c_max < c_min:
+            return [[]]
+        out_rows, out_cols = r_max - r_min + 1, c_max - c_min + 1
         if major_dimension == 'COLUMNS':
             out_rows, out_cols = out_cols, out_rows
-        result = [ [''] * out_cols for i in range(out_rows) ]
-        raise NotImplementedError(f'read_values({sheet_range}, {major_dimension})')
+        print(f'{out_rows=} {out_cols=}')
+        result = [[cast(SheetValue, '')] * out_cols for _ in range(out_rows)]
+        print(f'{result=}')
+        for r in range(r_min, r_max + 1):
+            for c in range(c_min, c_max + 1):
+                out_r, out_c = r - r_min, c - c_min
+                if major_dimension == 'COLUMNS':
+                    out_r, out_c = out_c, out_r
+                result[out_r][out_c] = self.values[r][c]
+        print(f'{result=}')
+        return result
 
     def write_values(self, sheet_range: str, values: SheetArray, major_dimension: Dimension) -> None:
         raise NotImplementedError('oop')
@@ -139,7 +155,8 @@ class FakeSpreadsheet:
         n, r = sheet_range.split('!', 1)
         return self.read_values(n, r, major_dimension)
 
-    def write_values(self, sheet_name: str, sheet_range: str, values: SheetArray, major_dimension: Dimension = 'ROWS') -> None:
+    def write_values(self, sheet_name: str, sheet_range: str,
+                     values: SheetArray, major_dimension: Dimension = 'ROWS') -> None:
         self.sheets[sheet_name].write_values(sheet_range, values, major_dimension)
 
 

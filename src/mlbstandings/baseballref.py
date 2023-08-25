@@ -1,5 +1,6 @@
 import itertools
 
+from mlbstandings.shared_types import SheetValue
 from mlbstandings.typing_protocols import *
 
 from bs4 import BeautifulSoup
@@ -162,7 +163,7 @@ class BaseballReference:
         return {league: Standings(league, stats).row() for league in LEAGUES.keys()}
 
     @staticmethod
-    def header_row(league: str) -> List[str]:
+    def header_row(league: str) -> List[SheetValue]:
         divs = LEAGUES[league]
         return list(
             itertools.chain.from_iterable(

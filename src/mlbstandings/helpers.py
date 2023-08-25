@@ -49,7 +49,7 @@ def sheet_to_rc0(sheet_cell: str) -> Tuple[int, int]:
     if m:
         return int(m[2])-1, sheet_coltoindex(m[1])
     elif sheet_cell.isnumeric():
-        return int(sheet_cell), -1
+        return int(sheet_cell) - 1, -1
     else:
         return -1, sheet_coltoindex(sheet_cell)
 
