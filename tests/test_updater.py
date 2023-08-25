@@ -53,7 +53,7 @@ def test_zero_row_opening_day_done() -> None:
 @pytest.mark.datafiles(TEST_DATA_DIR / 'test_zero_row_multiple_days_done_sheet')
 def test_zero_row_multiple_days_done(datafiles: pathlib.Path) -> None:
     """Add data from multiple days"""
-    now = datetime(2023, 3, 30, tzinfo=ZoneInfo('America/Los_Angeles'))
+    now = datetime(2023, 5, 1, tzinfo=ZoneInfo('America/Los_Angeles'))
     drive = fakes.FakeDrive({'MLB Standings 2023': datafiles})
     spreadsheets = fakes.FakeSpreadsheets(datafiles)
     web = fakes.FakeWeb(TEST_DATA_DIR)
@@ -62,5 +62,5 @@ def test_zero_row_multiple_days_done(datafiles: pathlib.Path) -> None:
         updater.update()
     finally:
         spreadsheets.close()
-    # TOOD get the data from the spreadsheet and compare to expected
+    # TOOD get the data from the spreadsheet (or somewhere) and compare to expected
     # assert False

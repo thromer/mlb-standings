@@ -35,7 +35,7 @@ def sheet_indextocol(n: int) -> str:
 
 
 def rc0_to_sheet(rc0: Tuple[int, int]) -> str:
-    return sheet_indextocol(rc0[1]) + str(rc0[0])
+    return sheet_indextocol(rc0[1]) + str(rc0[0] + 1)
 
 
 def rc0_range_to_sheet_range(rc0_range: Tuple[Tuple[int, int], Tuple[int, int]]) -> str:

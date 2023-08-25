@@ -76,7 +76,8 @@ class FakeSheet:
         print(f'{r_min=} {r_max=}')
         print(f'{c_min=} {c_max=}')
         if r_max < r_min or c_max < c_min:
-            return [[]]
+            result: SheetArray = [[]]
+            print(f'read_values({sheet_range} {major_dimension})={result}')
         out_rows, out_cols = r_max - r_min + 1, c_max - c_min + 1
         if major_dimension == 'COLUMNS':
             out_rows, out_cols = out_cols, out_rows
@@ -89,7 +90,7 @@ class FakeSheet:
                 if major_dimension == 'COLUMNS':
                     out_r, out_c = out_c, out_r
                 result[out_r][out_c] = self.values[r][c]
-        print(f'{result=}')
+        print(f'read_values({sheet_range} {major_dimension})={result}')
         return result
 
     @staticmethod
@@ -112,6 +113,7 @@ class FakeSheet:
         return result
 
     def write_values(self, sheet_range: str, values: SheetArray, major_dimension: Dimension) -> None:
+        print(f'write_values({sheet_range}, {values}, {major_dimension}')
         if major_dimension == 'COLUMNS':
             values = self.transpose(values)
         rc0_range = sheet_range_to_rc0_range(sheet_range)

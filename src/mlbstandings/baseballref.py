@@ -91,7 +91,7 @@ class Standings:
     def row(self) -> List[Union[str, int]]:
         pm = self.plus_minus()
         div_orders: List[str] = list(itertools.chain.from_iterable([self.div_orders[d] for d in DIVISION_ORDER]))
-        plus_minus: List[int] = [pm[t] for t in div_orders]
+        plus_minus: List[int] = [pm[t] for t in self.all_teams]
         result = plus_minus + div_orders + self.wc_order
         return result
 
