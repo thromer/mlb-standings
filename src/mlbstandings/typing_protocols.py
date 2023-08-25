@@ -16,7 +16,8 @@ class SpreadsheetLike(Protocol):
 
     def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray: ...
 
-    def write_values(self, sheet_name: str, sheet_range: str, values: SheetArray, major_dimension: Dimension = 'ROWS') -> None: ...
+    def write_values(self, sheet_name: str, sheet_range: str,
+                     values: SheetArray, major_dimension: Dimension = 'ROWS') -> None: ...
 
 
 class SpreadsheetsLike(Protocol):
