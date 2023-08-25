@@ -9,6 +9,7 @@ import string
 from pathlib import Path
 from typing import cast, Union
 from mlbstandings.helpers import sheet_range_to_rc0_range
+from mlbstandings.shared_types import SheetValue
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -68,28 +69,6 @@ class FakeSheet:
     def read_values(self, sheet_range: str, major_dimension: Dimension) -> SheetArray:
         rc0_range = sheet_range_to_rc0_range(sheet_range)
         print(f'{rc0_range=}')
-        # if major_dimension == 'COLUMNS':
-        #     vals = self.transposed_values()
-        #     rc0_range = tuple(tuple(reversed(cell)) for cell in rc0_range)
-        # else:
-        #     vals = self.values()
-        # print(vals)
-        # # This may not mimic sheets behavior exactly but whatever
-        # fancy_range = (
-        #     (
-        #         0 if rc0_range[0][0] == -1 else rc0_range[0][0],
-        #         idunno
-        #     ),
-        #     (
-        #         len(vals) if rc0_range[1][0] == -1 else rc0_range[1][0],
-        #         idunno
-        #     )
-        # )
-        # print
-        # input_row_start = rc0_range[0][0] if rc0_range[0][0] != - 1 else 0
-        # input_row_limit = rc0_range[1][0] + 1 if rc0_range[1][0] != -1 else len(self.values)
-        # input_col_start = rc0_range[0][1] if rc0_range[0][1] != - 1 else 0
-        # input_col_limit = rc0_range[1][1] + 1 if rc0_range[1][1] != -1 else self.col_limit
         r_min = rc0_range[0][0] if rc0_range[0][0] != -1 else self.r_min
         r_max = rc0_range[1][0] if rc0_range[1][0] != -1 else self.r_max
         c_min = rc0_range[0][1] if rc0_range[0][1] != -1 else self.c_min
@@ -113,8 +92,57 @@ class FakeSheet:
         print(f'{result=}')
         return result
 
+    @staticmethod
+    def transpose(values: SheetArray) -> SheetArray:
+        n_rows = len(values)
+        if n_rows == 0:
+            return values
+        n_columns = len(values[0])
+        for col in values[1:]:
+            if len(col) != n_columns:
+                raise ValueError(f'{values} is not rectangular')
+        result = [[cast(SheetValue, '')] * n_rows for _ in range(n_columns)]
+        print(f'{n_rows=} {n_columns=}')
+        print(f'transpose({values} intermediate {result=}')
+        for r in range(0, n_columns):
+            for c in range(0, n_rows):
+                print(f'{r=} {c=}')
+                result[r][c] = values[c][r]
+        print(f'transpose({values})={result}')
+        return result
+
     def write_values(self, sheet_range: str, values: SheetArray, major_dimension: Dimension) -> None:
-        raise NotImplementedError('oop')
+        if major_dimension == 'COLUMNS':
+            values = self.transpose(values)
+        rc0_range = sheet_range_to_rc0_range(sheet_range)
+        print(f'{rc0_range=}')
+        r_min = rc0_range[0][0] if rc0_range[0][0] != -1 else self.r_min
+        r_max = rc0_range[1][0] if rc0_range[1][0] != -1 else self.r_max
+        c_min = rc0_range[0][1] if rc0_range[0][1] != -1 else self.c_min
+        c_max = rc0_range[1][1] if rc0_range[1][1] != -1 else self.c_max
+        print(f'{r_min=} {r_max=}')
+        print(f'{c_min=} {c_max=}')
+        out_rows, out_cols = r_max - r_min + 1, c_max - c_min + 1
+        print(f'{out_rows=} {out_cols=}')
+        # if ((out_rows == 0 and len(values) > 0) or
+        #         out_rows != len(values) or
+        #         out_cols != len(values[0])):
+        #     raise ValueError(f'write_values range and values are different dimensions')
+
+        if self.r_max < r_max:
+            self.values.extend([[cast(SheetValue, '')] * (self.c_max + 1) for _ in range(r_max - self.r_max)])
+            self.r_max = r_max
+        if self.c_max < c_max:
+            for row in self.values:
+                row.extend([cast(SheetValue, '')] * (c_max - self.c_max))
+            self.c_max = c_max
+        for r in range(r_min, r_max + 1):
+            for c in range(c_min, c_max + 1):
+                in_r, in_c = r - r_min, c - c_min
+                if major_dimension == 'COLUMNS':
+                    in_r, in_c = in_c, in_r
+                self.values[r][c] = values[in_r][in_c]
+        print(f'{self.values=}')
 
 
 class FakeSpreadsheet:
@@ -196,7 +224,6 @@ class FakeWeb:
         print(fname)
         with open(fname) as f:
             return f.read()
-
 
 # # TODO maybe delete. handy for figuring out type complaints.
 # def ok() -> SpreadsheetLike:
