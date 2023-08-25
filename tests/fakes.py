@@ -60,7 +60,7 @@ class FakeSheet:
 
     def tocsv(self, csvpath: Path) -> None:
         with open(csvpath, 'w', newline='') as f:
-            csv.writer(f).writerows(self.values)
+            csv.writer(f, lineterminator='\n').writerows(self.values)
 
     # @cache
     # def transposed_values(self) -> SheetArray:
