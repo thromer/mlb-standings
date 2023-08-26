@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from zoneinfo import ZoneInfo
 
 import google.auth
 
@@ -16,7 +17,7 @@ def main() -> None:
     creds = google.auth.default(scopes=scopes)[0]
     drive = mlbstandings.google_wrappers.Drive(creds)
     sheets = mlbstandings.google_wrappers.Spreadsheets(creds)
-    mlbstandings.updater.Updater(datetime.now(), drive, sheets, mlbstandings.web.Web())
-
+    updater = mlbstandings.updater.Updater(datetime.now(tz=ZoneInfo('Etc/UTC')), drive, sheets, mlbstandings.web.Web())
+    updater.update()
 
 main()
