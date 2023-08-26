@@ -22,6 +22,6 @@ def main() -> None:
     base_web = mlbstandings.web.Web()
     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
     updater = mlbstandings.updater.Updater(datetime.now(tz=ZoneInfo('Etc/UTC')), drive, sheets, web)
-    # updater.update()
+    updater.update()
 
 main()
