@@ -1,4 +1,5 @@
 import itertools
+import time
 
 from mlbstandings.shared_types import SheetValue
 from mlbstandings.typing_protocols import *
@@ -96,10 +97,32 @@ class Standings:
         return result
 
 
+class RateLimitedWeb:
+    def __init__(self, web: WebLike, limiter: RateLimiterLike) -> None:
+        self.web = web
+        self.limiter = limiter
+
+    @staticmethod
+    def make(web: WebLike, limiter: RateLimiterLike) -> WebLike:
+        return RateLimitedWeb(web, limiter)
+
+    def read(self, url: str) -> str:
+        self.limiter.delay()
+        return self.web.read(url)
+
+
+class SimpleRateLimiter:
+    def __init__(self, period: float) -> None:
+        self.period = period
+
+    def delay(self) -> None:
+        time.sleep(self.period)
+
+
 class BaseballReference:
     # TODO enforce rate limiting!
     def __init__(self, web: WebLike) -> None:
-        self.web = web
+        self.web = RateLimitedWeb(web, SimpleRateLimiter(60.0))
 
     @staticmethod
     @cache

@@ -24,6 +24,10 @@ class SpreadsheetsLike(Protocol):
     def spreadsheet(self, spreadsheet_id: str) -> SpreadsheetLike: ...
 
 
+class RateLimiterLike(Protocol):
+    def delay(self) -> None: ...
+
+
 class WebLike(Protocol):
     def read(self, url: str) -> str: ...
 
