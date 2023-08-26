@@ -1,0 +1,343 @@
+        {
+          "chartId": 1084076768,
+          "spec": {
+            "basicChart": {
+              "chartType": "LINE",
+              "axis": [
+                {
+                  "position": "BOTTOM_AXIS",
+                  "viewWindowOptions": {}
+                },
+                {
+                  "position": "LEFT_AXIS",
+                  "viewWindowOptions": {}
+                }
+              ],
+              "domains": [
+                {
+                  "domain": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 0,
+                          "endColumnIndex": 1
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "series": [
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 16,
+                          "endColumnIndex": 17
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  },
+                  "pointStyle": {
+                    "size": 10,
+                    "shape": "STAR"
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 17,
+                          "endColumnIndex": 18
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 18,
+                          "endColumnIndex": 19
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 19,
+                          "endColumnIndex": 20
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 20,
+                          "endColumnIndex": 21
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 21,
+                          "endColumnIndex": 22
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 22,
+                          "endColumnIndex": 23
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 23,
+                          "endColumnIndex": 24
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 24,
+                          "endColumnIndex": 25
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 25,
+                          "endColumnIndex": 26
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 26,
+                          "endColumnIndex": 27
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 27,
+                          "endColumnIndex": 28
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                },
+                {
+                  "series": {
+                    "sourceRange": {
+                      "sources": [
+                        {
+                          "sheetId": 839418499,
+                          "startRowIndex": 1,
+                          "endRowIndex": 258,
+                          "startColumnIndex": 28,
+                          "endColumnIndex": 29
+                        }
+                      ]
+                    }
+                  },
+                  "targetAxis": "LEFT_AXIS",
+                  "dataLabel": {
+                    "type": "NONE",
+                    "textFormat": {
+                      "fontFamily": "Roboto"
+                    }
+                  }
+                }
+              ],
+              "headerCount": 1
+            },
+            "hiddenDimensionStrategy": "SKIP_HIDDEN_ROWS_AND_COLUMNS",
+            "fontName": "Roboto"
+          },
+          "position": {
+            "overlayPosition": {
+              "anchorCell": {
+                "sheetId": 1480001352,
+                "rowIndex": 52,
+                "columnIndex": 5
+              },
+              "offsetXPixels": 95,
+              "offsetYPixels": 17,
+              "widthPixels": 600,
+              "heightPixels": 371
+            }
+          }
+        }
