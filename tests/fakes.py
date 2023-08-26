@@ -18,10 +18,10 @@ if TYPE_CHECKING:
 
 
 def _convert_cell(cell: Any) -> SheetValue:
-    if cell.isnumeric():
+    if type(cell) is int:
         return int(cell)
     if type(cell) is str:
-        return cell
+        return int(cell) if cell.isnumeric() else cell
     raise TypeError(f'cell has unexpected type {type(cell)}')
 
 
