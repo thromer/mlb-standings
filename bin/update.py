@@ -18,6 +18,6 @@ def main() -> None:
     drive = mlbstandings.google_wrappers.Drive(creds)
     sheets = mlbstandings.google_wrappers.Spreadsheets(creds)
     updater = mlbstandings.updater.Updater(datetime.now(tz=ZoneInfo('Etc/UTC')), drive, sheets, mlbstandings.web.Web())
-    updater.update()
+    # updater.update()
 
 main()
