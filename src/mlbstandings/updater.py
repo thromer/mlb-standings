@@ -110,9 +110,9 @@ class Updater:
             if day == first_day - _ONE_DAY:
                 rows = self.baseballref.zeroday()
             else:
-                # TODO handle None -- e.g. if baseball reference doesn't have results yet.
                 rows = self.baseballref.something(day)
             if rows is None:
+                # TODO test this case
                 break
             row_index = (day - first_day).days + 2
             for league in _LEAGUES:
@@ -148,13 +148,3 @@ class Updater:
             return _MINDATE
         else:
             return date_from_excel_date(cell)
-
-    # def _update_league(self, spreadsheet: SpreadsheetLike, first_day: date, league: str) -> date:
-    #     """Update league and returns last day of season if known, min day otherwise"""
-    #     #     * Let spreadsheet_max_date = date of the latest spreadsheet row with data
-    #     #     * Corner case: If there is *no* data in the spreadsheet, use opening day - 2.
-    #     # TODO TODO TODO raise ValueError('implement me')
-    #
-    #     return date(MINYEAR, 1, 1)
-    #     column = spreadsheet.read_values(
-    #         self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]

@@ -120,7 +120,6 @@ class SimpleRateLimiter:
 
 
 class BaseballReference:
-    # TODO enforce rate limiting!
     def __init__(self, web: WebLike) -> None:
         self.web = RateLimitedWeb(web, SimpleRateLimiter(60.0))
 
@@ -131,7 +130,6 @@ class BaseballReference:
             return _CANONICAL_TEAM_ABBRS[abbr]
         return abbr
 
-    # TODO enforce rate-limiting!
     def first_day(self, year: date) -> date:
         if year != date(year.year, 1, 1):
             raise ValueError(f'year field should be for January 1, is {year}')
@@ -169,7 +167,6 @@ class BaseballReference:
             raise ValueError(f'{table_id} is missing or exists with no tbody')
 
         # Get everyone's stats
-        # TODO make sure the row header is correct
         stats = {}
         for tr in overall_table.find_all('tr'):
             tds = tr.find_all('td')
