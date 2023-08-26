@@ -59,7 +59,10 @@ class Spreadsheet:
         return Sheet(self, name)
 
     def get_named_cell(self, name: str) -> SheetValue:
-        return self.get_range(name)[0][0]
+        range_values = self.get_range(name)
+        if len(range_values) == 0:
+            return ''
+        return range_values[0][0]
 
     def set_named_cell(self, name: str, value: SheetValue) -> None:
         vals = [[value]]
@@ -72,13 +75,14 @@ class Spreadsheet:
         return self.get_range(f'{sheet_name}!{sheet_range}', major_dimension)
 
     def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
-        result = self.spreadsheets.values().get(
+        response = self.spreadsheets.values().get(
             spreadsheetId=self.id,
             range=f'{sheet_range}',
             dateTimeRenderOption="SERIAL_NUMBER",
             majorDimension=major_dimension,
             valueRenderOption="UNFORMATTED_VALUE"
-        ).execute().get('values', [])
+        ).execute()
+        result = response.get('values', [[]])
         return result
 
     def write_values(self, sheet_name: str, sheet_range: str, values: SheetArray, major_dimension: Dimension = 'ROWS') -> None:
