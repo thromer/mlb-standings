@@ -92,6 +92,7 @@ class Updater:
             for league in _LEAGUES
         }
         for league in _LEAGUES:
+            # TODO this would be a nice time to make sure formatting for column A is correct
             if len(column_as[league]) == 0:
                 row = self.baseballref.header_row(league)
                 spreadsheet.write_values(
