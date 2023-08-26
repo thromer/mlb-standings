@@ -9,6 +9,8 @@ from datetime import datetime
 import mlbstandings.google_wrappers
 import mlbstandings.updater
 import mlbstandings.web
+from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
+from mlbstandings.rate_limiter import SimpleRateLimiter
 
 
 def main() -> None:
@@ -17,7 +19,9 @@ def main() -> None:
     creds = google.auth.default(scopes=scopes)[0]
     drive = mlbstandings.google_wrappers.Drive(creds)
     sheets = mlbstandings.google_wrappers.Spreadsheets(creds)
-    updater = mlbstandings.updater.Updater(datetime.now(tz=ZoneInfo('Etc/UTC')), drive, sheets, mlbstandings.web.Web())
+    base_web = mlbstandings.web.Web()
+    web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
+    updater = mlbstandings.updater.Updater(datetime.now(tz=ZoneInfo('Etc/UTC')), drive, sheets, web)
     # updater.update()
 
 main()
