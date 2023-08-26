@@ -7,15 +7,22 @@ import re
 import string
 
 from pathlib import Path
-from typing import cast, Union
 from mlbstandings.helpers import sheet_range_to_rc0_range
 from mlbstandings.shared_types import SheetValue
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mlbstandings.shared_types import *
-    from typing import Dict, List
+    from typing import Any, Dict, List
     from mlbstandings.typing_protocols import *
+
+
+def _convert_cell(cell: Any) -> SheetValue:
+    if cell.isnumeric():
+        return int(cell)
+    if type(cell) is str:
+        return cell
+    raise TypeError(f'cell has unexpected type {type(cell)}')
 
 
 class FakeDrive:
@@ -50,13 +57,9 @@ class FakeSheet:
         self.values = values
 
     @staticmethod
-    def convert_cell(cell: str) -> Union[str, int]:
-        return int(cell) if cell.isnumeric() else cell
-
-    @staticmethod
     def fromcsv(csvpath: Path) -> FakeSheet:
         with open(csvpath, newline='') as f:
-            return FakeSheet([[FakeSheet.convert_cell(v) for v in x] for x in csv.reader(f)])
+            return FakeSheet([[_convert_cell(v) for v in x] for x in csv.reader(f)])
 
     def tocsv(self, csvpath: Path) -> None:
         with open(csvpath, 'w', newline='') as f:
@@ -82,7 +85,7 @@ class FakeSheet:
         if major_dimension == 'COLUMNS':
             out_rows, out_cols = out_cols, out_rows
         print(f'{out_rows=} {out_cols=}')
-        result = [[cast(SheetValue, '')] * out_cols for _ in range(out_rows)]
+        result = [[''] * out_cols for _ in range(out_rows)]
         print(f'{result=}')
         for r in range(r_min, r_max + 1):
             for c in range(c_min, c_max + 1):
@@ -102,7 +105,7 @@ class FakeSheet:
         for col in values[1:]:
             if len(col) != n_columns:
                 raise ValueError(f'{values} is not rectangular')
-        result = [[cast(SheetValue, '')] * n_rows for _ in range(n_columns)]
+        result = [[_convert_cell('')] * n_rows for _ in range(n_columns)]
         print(f'{n_rows=} {n_columns=}')
         print(f'transpose({values} intermediate {result=}')
         for r in range(0, n_columns):
@@ -132,11 +135,11 @@ class FakeSheet:
         #     raise ValueError(f'write_values range and values are different dimensions')
 
         if self.r_max < r_max:
-            self.values.extend([[cast(SheetValue, '')] * (self.c_max + 1) for _ in range(r_max - self.r_max)])
+            self.values.extend([[''] * (self.c_max + 1) for _ in range(r_max - self.r_max)])
             self.r_max = r_max
         if self.c_max < c_max:
             for row in self.values:
-                row.extend([cast(SheetValue, '')] * (c_max - self.c_max))
+                row.extend([''] * (c_max - self.c_max))
             self.c_max = c_max
         for r in range(r_min, r_max + 1):
             for c in range(c_min, c_max + 1):
@@ -166,13 +169,10 @@ class FakeSpreadsheet:
         for sheet_name, sheet in self.sheets.items():
             sheet.tocsv(self.test_data_dir / f'{sheet_name}.csv')
 
-    def get_named_cell(self, name: str) -> Union[str, int]:
-        result = self.named_ranges[name]
-        if type(result) not in [str, int]:
-            raise TypeError(f'{result} has wrong type {type(result)}')
-        return cast(Union[str, int], result)
+    def get_named_cell(self, name: str) -> SheetValue:
+        return _convert_cell(self.named_ranges[name])
 
-    def set_named_cell(self, name: str, value: Union[str, int]) -> None:
+    def set_named_cell(self, name: str, value: SheetValue) -> None:
         self.named_ranges[name] = value
 
     def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
