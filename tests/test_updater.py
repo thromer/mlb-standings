@@ -5,13 +5,14 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from fixtures import TEST_DATA_DIR
-
 import fakes
 import mlbstandings.google_wrappers
 import mlbstandings.updater
 import mlbstandings.web
+from fixtures import TEST_DATA_DIR
 from mlbstandings.helpers import date_from_excel_date
+
+CONTENTS_SHEET_ID = 'contents'
 
 
 def test_empty_unknown_opening_day() -> None:
@@ -19,21 +20,20 @@ def test_empty_unknown_opening_day() -> None:
     pass
 
 
-@pytest.mark.datafiles(TEST_DATA_DIR / 'test_empty_before_opening_day_sheet')
+@pytest.mark.datafiles(TEST_DATA_DIR / 'test_empty_before_opening_day_spreadsheets')
 def test_empty_before_opening_day(datafiles: pathlib.Path) -> None:
     """Opening day known (from schedule) so fill in openingDay-1 row"""
     for f in datafiles.iterdir():
         print(f.name)
     now = datetime(2023, 3, 30, tzinfo=ZoneInfo('America/Los_Angeles'))
-    drive = fakes.FakeDrive({'MLB Standings 2023': datafiles})
     spreadsheets = fakes.FakeSpreadsheets(datafiles)
     web = fakes.FakeWeb(TEST_DATA_DIR)
     try:
-        updater = mlbstandings.updater.Updater(now, drive, spreadsheets, web)
+        updater = mlbstandings.updater.Updater(now, spreadsheets, CONTENTS_SHEET_ID, web)
         updater.update()
     finally:
         spreadsheets.close()
-    spreadsheet = spreadsheets.spreadsheet(drive.get_spreadsheet_id('MLB Standings 2023'))
+    spreadsheet = spreadsheets.spreadsheet(updater.get_spreadsheet_id_for_year(2023))
     first_day_val = spreadsheet.get_named_cell('first_day')
     if type(first_day_val) is not int:
         raise TypeError(f'{first_day_val} has type {type(first_day_val)}')
@@ -50,15 +50,14 @@ def test_zero_row_opening_day_done() -> None:
     pass
 
 
-@pytest.mark.datafiles(TEST_DATA_DIR / 'test_zero_row_multiple_days_done_sheet')
+@pytest.mark.datafiles(TEST_DATA_DIR / 'test_zero_row_multiple_days_done_spreadsheets')
 def test_zero_row_multiple_days_done(datafiles: pathlib.Path) -> None:
     """Add data from multiple days"""
     now = datetime(2023, 5, 1, tzinfo=ZoneInfo('America/Los_Angeles'))
-    drive = fakes.FakeDrive({'MLB Standings 2023': datafiles})
     spreadsheets = fakes.FakeSpreadsheets(datafiles)
     web = fakes.FakeWeb(TEST_DATA_DIR)
     try:
-        updater = mlbstandings.updater.Updater(now, drive, spreadsheets, web)
+        updater = mlbstandings.updater.Updater(now, spreadsheets, CONTENTS_SHEET_ID, web)
         updater.update()
     finally:
         spreadsheets.close()

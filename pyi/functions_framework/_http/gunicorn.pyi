@@ -1,0 +1,9 @@
+# import gunicorn.app.base
+# from _typeshed import Incomplete
+#
+# class GunicornApplication(gunicorn.app.base.BaseApplication):
+#     options: Incomplete
+#     app: Incomplete
+#     def __init__(self, app, host, port, debug, **options) -> None: ...
+#     def load_config(self) -> None: ...
+#     def load(self): ...

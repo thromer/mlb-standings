@@ -9,11 +9,14 @@ import string
 from pathlib import Path
 from mlbstandings.helpers import sheet_range_to_rc0_range
 from mlbstandings.shared_types import SheetValue
+# noinspection PyUnresolvedReferences
+from mlbstandings.shared_types import SheetArray
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
+
 if TYPE_CHECKING:
     from mlbstandings.shared_types import *
-    from typing import Any, Dict, List
+    from typing import Any, List
     from mlbstandings.typing_protocols import *
 
 
@@ -23,14 +26,6 @@ def _convert_cell(cell: Any) -> SheetValue:
     if type(cell) is str:
         return int(cell) if cell.isnumeric() else cell
     raise TypeError(f'cell has unexpected type {type(cell)}')
-
-
-class FakeDrive:
-    def __init__(self, directory: Dict[str, Path]) -> None:
-        self.directory = directory
-
-    def get_spreadsheet_id(self, name: str) -> str:
-        return str(self.directory[name])
 
 
 def sheet_coltoindex(col: str) -> int:
@@ -152,28 +147,33 @@ class FakeSheet:
 
 class FakeSpreadsheet:
     def __init__(self, test_data_dir: Path, spreadsheet_id: str) -> None:
-        self.test_data_dir = test_data_dir
-        self.id = spreadsheet_id
-        with (self.test_data_dir / 'named_ranges.json').open() as nr:
+        self.data_dir = test_data_dir / spreadsheet_id
+        with (self.data_dir / 'named_ranges.json').open() as nr:
             self.named_ranges = json.load(nr)
         print(self.named_ranges)
         self.sheets = {
             os.path.splitext(fpath.name)[0]: FakeSheet.fromcsv(fpath)
-            for fpath in self.test_data_dir.glob('*.csv')
+            for fpath in self.data_dir.glob('*.csv')
         }
         print(self.sheets)
 
     def close(self) -> None:
-        with (self.test_data_dir / 'named_ranges.json').open('w') as nr:
+        with (self.data_dir / 'named_ranges.json').open('w') as nr:
             json.dump(self.named_ranges, nr)
         for sheet_name, sheet in self.sheets.items():
-            sheet.tocsv(self.test_data_dir / f'{sheet_name}.csv')
+            sheet.tocsv(self.data_dir / f'{sheet_name}.csv')
+
+    def get_named_range(self, name: str) -> SheetArray:
+        return cast(SheetArray, self.named_ranges[name])
+
+    def set_named_range(self, name: str, arr: SheetArray) -> None:
+        self.named_ranges[name] = arr
 
     def get_named_cell(self, name: str) -> SheetValue:
-        return _convert_cell(self.named_ranges[name])
+        return _convert_cell(self.get_named_range(name)[0][0])
 
     def set_named_cell(self, name: str, value: SheetValue) -> None:
-        self.named_ranges[name] = value
+        self.named_ranges[name] = [[value]]
 
     def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
         print(f'read_values(sheet_name={sheet_name}, sheet_range={sheet_range}')

@@ -7,33 +7,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     # noinspection PyProtectedMember
     from googleapiclient._apis.sheets.v4.resources import SheetsResource
-    # noinspection PyProtectedMember
-    from googleapiclient._apis.drive.v3.resources import DriveResource
     from google.auth.credentials import Credentials
-
-
-class Drive:
-    def __init__(self, creds: Credentials) -> None:
-        self.service: DriveResource = build('drive', 'v3', credentials=creds)
-
-    # TODO too much hard-coding!
-    def get_spreadsheet_id(self, name: str) -> str:
-        esc_name = name.replace("'", "\\'")
-        query = (f"name='{esc_name}' and "
-                 "'tromer@gmail.com' in owners and "
-                 "mimeType = 'application/vnd.google-apps.spreadsheet'")
-        response = self.service.files().list(q=query,
-                                             spaces='drive',
-                                             fields='files(id)').execute()
-        files = response.get('files', [])
-        if len(files) == 0:
-            raise FileNotFoundError(f'{name} not found')
-        elif len(files) > 1:
-            raise ValueError(f'{len(files)} files named {name}')
-        file_id = files[0].get('id')
-        if not isinstance(file_id, str):
-            raise ValueError(f'{file_id} is not a string?!')
-        return file_id
 
 
 class Sheet:
@@ -58,18 +32,23 @@ class Spreadsheet:
     def sheet(self, name: str) -> Sheet:
         return Sheet(self, name)
 
+    def get_named_range(self, name: str) -> SheetArray:
+        return self.get_range(name)
+
+    def set_named_range(self, name: str, vals: SheetArray) -> None:
+        self.spreadsheets.values().update(spreadsheetId=self.id,
+                                          range=name,
+                                          valueInputOption='RAW',
+                                          body={'values': vals}).execute()
+
     def get_named_cell(self, name: str) -> SheetValue:
-        range_values = self.get_range(name)
+        range_values = self.get_named_range(name)
         if len(range_values) == 0:
             return ''
         return range_values[0][0]
 
     def set_named_cell(self, name: str, value: SheetValue) -> None:
-        vals = [[value]]
-        self.spreadsheets.values().update(spreadsheetId=self.id,
-                                          range=name,
-                                          valueInputOption='RAW',
-                                          body={'values': vals}).execute()
+        self.set_named_range(name, [[value]])
 
     def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
         return self.get_range(f'{sheet_name}!{sheet_range}', major_dimension)

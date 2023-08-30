@@ -1,0 +1,3 @@
+# from functions_framework.exceptions import FunctionsFrameworkException as FunctionsFrameworkException
+#
+# def register_typed_event(decorator_type, func) -> None: ...

@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, cast
 
 if TYPE_CHECKING:
     from datetime import date, datetime
-    from typing import List, Union
+    from typing import Dict, List, Union
 
 """
 Invariants:
@@ -36,18 +36,22 @@ _MINDATE = date(MINYEAR, 1, 1)
 
 
 class Updater:
-    def __init__(self,
-                 now: datetime,
-                 drive: DriveLike,
-                 spreadsheets: SpreadsheetsLike,
-                 web: WebLike) -> None:
+    def __init__(self, now: datetime, spreadsheets: SpreadsheetsLike,
+                 contents_id: str, web: WebLike) -> None:
         if now.tzinfo is None or now.tzinfo.utcoffset(now) is None:
             raise ValueError("now should not be naive")
         self.now = now.astimezone(ZoneInfo('America/Los_Angeles'))  # TODO encapsulate day boundary logic somewheres
-        self.drive = drive
         self.spreadsheets = spreadsheets
-        # self.web = web
+        self._contents = self._build_contents(spreadsheets.spreadsheet(contents_id))
         self.baseballref = BaseballReference(web)
+
+    @staticmethod
+    def _build_contents(contents_spreadsheet: SpreadsheetLike) -> Dict[int, str]:
+        return {
+            int(row[0]): str(row[1])
+            for row in contents_spreadsheet.get_named_range('contents')
+            if len(row) == 2 and type(row[0]) is int
+        }
 
     @staticmethod
     def _spreadsheet_name(year: int) -> str:
@@ -56,6 +60,9 @@ class Updater:
     @staticmethod
     def _upload_sheet_name(league: str) -> str:
         return f'{league.lower()}_uploaded'
+
+    def get_spreadsheet_id_for_year(self, year: int) -> str:
+        return str(self._contents[year])
 
     def update(self) -> None:
         """
@@ -77,7 +84,7 @@ class Updater:
         * Good news: even if we handle a special case wrong, it'll get better the next day, probably.
     """
         # TODO catch FileNotFoundError and copy (to tmp name) & clear & rename
-        spreadsheet_id = self.drive.get_spreadsheet_id(self._spreadsheet_name(self.now.year))
+        spreadsheet_id = self.get_spreadsheet_id_for_year(self.now.year)
         spreadsheet = self.spreadsheets.spreadsheet(spreadsheet_id)
 
         first_day_val = spreadsheet.get_named_cell(_FIRST_DAY)

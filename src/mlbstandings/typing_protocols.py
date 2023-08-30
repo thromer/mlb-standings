@@ -1,6 +1,6 @@
-from typing import Union, Protocol
+from typing import Protocol
 
-from mlbstandings.shared_types import Dimension, SheetArray
+from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
 
 
 class SheetLike(Protocol):
@@ -9,10 +9,11 @@ class SheetLike(Protocol):
 
 class SpreadsheetLike(Protocol):
     # def sheet(self, name: str) -> SheetLike: ...
+    def get_named_range(self, name: str) -> SheetArray: ...
 
-    def get_named_cell(self, name: str) -> Union[str, int]: ...
+    def get_named_cell(self, name: str) -> SheetValue: ...
 
-    def set_named_cell(self, name: str, value: Union[str, int]) -> None: ...
+    def set_named_cell(self, name: str, value: SheetValue) -> None: ...
 
     def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray: ...
 
@@ -30,7 +31,3 @@ class RateLimiterLike(Protocol):
 
 class WebLike(Protocol):
     def read(self, url: str) -> str: ...
-
-
-class DriveLike(Protocol):
-    def get_spreadsheet_id(self, name: str) -> str: ...
