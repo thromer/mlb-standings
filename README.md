@@ -28,3 +28,37 @@ https://console.cloud.google.com/logs/query;query=resource.type%3D%22cloud_run_r
 # for playing (main.py:cf_test)
 gcloud --project=mlb-standings-001 functions deploy mlb-standings-001-fun --gen2 --runtime=python311 --region=us-west1 --source=src --entry-point=cf_test --trigger-http --allow-unauthenticated --timeout=3600 --service-account=mlb-standings-001-update@mlb-standings-001.iam.gserviceaccount.com
 
+Now to invoke it via cloud scheduler, following
+
+https://github.com/GoogleCloudPlatform/community/blob/master/archived/using-scheduler-invoke-private-functions-oidc/index.md
+
+Have to deploy --no-allow-unauthenticated
+
+PROJECT_ID=mlb-standings-001
+SERVICE_ACCOUNT=mlb-standings-001-update
+URI=https://us-west1-mlb-standings-001.cloudfunctions.net/mlb-standings-001-update
+
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+  --member serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com \
+  --role roles/cloudfunctions.invoker
+
+gcloud --project=mlb-standings-001 functions deploy mlb-standings-001-update --gen2 --runtime=python311 --region=us-west1 --source=src --entry-point=update --trigger-http --no-allow-unauthenticated --timeout=1800 --service-account=${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com
+
+curl -H "Authorization: Bearer $(gcloud auth print-identity-token)" ${URI}
+
+# Not 100% sure if this was needed
+
+gcloud --project=${PROJECT_ID} iam service-accounts add-iam-policy-binding ${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com --member user:tromer@gmail.com --role roles/iam.serviceAccountUser
+
+gcloud scheduler jobs create http mlb-standings-update \
+  --location us-west1 \
+  --schedule "2 * * * *" \
+  --time-zone "America/Los_Angeles" \
+  --uri "${URI}" \
+  --oidc-service-account-email ${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com
+
+Newer is https://cloud.google.com/scheduler/docs/http-target-auth
+
+First try apparently I missed the following. With effort I can grant this permission, and it works!
+
+gcloud --project=${PROJECT_ID} functions add-iam-policy-binding mlb-standings-001-update --member=serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/run.invoker --gen2
