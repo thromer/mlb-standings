@@ -1,16 +1,15 @@
+import bs4
 import itertools
 
-from mlbstandings.shared_types import SheetValue
 from mlbstandings.typing_protocols import *
-
-from bs4 import BeautifulSoup
 from datetime import date, datetime
-
-import bs4
-
 from functools import cache
 
-from typing import List, Dict, Union, Optional
+from typing import List, Dict, Union, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from mlbstandings.shared_types import SheetValue
+
 
 _CANONICAL_TEAM_ABBRS = {
     'TBR': 'TB',
@@ -112,7 +111,7 @@ class BaseballReference:
             raise ValueError(f'year field should be for January 1, is {year}')
         url = f'https://www.baseball-reference.com/leagues/majors/{year.year}-schedule.shtml'
         data = self.web.read(url)
-        soup = BeautifulSoup(data, features='html.parser')
+        soup = bs4.BeautifulSoup(data, features='html.parser')
         h3 = soup.find('h3')
         if h3 is None:
             raise ValueError(f'h3 element not found in {url}')
@@ -123,7 +122,7 @@ class BaseballReference:
         """Returns ready-to-paste rows (other than day) for the day if available, None otherwise"""
         url = day.strftime('https://www.baseball-reference.com/boxes/?year=%Y&month=%m&day=%d')
         data = self.web.read(url)
-        soup = BeautifulSoup(data, features='html.parser')
+        soup = bs4.BeautifulSoup(data, features='html.parser')
         today_button = soup.find('span', class_='button2 current')
         if today_button is None or type(today_button) is not bs4.element.Tag:
             raise ValueError(f'Unable to find current date in {url}')
@@ -135,7 +134,7 @@ class BaseballReference:
             league: self._work(league, soup).row() for league in LEAGUES
         }
 
-    def _work(self, league: str, soup: BeautifulSoup) -> Standings:
+    def _work(self, league: str, soup: bs4.BeautifulSoup) -> Standings:
         table_id = f'standings-upto-{league}-overall'
         overall_table = soup.find(id=table_id)
         if overall_table is not None and type(overall_table) == bs4.element.Tag:
