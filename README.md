@@ -14,6 +14,17 @@ And in cloud console
 
 For cloud function created mlb-standings-001-update@mlb-standings-001.iam.gserviceaccount.com service account and granted permission to relevant Drive folder
 
+For real ... timeout is 1800 so that we can run hourly.
+
+gcloud --project=mlb-standings-001 functions deploy mlb-standings-001-update --gen2 --runtime=python311 --region=us-west1 --source=src --entry-point=update --trigger-http --allow-unauthenticated --timeout=1800 --service-account=mlb-standings-001-update@mlb-standings-001.iam.gserviceaccount.com
+
+Trigger URL is https://us-west1-mlb-standings-001.cloudfunctions.net/mlb-standings-001-update
+
+
+Logs are here
+
+https://console.cloud.google.com/logs/query;query=resource.type%3D%22cloud_run_revision%22%0Aresource.labels.service_name%3D%22mlb-standings-001-update%22;cursorTimestamp=2023-08-30T22:30:40.888073Z;duration=PT1H?project=mlb-standings-001
+
 # for playing (main.py:cf_test)
 gcloud --project=mlb-standings-001 functions deploy mlb-standings-001-fun --gen2 --runtime=python311 --region=us-west1 --source=src --entry-point=cf_test --trigger-http --allow-unauthenticated --timeout=3600 --service-account=mlb-standings-001-update@mlb-standings-001.iam.gserviceaccount.com
 

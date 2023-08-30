@@ -1,9 +1,17 @@
-from typing import Optional, cast
-
-import google.auth
-import mlbstandings.google_wrappers
 import flask
 import functions_framework
+
+import google.auth
+# TODO figure out haw to import these nicely and still have mypy work.
+import mlbstandings.google_wrappers
+import mlbstandings.updater
+import mlbstandings.web
+
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
+from mlbstandings.rate_limiter import SimpleRateLimiter
+from typing import Optional, cast
 
 
 @functions_framework.http
@@ -26,3 +34,19 @@ def cf_test(request: Optional[flask.Request]) -> str:
     print(f"After {spreadsheet.read_values('Sheet1', 'A6:A6')}")
 
     return str(new_val)
+
+
+CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
+
+
+@functions_framework.http
+def update(_: Optional[flask.Request]) -> str:
+    scopes = ['https://www.googleapis.com/auth/spreadsheets',
+              'https://www.googleapis.com/auth/drive.metadata.readonly']
+    creds = google.auth.default(scopes=scopes)[0]
+    sheets = mlbstandings.google_wrappers.Spreadsheets(creds)
+    base_web = mlbstandings.web.Web()
+    web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
+    updater = mlbstandings.updater.Updater(datetime.now(tz=ZoneInfo('Etc/UTC')), sheets, CONTENTS_SPREADSHEET_ID, web)
+    updater.update()
+    return 'Done'
