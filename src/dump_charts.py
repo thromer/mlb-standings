@@ -6,6 +6,8 @@ from googleapiclient.discovery import build
 
 
 SHEET_ID = '14h3hTCvXNzUqTtbegIzSE6JwetMgvtWB6xP9gv87gZs'
+# SHEET_TITLE = 'hacked copy of all'
+SHEET_TITLE = 'al_all'
 
 
 def main():
@@ -16,8 +18,15 @@ def main():
     # https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/get
     # https://developers.google.com/sheets/api/guides/field-masks
     spreadsheets = build('sheets', 'v4', credentials=creds).spreadsheets()
-    answer = spreadsheets.get(spreadsheetId=SHEET_ID, fields='sheets.properties(sheetId,title),sheets(charts)').execute()
-    pprint.pprint(answer)
+    sheets = spreadsheets.get(
+        spreadsheetId=SHEET_ID, fields='sheets.properties(sheetId,title),sheets(charts)').execute()
+    # pprint.pprint(sheets)
+    sheet = None
+    for s in sheets['sheets']:
+        if s['properties']['title'] == SHEET_TITLE:
+            sheet = s
+            break
+    pprint.pprint(sheet['charts'][0]['spec'])
 
 
 main()
