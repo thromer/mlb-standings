@@ -15,7 +15,7 @@ from typing import Optional, cast
 
 
 @functions_framework.http
-def cf_test(request: Optional[flask.Request]) -> str:
+def cf_test(request: Optional[flask.Request], args=[]) -> str:
     print(type(request))
     if isinstance(request, flask.Request):
         request_json = request.get_json(silent=True)
@@ -40,13 +40,17 @@ CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 
 @functions_framework.http
-def update(_: Optional[flask.Request]) -> str:
+def update(_: Optional[flask.Request], args=[]) -> str:
+    if len(args) > 0:
+        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
+    else:
+        d = datetime.now(tz=ZoneInfo('Etc/UTC'))
     scopes = ['https://www.googleapis.com/auth/spreadsheets',
               'https://www.googleapis.com/auth/drive.metadata.readonly']
     creds = google.auth.default(scopes=scopes)[0]
     sheets = mlbstandings.google_wrappers.Spreadsheets(creds)
     base_web = mlbstandings.web.Web()
     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
-    updater = mlbstandings.updater.Updater(datetime.now(tz=ZoneInfo('Etc/UTC')), sheets, CONTENTS_SPREADSHEET_ID, web)
+    updater = mlbstandings.updater.Updater(d, sheets, CONTENTS_SPREADSHEET_ID, web)
     updater.update()
     return 'Done'

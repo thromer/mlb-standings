@@ -43,7 +43,7 @@ class Spreadsheet:
 
     def get_named_cell(self, name: str) -> SheetValue:
         range_values = self.get_named_range(name)
-        if len(range_values) == 0:
+        if len(range_values) == 0 or len(range_values[0]) == 0:
             return ''
         return range_values[0][0]
 
