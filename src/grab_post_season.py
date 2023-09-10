@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 import itertools
 import json
+import sys
+
+from datetime import date
+from mlbstandings import web
+from mlbstandings import baseballref
+from pprint import pprint
 
 # https://statsapi.mlb.com/api/v1/schedule/postseason?season=2022
+# https://statsapi.mlb.com/api/v1/schedule/postseason?season=2022&fields=copyright,dates,games,status,statusCode,description,gameType,seriesGameNumber,gamesInSeries,teams,team,id,score
 # just use checksum to see if we've processed it before
 # good fields include
 FIELDS = [
@@ -69,6 +76,17 @@ FIELDS = [
  'tiebreaker': 'N',
  'venue': {'id': 22, 'link': '/api/v1/venues/22', 'name': 'Dodger Stadium'}}
 """
+
+w = web.Web()
+br = baseballref.BaseballReference(w)
+post_season = br.grab_post_season(date(2022, 1, 1))
+print(f"last={post_season['last_scheduled_day']}")
+print(f"md5={post_season['md5']}")
+print(",".join(post_season['header']))
+for r in post_season['rows']:
+    print(",".join([str(x) for x in r]))
+
+sys.exit(1)
 
 with open('/tmp/x') as f:
     j = json.load(f)

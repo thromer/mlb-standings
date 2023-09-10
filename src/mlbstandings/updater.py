@@ -1,4 +1,5 @@
-from datetime import timedelta, MINYEAR, MAXYEAR
+from datetime import timedelta, MINYEAR
+from enum import Enum
 from zoneinfo import ZoneInfo
 
 from mlbstandings.baseballref import *
@@ -32,7 +33,10 @@ _LEAGUES = ['AL', 'NL']
 
 _MINDATE = date(MINYEAR, 1, 1)
 
-# TODO inject rate limiter so that tests aren't limited?
+
+class SeasonStatus(Enum):
+    IN_PROGRESS = 1
+    OVER = 2
 
 
 class Updater:
@@ -64,7 +68,7 @@ class Updater:
     def get_spreadsheet_id_for_year(self, year: int) -> str:
         return str(self._contents[year])
 
-    def update(self) -> None:
+    def update_regular_season(self) -> SeasonStatus:
         """
     * Corner case: For open day - 1, set everyone to 0
     * # Shortcut: If it is for today, we're done.
@@ -138,11 +142,13 @@ class Updater:
         print(f'{last_day_uploaded=}')
 
         # If we didn't upload anything it might be that we're at the end of the season.
-        # This misses backfill case the first time around but I don't think I care that much.
+        # TODO This misses backfill case the first time around but I don't think I care that much.
         if last_day is None and last_day_uploaded is None:
-            last_day = self.baseballref.last_scheduled_day(min(newest_league_upload_day.values()))
+            last_day = self.baseballref.last_scheduled_regular_day(min(newest_league_upload_day.values()))
             spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
-            print(f'wrote {last_day=} to spreadsheet')
+            return SeasonStatus.OVER
+
+        return SeasonStatus.IN_PROGRESS
 
         # preferably nothing left to do esp b/c break statement
         # TODO what about last_day ?
@@ -153,6 +159,17 @@ class Updater:
         #     last_day = min(last_day, self._update_league(spreadsheet, first_day, league))
         # if last_day >= date(self.now.year, 1, 1):
         #     spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
+
+    def update_playoffs(self) -> SeasonStatus:
+        # TODO skip it if today is after last world seriews day and return SeasonStatus.OVER
+        post_season = self.baseballref.grab_post_season(self.now())
+
+        raise ValueError('TODO: Implement update_playoffs!')
+
+    def update(self) -> SeasonStatus:
+        if self.update_regular_season() == SeasonStatus.IN_PROGRESS:
+            return
+        return self.update_playoffs()
 
     def _get_newest_league_day(self, column: List[SheetValue], league: str, first_day: date) -> date:
         if len(column) <= 1:
