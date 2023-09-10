@@ -20,7 +20,7 @@ def test_later_day() -> None:
         league: bref.header_row(league)
         for league in ['AL', 'NL']
     }
-    result = bref.something(date(2023, 4, 30))
+    result = bref.spreadsheet_row(date(2023, 4, 30))
     if result is None:
         raise ValueError('None')
     result = cast(dict[str, list[SheetValue]], result)

@@ -8,4 +8,4 @@ from fixtures import TEST_DATA_DIR
 def test_main() -> None:
     br = BaseballReference(FakeWeb(TEST_DATA_DIR))
     print(f'first_day={br.first_day(date(2023, 1, 1))}')
-    print(br.something(date(2023, 4, 15)))
+    print(br.spreadsheet_row(date(2023, 4, 15)))

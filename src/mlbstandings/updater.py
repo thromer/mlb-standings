@@ -118,7 +118,7 @@ class Updater:
             if day == first_day - _ONE_DAY:
                 rows = self.baseballref.zeroday()
             else:
-                rows = self.baseballref.something(day)
+                rows = self.baseballref.spreadsheet_row(day)
             if rows is None:
                 # TODO test this case
                 break

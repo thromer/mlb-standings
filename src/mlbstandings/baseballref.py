@@ -1,3 +1,5 @@
+import json
+
 import bs4
 import itertools
 
@@ -45,6 +47,10 @@ LEAGUE_TEAMS = {
 }
 
 DIVISION_ORDER = ['E', 'C', 'W']
+
+SCHEDULE_DATES_URL_PREFIX = (
+    'https://statsapi.mlb.com/api/v1/schedule/?sportId=1&leagueId=103,104&scheduleTypes=games&gameTypes=R&'
+    'fields=dates,games,officialDate')
 
 
 class Standings:
@@ -118,7 +124,17 @@ class BaseballReference:
         day_text = h3.text  # 'Thursday, March 30, 2023'
         return date.fromtimestamp(datetime.strptime(day_text, '%A, %B %d, %Y').timestamp())
 
-    def something(self, day: date) -> Optional[Dict[str, List[Union[str, int]]]]:
+    def last_scheduled_day(self, day: date) -> date:
+        """Last scheduled day with games on or after day. day should be during the season."""
+        url = '&'.join([
+            SCHEDULE_DATES_URL_PREFIX,
+            f"startDate={day.strftime('%m/%d/%Y')}",
+            f"endDate=12/31/{day.year}"])
+        j = json.loads(self.web.read(url))
+        date_str = j['dates'][-1]['games'][-1]['officialDate']
+        return datetime.strptime(date_str, '%Y-%m-%d').date()
+
+    def spreadsheet_row(self, day: date) -> Optional[Dict[str, List[Union[str, int]]]]:
         """Returns ready-to-paste rows (other than day) for the day if available, None otherwise"""
         url = day.strftime('https://www.baseball-reference.com/boxes/?year=%Y&month=%m&day=%d')
         data = self.web.read(url)
