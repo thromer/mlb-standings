@@ -98,6 +98,8 @@ class Updater:
             self.spreadsheet.set_named_cell(_FIRST_DAY, date_to_excel_date(first_day))
         last_day_val = self.spreadsheet.get_named_cell(_LAST_DAY)
         last_day = date_from_excel_date(last_day_val) if type(last_day_val) is int else None
+        if last_day is not None:
+            return SeasonStatus.OVER
         print(f'last_day before {last_day}')
         column_as = {
             league: self.spreadsheet.read_values(self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
@@ -118,7 +120,7 @@ class Updater:
         first_day_to_upload = max(first_day - _ONE_DAY, min(newest_league_upload_day.values()) + _ONE_DAY)
         last_day_to_upload = date.fromordinal(self.now.toordinal()) - _ONE_DAY  # Ugly, assumes we already did the conversion to America/Los_Angeles
         if last_day is not None and last_day < last_day_to_upload:
-            last_day_to_upload = last_day
+            last_day_to_upload = last_day  # TODO seems unreachable since last_day is only set when the season is over anyway.
         # TODO test oround midnight boundary (assuming that's what we want)
         last_day_uploaded = None
         print(f'{first_day_to_upload=} {last_day_to_upload=}')
@@ -139,12 +141,14 @@ class Updater:
             last_day_uploaded = day
         print(f'{last_day_uploaded=}')
 
-        # If we didn't upload anything it might be that we're at the end of the season.
+        # If we didn't upload anything on the last iteration it might be that we're at the end of the season.
         # TODO This misses backfill case the first time around but I don't think I care that much.
-        if last_day is None and last_day_uploaded is None:
+        if last_day is None and last_day_uploaded != last_day_to_upload:
             last_day = self.baseballref.last_scheduled_regular_day(min(newest_league_upload_day.values()))
-            self.spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
-            return SeasonStatus.OVER
+            if last_day < self.now.date():
+                print('update _LAST_DAY')
+                self.spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
+                return SeasonStatus.OVER
 
         return SeasonStatus.IN_PROGRESS
 
@@ -159,22 +163,27 @@ class Updater:
         #     spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
 
     def update_post_season(self) -> SeasonStatus:
-        # TODO skip it if today is after last world seriews day and return SeasonStatus.OVER
+        # TODO I don't think this is quite robust but ok.
         last_post_season_day_val = self.spreadsheet.get_named_cell(_LAST_POST_SEASON_DAY)
         last_post_season_day = date_from_excel_date(last_post_season_day_val) if type(last_post_season_day_val) is int else None
-        if last_post_season_day is not None and last_post_season_day < self.now:
+        if last_post_season_day is not None and last_post_season_day < self.now.date():
             return SeasonStatus.OVER
+        post_season = self.baseballref.grab_post_season(self.now)
         previous_md5 = self.spreadsheet.get_named_cell(_POST_SEASON_MD5)
-        post_season = self.baseballref.grab_post_season(self.now())
-        in_progress = post_season['last_scheduled_day'] >= self.now
+        in_progress = post_season['last_scheduled_day'] >= self.now.date()
+        result = SeasonStatus.IN_PROGRESS if in_progress else SeasonStatus.OVER
+        if post_season['md5'] == previous_md5:
+            # ugh
+            self.spreadsheet.set_named_cell(_LAST_POST_SEASON_DAY, date_to_excel_date(
+                post_season['last_scheduled_day']))
+            return result
+        table = [post_season['header']] + post_season['rows']
+        self.spreadsheet.write_values('playoff_upload','A:H',table)
         if not in_progress:
             self.spreadsheet.set_named_cell(_LAST_POST_SEASON_DAY, date_to_excel_date(
                 post_season['last_scheduled_day']))
-        if post_season['md5'] == previous_md5:
-            return SeasonStatus.IN_PROGRESS if in_progress else SeasonStatus.OVER
-        table = [post_season['header']] + post_season['rows']
-        self.spreadsheet.write_values('playoff_upload','A:H',table)
         self.spreadsheet.set_named_cell(_POST_SEASON_MD5, post_season['md5'])
+        return result
 
     def update(self) -> SeasonStatus:
         # TODO catch FileNotFoundError and copy (to tmp name) & clear & rename
