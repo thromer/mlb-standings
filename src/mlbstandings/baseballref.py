@@ -134,6 +134,13 @@ class BaseballReference:
         date_str = j['dates'][-1]['games'][-1]['officialDate']
         return datetime.strptime(date_str, '%Y-%m-%d').date()
 
+    @staticmethod
+    def no_games(s: bs4.BeautifulSoup) -> bool:
+        for h3 in s.find(id='content').find_all('h3'):
+            if h3.text == 'No Games Were or Have Yet Been Played on This Date':
+                return True
+        return False
+
     def spreadsheet_row(self, day: date) -> Optional[Dict[str, List[Union[str, int]]]]:
         """Returns ready-to-paste rows (other than day) for the day if available, None otherwise"""
         url = day.strftime('https://www.baseball-reference.com/boxes/?year=%Y&month=%m&day=%d')
@@ -145,6 +152,8 @@ class BaseballReference:
         br_day_text = today_button.text
         br_day = datetime.strptime(br_day_text, '%b %d, %Y').date()
         if br_day != day:
+            return None
+        if self.no_games(soup):
             return None
         return {
             league: self._work(league, soup).row() for league in LEAGUES

@@ -94,6 +94,9 @@ class Updater:
             # TODO error handling
             first_day = self.baseballref.first_day(date(self.now.year, 1, 1))
             spreadsheet.set_named_cell(_FIRST_DAY, date_to_excel_date(first_day))
+        last_day_val = spreadsheet.get_named_cell(_LAST_DAY)
+        last_day = date_from_excel_date(last_day_val) if type(last_day_val) is int else None
+        print(f'last_day before {last_day}')
         column_as = {
             league: spreadsheet.read_values(self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
             for league in _LEAGUES
@@ -112,7 +115,11 @@ class Updater:
         }
         first_day_to_upload = max(first_day - _ONE_DAY, min(newest_league_upload_day.values()) + _ONE_DAY)
         last_day_to_upload = date.fromordinal(self.now.toordinal()) - _ONE_DAY  # Ugly, assumes we already did the conversion to America/Los_Angeles
+        if last_day is not None and last_day < last_day_to_upload:
+            last_day_to_upload = last_day
         # TODO test oround midnight boundary (assuming that's what we want)
+        last_day_uploaded = None
+        print(f'{first_day_to_upload=} {last_day_to_upload=}')
         for day in [first_day_to_upload + timedelta(days=d)
                     for d in range((last_day_to_upload - first_day_to_upload).days + 1)]:
             if day == first_day - _ONE_DAY:
@@ -127,6 +134,15 @@ class Updater:
                 values = [date_to_excel_date(day)] + rows[league]
                 sheet_range = rc0_range_to_sheet_range(((row_index, 0), (row_index, len(values) - 1)))
                 spreadsheet.write_values(self._upload_sheet_name(league), sheet_range, [values])
+            last_day_uploaded = day
+        print(f'{last_day_uploaded=}')
+
+        # If we didn't upload anything it might be that we're at the end of the season.
+        # This misses backfill case the first time around but I don't think I care that much.
+        if last_day is None and last_day_uploaded is None:
+            last_day = self.baseballref.last_scheduled_day(min(newest_league_upload_day.values()))
+            spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
+            print(f'wrote {last_day=} to spreadsheet')
 
         # preferably nothing left to do esp b/c break statement
         # TODO what about last_day ?
