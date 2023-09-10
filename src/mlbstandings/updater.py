@@ -28,6 +28,8 @@ Loosely speaking:
 
 _FIRST_DAY = 'first_day'
 _LAST_DAY = 'last_day'
+_POST_SEASON_MD5 = 'post_season_md5'
+_LAST_POST_SEASON_DAY = 'last_post_season_day'
 _ONE_DAY = timedelta(days=1)
 _LEAGUES = ['AL', 'NL']
 
@@ -87,29 +89,25 @@ class Updater:
             somewhere saying "last day of the season was X"
         * Good news: even if we handle a special case wrong, it'll get better the next day, probably.
     """
-        # TODO catch FileNotFoundError and copy (to tmp name) & clear & rename
-        spreadsheet_id = self.get_spreadsheet_id_for_year(self.now.year)
-        spreadsheet = self.spreadsheets.spreadsheet(spreadsheet_id)
-
-        first_day_val = spreadsheet.get_named_cell(_FIRST_DAY)
+        first_day_val = self.spreadsheet.get_named_cell(_FIRST_DAY)
         if type(first_day_val) is int:
             first_day = date_from_excel_date(first_day_val)
         else:
             # TODO error handling
             first_day = self.baseballref.first_day(date(self.now.year, 1, 1))
-            spreadsheet.set_named_cell(_FIRST_DAY, date_to_excel_date(first_day))
-        last_day_val = spreadsheet.get_named_cell(_LAST_DAY)
+            self.spreadsheet.set_named_cell(_FIRST_DAY, date_to_excel_date(first_day))
+        last_day_val = self.spreadsheet.get_named_cell(_LAST_DAY)
         last_day = date_from_excel_date(last_day_val) if type(last_day_val) is int else None
         print(f'last_day before {last_day}')
         column_as = {
-            league: spreadsheet.read_values(self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
+            league: self.spreadsheet.read_values(self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
             for league in _LEAGUES
         }
         for league in _LEAGUES:
             # TODO this would be a nice time to make sure formatting for column A is correct
             if len(column_as[league]) == 0:
                 row = self.baseballref.header_row(league)
-                spreadsheet.write_values(
+                self.spreadsheet.write_values(
                     self._upload_sheet_name(league),
                     rc0_range_to_sheet_range(((0, 0), (0, len(row)))),
                     [[cast(SheetValue, 'Date')] + row])
@@ -137,7 +135,7 @@ class Updater:
             for league in _LEAGUES:
                 values = [date_to_excel_date(day)] + rows[league]
                 sheet_range = rc0_range_to_sheet_range(((row_index, 0), (row_index, len(values) - 1)))
-                spreadsheet.write_values(self._upload_sheet_name(league), sheet_range, [values])
+                self.spreadsheet.write_values(self._upload_sheet_name(league), sheet_range, [values])
             last_day_uploaded = day
         print(f'{last_day_uploaded=}')
 
@@ -145,7 +143,7 @@ class Updater:
         # TODO This misses backfill case the first time around but I don't think I care that much.
         if last_day is None and last_day_uploaded is None:
             last_day = self.baseballref.last_scheduled_regular_day(min(newest_league_upload_day.values()))
-            spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
+            self.spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
             return SeasonStatus.OVER
 
         return SeasonStatus.IN_PROGRESS
@@ -160,16 +158,31 @@ class Updater:
         # if last_day >= date(self.now.year, 1, 1):
         #     spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
 
-    def update_playoffs(self) -> SeasonStatus:
+    def update_post_season(self) -> SeasonStatus:
         # TODO skip it if today is after last world seriews day and return SeasonStatus.OVER
+        last_post_season_day_val = self.spreadsheet.get_named_cell(_LAST_POST_SEASON_DAY)
+        last_post_season_day = date_from_excel_date(last_post_season_day_val) if type(last_post_season_day_val) is int else None
+        if last_post_season_day is not None and last_post_season_day < self.now:
+            return SeasonStatus.OVER
+        previous_md5 = self.spreadsheet.get_named_cell(_POST_SEASON_MD5)
         post_season = self.baseballref.grab_post_season(self.now())
-
-        raise ValueError('TODO: Implement update_playoffs!')
+        in_progress = post_season['last_scheduled_day'] >= self.now
+        if not in_progress:
+            self.spreadsheet.set_named_cell(_LAST_POST_SEASON_DAY, date_to_excel_date(
+                post_season['last_scheduled_day']))
+        if post_season['md5'] == previous_md5:
+            return SeasonStatus.IN_PROGRESS if in_progress else SeasonStatus.OVER
+        table = [post_season['header']] + post_season['rows']
+        self.spreadsheet.write_values('playoff_upload','A:H',table)
+        self.spreadsheet.set_named_cell(_POST_SEASON_MD5, post_season['md5'])
 
     def update(self) -> SeasonStatus:
+        # TODO catch FileNotFoundError and copy (to tmp name) & clear & rename
+        spreadsheet_id = self.get_spreadsheet_id_for_year(self.now.year)
+        self.spreadsheet = self.spreadsheets.spreadsheet(spreadsheet_id)
         if self.update_regular_season() == SeasonStatus.IN_PROGRESS:
-            return
-        return self.update_playoffs()
+            return SeasonStatus.IN_PROGRESS
+        return self.update_post_season()
 
     def _get_newest_league_day(self, column: List[SheetValue], league: str, first_day: date) -> date:
         if len(column) <= 1:

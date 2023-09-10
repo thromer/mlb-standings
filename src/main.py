@@ -41,8 +41,10 @@ CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 @functions_framework.http
 def update(_: Optional[flask.Request], args=[]) -> str:
+    backfill = False
     if len(args) > 0:
         d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
+        backfill = True
     else:
         d = datetime.now(tz=ZoneInfo('Etc/UTC'))
     scopes = ['https://www.googleapis.com/auth/spreadsheets',
@@ -52,5 +54,8 @@ def update(_: Optional[flask.Request], args=[]) -> str:
     base_web = mlbstandings.web.Web()
     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
     updater = mlbstandings.updater.Updater(d, sheets, CONTENTS_SPREADSHEET_ID, web)
-    updater.update()
+    while True:
+        status = updater.update()
+        if status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
+            break
     return 'Done'
