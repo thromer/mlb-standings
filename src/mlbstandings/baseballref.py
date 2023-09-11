@@ -28,6 +28,44 @@ _CANONICAL_DIVISION_NAMES = {
     'W': 'West'
 }
 
+MLB_ABBRS = {
+ 108: 'ANA',
+ 109: 'ARI',
+ 110: 'BAL',
+ 111: 'BOS',
+ 112: 'CHC',
+ 113: 'CIN',
+ 114: 'CLE',
+ 115: 'COL',
+ 116: 'DET',
+ 117: 'HOU',
+ 118: 'KC',
+ 119: 'LA',
+ 120: 'WAS',
+ 121: 'NYM',
+ 133: 'OAK',
+ 134: 'PIT',
+ 135: 'SD',
+ 136: 'SEA',
+ 137: 'SF',
+ 138: 'STL',
+ 139: 'TB',
+ 140: 'TEX',
+ 141: 'TOR',
+ 142: 'MIN',
+ 143: 'PHI',
+ 144: 'ATL',
+ 145: 'CWS',
+ 146: 'MIA',
+ 147: 'NYY',
+ 158: 'MIL'
+}
+_CANONICAL_MLB_TEAM_ABBRS = {
+    'ANA': 'LAA',
+    'CWS': 'CHW',
+    'LA': 'LAD',
+}
+
 # A bit of a cheat: league and division names are implicitly the same as used in baseball reference.
 LEAGUES = {
     'AL': {
@@ -203,6 +241,13 @@ class BaseballReference:
                 [[f'{league} {x}'] + ['']*4 for x in [_CANONICAL_DIVISION_NAMES[div] for div in divs.keys()]] +
                 [['Wildcard']]))
 
+    @staticmethod
+    def mlb_id_to_abbr(id: int) -> str:
+        mlb_abbr = MLB_ABBRS[id]
+        if mlb_abbr in _CANONICAL_MLB_TEAM_ABBRS:
+            return _CANONICAL_MLB_TEAM_ABBRS[mlb_abbr]
+        return mlb_abbr
+
     def grab_post_season(self, year: date):
         url = (f'https://statsapi.mlb.com/api/v1/schedule/postseason?season={year.year}&'
                'fields=copyright,dates,date,games,status,statusCode,description,gameType,'
@@ -223,8 +268,8 @@ class BaseballReference:
                 x['gameType'],
                 x['seriesGameNumber'],
                 x['gamesInSeries'],
-                a['team']['id'],
-                h['team']['id'],
+                self.mlb_id_to_abbr(a['team']['id']),
+                self.mlb_id_to_abbr(h['team']['id']),
                 a['score'],
                 h['score']])
         return {
