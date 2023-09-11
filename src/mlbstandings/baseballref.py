@@ -1,3 +1,6 @@
+import hashlib
+import json
+
 import bs4
 import itertools
 
@@ -45,6 +48,12 @@ LEAGUE_TEAMS = {
 }
 
 DIVISION_ORDER = ['E', 'C', 'W']
+
+SCHEDULE_DATES_URL_FORMAT = (
+    'https://statsapi.mlb.com/api/v1/schedule/?sportId=1&leagueId=103,104&scheduleTypes=games&gameTypes=%s&'
+    'fields=dates,games,officialDate')
+REGULAR_SEASON_ID = 'R'
+WORLD_SERIES_ID = 'W'
 
 
 class Standings:
@@ -118,7 +127,32 @@ class BaseballReference:
         day_text = h3.text  # 'Thursday, March 30, 2023'
         return date.fromtimestamp(datetime.strptime(day_text, '%A, %B %d, %Y').timestamp())
 
-    def something(self, day: date) -> Optional[Dict[str, List[Union[str, int]]]]:
+    def last_scheduled_day(self, day: date, type_id: str) -> date:
+        """Last scheduled day with games on or after day. day should be during the season."""
+        url = '&'.join([
+            SCHEDULE_DATES_URL_FORMAT % type_id,
+            f"startDate={day.strftime('%m/%d/%Y')}",
+            f"endDate=12/31/{day.year}"])
+        j = json.loads(self.web.read(url))
+        date_str = j['dates'][-1]['games'][-1]['officialDate']
+        return datetime.strptime(date_str, '%Y-%m-%d').date()
+
+    def last_scheduled_regular_day(self, day: date) -> date:
+        """Last scheduled day with games on or after day. day should be during the season."""
+        return self.last_scheduled_day(day, REGULAR_SEASON_ID)
+
+    def last_scheduled_world_series_day(self, day: date) -> date:
+        """Last scheduled day with games on or after day. day should be during the season."""
+        return self.last_scheduled_day(day, WORLD_SERIES_ID)
+
+    @staticmethod
+    def no_games(s: bs4.BeautifulSoup) -> bool:
+        for h3 in s.find(id='content').find_all('h3'):
+            if h3.text == 'No Games Were or Have Yet Been Played on This Date':
+                return True
+        return False
+
+    def spreadsheet_row(self, day: date) -> Optional[Dict[str, List[Union[str, int]]]]:
         """Returns ready-to-paste rows (other than day) for the day if available, None otherwise"""
         url = day.strftime('https://www.baseball-reference.com/boxes/?year=%Y&month=%m&day=%d')
         data = self.web.read(url)
@@ -129,6 +163,8 @@ class BaseballReference:
         br_day_text = today_button.text
         br_day = datetime.strptime(br_day_text, '%b %d, %Y').date()
         if br_day != day:
+            return None
+        if self.no_games(soup):
             return None
         return {
             league: self._work(league, soup).row() for league in LEAGUES
@@ -166,3 +202,31 @@ class BaseballReference:
                 [list(itertools.chain.from_iterable(divs.values()))] +
                 [[f'{league} {x}'] + ['']*4 for x in [_CANONICAL_DIVISION_NAMES[div] for div in divs.keys()]] +
                 [['Wildcard']]))
+
+    def grab_post_season(self, year: date):
+        url = (f'https://statsapi.mlb.com/api/v1/schedule/postseason?season={year.year}&'
+               'fields=copyright,dates,date,games,status,statusCode,description,gameType,'
+               'seriesGameNumber,gamesInSeries,teams,team,id,score')
+        d = self.web.read(url)
+        md5 = hashlib.md5(d.encode('UTF-8')).hexdigest()
+        j = json.loads(d)
+        header = ['description', 'gameType', 'seriesGameNumber', 'gamesInSeries',
+                  'awayId', 'homeId', 'awayScore', 'homeScore']
+        rows = []
+        for x in itertools.chain.from_iterable([d['games'] for d in j['dates']]):
+            a = x['teams']['away']
+            h = x['teams']['home']
+            if x['status']['statusCode'] != 'F':
+                continue
+            rows.append([
+                x['description'][0],
+                x['gameType'],
+                x['seriesGameNumber'],
+                x['gamesInSeries'],
+                a['team']['id'],
+                h['team']['id'],
+                a['score'],
+                h['score']])
+        return {
+            'md5': md5, 'header': header, 'rows': rows,
+            'last_scheduled_day': datetime.strptime(max([d['date'] for d in j['dates']]), '%Y-%m-%d').date()}

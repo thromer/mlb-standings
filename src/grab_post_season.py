@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 import itertools
 import json
+import sys
+
+from datetime import date
+from mlbstandings import web
+from mlbstandings import baseballref
+from pprint import pprint
 
 # https://statsapi.mlb.com/api/v1/schedule/postseason?season=2022
+# https://statsapi.mlb.com/api/v1/schedule/postseason?season=2022&fields=copyright,dates,games,status,statusCode,description,gameType,seriesGameNumber,gamesInSeries,teams,team,id,score
 # just use checksum to see if we've processed it before
 # good fields include
 # FIELDS = [
@@ -70,69 +77,11 @@ import json
  'venue': {'id': 22, 'link': '/api/v1/venues/22', 'name': 'Dodger Stadium'}}
 """
 
-MLB_ABBRS = {
- 108: 'ANA',
- 109: 'ARI',
- 110: 'BAL',
- 111: 'BOS',
- 112: 'CHC',
- 113: 'CIN',
- 114: 'CLE',
- 115: 'COL',
- 116: 'DET',
- 117: 'HOU',
- 118: 'KC',
- 119: 'LA',
- 120: 'WAS',
- 121: 'NYM',
- 133: 'OAK',
- 134: 'PIT',
- 135: 'SD',
- 136: 'SEA',
- 137: 'SF',
- 138: 'STL',
- 139: 'TB',
- 140: 'TEX',
- 141: 'TOR',
- 142: 'MIN',
- 143: 'PHI',
- 144: 'ATL',
- 145: 'CWS',
- 146: 'MIA',
- 147: 'NYY',
- 158: 'MIL'
-}
-
-
-_CANONICAL_TEAM_ABBRS = {
-    'ANA': 'LAA',
-    'CWS': 'CHW',
-    'LA': 'LAD',
-}
-
-
-def id_to_abbr(id: int) -> str:
-    mlb_abbr = MLB_ABBRS[id]
-    if mlb_abbr in _CANONICAL_TEAM_ABBRS:
-        return _CANONICAL_TEAM_ABBRS[mlb_abbr]
-    return mlb_abbr
-
-with open('/tmp/x') as f:
-    j = json.load(f)
-
-print('description,gameType,seriesGameNumber,gamesInSeries,awayId,homeId,awayScore,homeScore')
-for x in itertools.chain.from_iterable([d['games'] for d in j['dates']]):
-    a = x['teams']['away']
-    h = x['teams']['home']
-    if x['status']['statusCode'] != 'F':
-        continue
-    print(','.join((
-        x['description'][0],
-        x['gameType'],
-        str(x['seriesGameNumber']),
-        str(x['gamesInSeries']),
-        id_to_abbr(a['team']['id']),
-        id_to_abbr(h['team']['id']),
-        str(a['score']),
-        str(h['score'])
-    )))
+w = web.Web()
+br = baseballref.BaseballReference(w)
+post_season = br.grab_post_season(date(2022, 1, 1))
+print(f"last={post_season['last_scheduled_day']}")
+print(f"md5={post_season['md5']}")
+print(",".join(post_season['header']))
+for r in post_season['rows']:
+    print(",".join([str(x) for x in r]))
