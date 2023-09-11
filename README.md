@@ -42,6 +42,8 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
   --member serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com \
   --role roles/cloudfunctions.invoker
 
+THIS ONE
+
 gcloud --project=mlb-standings-001 functions deploy mlb-standings-001-update --gen2 --runtime=python311 --region=us-west1 --source=src --entry-point=update --trigger-http --no-allow-unauthenticated --timeout=1800 --service-account=${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com
 
 curl -H "Authorization: Bearer $(gcloud auth print-identity-token)" ${URI}
