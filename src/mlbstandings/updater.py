@@ -113,6 +113,10 @@ class Updater:
         first_day_to_upload = max(first_day - _ONE_DAY, min(newest_league_upload_day.values()) + _ONE_DAY)
         last_day_to_upload = date.fromordinal(self.now.toordinal()) - _ONE_DAY  # Ugly, assumes we already did the conversion to America/Los_Angeles
         # TODO test oround midnight boundary (assuming that's what we want)
+        # TODO handle end of season robustly, somehow ... first idea is that we shouldn't upload for mid-season day N
+        # with zero games played
+        # unless regular season games are scheduled after day N. Probably doesn't work if there turns out to be a mid-
+        # season strike that never ends, but that's only happened once.
         for day in [first_day_to_upload + timedelta(days=d)
                     for d in range((last_day_to_upload - first_day_to_upload).days + 1)]:
             if day == first_day - _ONE_DAY:
