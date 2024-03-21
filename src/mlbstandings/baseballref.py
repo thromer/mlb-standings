@@ -154,16 +154,17 @@ class BaseballReference:
         return abbr
 
     def first_day(self, year: date) -> date:
-        if year != date(year.year, 1, 1):
+        """First scheduled day of season. day should be during the season."""
+        y = year.year
+        if year != date(y, 1, 1):
             raise ValueError(f'year field should be for January 1, is {year}')
-        url = f'https://www.baseball-reference.com/leagues/majors/{year.year}-schedule.shtml'
-        data = self.web.read(url)
-        soup = bs4.BeautifulSoup(data, features='html.parser')
-        h3 = soup.find('h3')
-        if h3 is None:
-            raise ValueError(f'h3 element not found in {url}')
-        day_text = h3.text  # 'Thursday, March 30, 2023'
-        return date.fromtimestamp(datetime.strptime(day_text, '%A, %B %d, %Y').timestamp())
+        url = '&'.join([
+            SCHEDULE_DATES_URL_FORMAT % REGULAR_SEASON_ID,
+            f"startDate=01/01/{y}",
+            f"endDate=12/31/{y}"])
+        j = json.loads(self.web.read(url))
+        date_str = j['dates'][0]['games'][0]['officialDate']
+        return datetime.strptime(date_str, '%Y-%m-%d').date()
 
     def last_scheduled_day(self, day: date, type_id: str) -> date:
         """Last scheduled day with games on or after day. day should be during the season."""
