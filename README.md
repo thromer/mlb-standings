@@ -1,3 +1,17 @@
+New season
+=
+* copy previous season to a new spreadsheet
+* add row to [table of contents](https://docs.google.com/spreadsheets/d/14h3hTCvXNzUqTtbegIzSE6JwetMgvtWB6xP9gv87gZs) spreadsheet
+* in new spreadsheet clear data in data, al_uploaded, nl_uploaded, playoff_upload tabs
+
+Future work
+=
+* Auto-create spreadsheet each year.
+  * Get notified when that happens, maybe.
+* Get notified when the cloud function fails, or just when cloud scheduler fails.
+
+
+
 # mlb-standings
 
 # local exec using default creds (pick a project, will need some services enabled I guess, at the very least 'Service Usage API'
