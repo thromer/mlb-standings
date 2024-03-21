@@ -9,8 +9,7 @@ Future work
 * Auto-create spreadsheet each year.
   * Get notified when that happens, maybe.
 * Get notified when the cloud function fails, or just when cloud scheduler fails.
-
-
+* Maybe handle first day of season gracefully, when https://www.baseball-reference.com/leagues/majors/2024-schedule.shtml starts off with "Today's Games" instead of a date. Or at least don't error out so painfully.
 
 # mlb-standings
 
