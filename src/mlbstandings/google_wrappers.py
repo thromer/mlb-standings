@@ -2,12 +2,25 @@ from __future__ import annotations
 
 from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+import backoff
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     # noinspection PyProtectedMember
     from googleapiclient._apis.sheets.v4.resources import SheetsResource
     from google.auth.credentials import Credentials
+
+
+def backoff_on_retryable():
+    return backoff.on_exception(
+        backoff.expo,
+        HttpError,
+        max_time=600,
+        giveup=lambda e : e.status_code not in set([429, 500, 503]),
+        max_value=60
+    )
 
 
 class Sheet:
@@ -28,6 +41,7 @@ class Spreadsheet:
     def get_named_range(self, name: str) -> SheetArray:
         return self.get_range(name)
 
+    @backoff_on_retryable()
     def set_named_range(self, name: str, vals: SheetArray) -> None:
         self.spreadsheets.values().update(spreadsheetId=self.id,
                                           range=name,
@@ -46,6 +60,7 @@ class Spreadsheet:
     def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
         return self.get_range(f'{sheet_name}!{sheet_range}', major_dimension)
 
+    @backoff_on_retryable()
     def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
         response = self.spreadsheets.values().get(
             spreadsheetId=self.id,
@@ -60,6 +75,7 @@ class Spreadsheet:
     def write_values(self, sheet_name: str, sheet_range: str, values: SheetArray, major_dimension: Dimension = 'ROWS') -> None:
         self.update_range(f'{sheet_name}!{sheet_range}', values, major_dimension)
 
+    @backoff_on_retryable()
     def update_range(self, sheet_range: str, values: SheetArray, major_dimension: Dimension = 'ROWS') -> None:
         self.spreadsheets.values().update(
             spreadsheetId=self.id,

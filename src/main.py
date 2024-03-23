@@ -2,6 +2,7 @@ import flask
 import functions_framework
 
 import google.auth
+import logging
 # TODO figure out haw to import these nicely and still have mypy work.
 import mlbstandings.google_wrappers
 import mlbstandings.updater
@@ -13,6 +14,7 @@ from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
 from mlbstandings.rate_limiter import SimpleRateLimiter
 from typing import Optional, cast
 
+logging.getLogger('backoff').addHandler(logging.StreamHandler())
 
 @functions_framework.http
 def cf_test(request: Optional[flask.Request], args=[]) -> str:
