@@ -17,13 +17,6 @@ class Sheet:
         self.name = name
 
 
-#    def read(self, r: str) -> List[List[Union[str, int]]]:
-#        something = self.spreadsheets.values().get(
-#          self.id,
-#        ).execute().get()
-#       return []
-
-
 class Spreadsheet:
     def __init__(self, spreadsheets: SheetsResource.SpreadsheetsResource, spreadsheet_id: str) -> None:
         self.spreadsheets = spreadsheets
