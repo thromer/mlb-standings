@@ -7,7 +7,7 @@ click==8.1.7
 cloudevents==1.9.0
 deprecation==2.1.0
 exceptiongroup==1.1.3
-flask==2.3.3
+Flask==2.3.3
 functions-framework==3.4.0
 google-api-core==2.11.1
 google-api-python-client==2.97.0
@@ -46,9 +46,9 @@ types-beautifulsoup4==4.12.0.6
 types-html5lib==1.1.11.15
 types-requests==2.31.0.2
 types-urllib3==1.26.25.14
-typing-extensions==4.7.1
+typing_extensions==4.7.1
 uritemplate==4.1.1
 urllib3==1.26.16
 watchdog==3.0.0
-werkzeug==2.3.7
+Werkzeug==2.3.7
 zipp==3.16.2
