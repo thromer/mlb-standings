@@ -1,15 +1,8 @@
-New season
-=
-* copy previous season to a new spreadsheet
-* add row to [table of contents](https://docs.google.com/spreadsheets/d/14h3hTCvXNzUqTtbegIzSE6JwetMgvtWB6xP9gv87gZs) spreadsheet
-* in new spreadsheet clear data in data, al_uploaded, nl_uploaded, playoff_upload tabs
-
 Future work
 =
-* Auto-create spreadsheet each year.
-  * Get notified when that happens, maybe.
-* Get notified when the cloud function fails, or just when cloud scheduler fails.
+* Get notified when new season starts, maybe.
 * Maybe handle first day of season gracefully, when https://www.baseball-reference.com/leagues/majors/2024-schedule.shtml starts off with "Today's Games" instead of a date. Or at least don't error out so painfully.
+* Stop using baseball-reference.com, or was there a reason not to switch to statsapi.mlb.com (other than having started with baseball-reference)?
 
 # mlb-standings
 
@@ -17,7 +10,7 @@ Future work
 
 gcloud init
 gcloud auth login
-gcloud auth application-default login --scopes=https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.admin,https://www.googleapis.com/auth/spreadsheets,https://www.googleapis.com/auth/drive.metadata.readonly
+gcloud auth application-default login --scopes=https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.admin,https://www.googleapis.com/auth/spreadsheets,https://www.googleapis.com/auth/drive
 gcloud auth application-default set-quota-project PROJECT
 
 And in cloud console 
@@ -77,3 +70,9 @@ Newer is https://cloud.google.com/scheduler/docs/http-target-auth
 First try apparently I missed the following. With effort I can grant this permission, and it works!
 
 gcloud --project=${PROJECT_ID} functions add-iam-policy-binding mlb-standings-001-update --member=serviceAccount:${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com --role=roles/run.invoker --gen2
+
+Stuff
+
+https://googleapis.github.io/google-api-python-client/docs/dyn/sheets_v4.html
+
+https://developers.google.com/resources/api-libraries/documentation/drive/v3/python/latest/drive_v3.files.html
