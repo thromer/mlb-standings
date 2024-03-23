@@ -2,10 +2,18 @@ from datetime import timedelta, MINYEAR
 from enum import Enum
 from zoneinfo import ZoneInfo
 
+from email.message import EmailMessage
+from email.headerregistry import Address
+
+from google.cloud import secretmanager
+
 from mlbstandings.baseballref import *
 from mlbstandings.helpers import *
 from mlbstandings.shared_types import *
 from mlbstandings.typing_protocols import *
+
+import smtplib
+import sys
 
 from typing import TYPE_CHECKING, cast
 
@@ -25,6 +33,8 @@ Loosely speaking:
 """
 * Supporting function: W-L as of date. We just use whatever baseball-reference tells us.
 """
+
+GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
 
 _FIRST_DAY = 'first_day'
 _LAST_DAY = 'last_day'
@@ -154,7 +164,10 @@ class Updater:
             last_day_to_upload = last_day  # TODO seems unreachable since last_day is only set when the season is over anyway.
         # TODO test oround midnight boundary (assuming that's what we want)
         last_day_uploaded = None
-        print(f'{first_day_to_upload=} {last_day_to_upload=}')
+        print(f'first_day={first_day} {first_day_to_upload=} {last_day_to_upload=}')
+        if first_day_to_upload == first_day - _ONE_DAY:
+            print('announce new season')
+            self.announce_season_opened()
         for day in [first_day_to_upload + timedelta(days=d)
                     for d in range((last_day_to_upload - first_day_to_upload).days + 1)]:
             if day == first_day - _ONE_DAY:
@@ -245,3 +258,32 @@ class Updater:
             return _MINDATE
         else:
             return date_from_excel_date(cell)
+
+    def announce_season_opened(self):
+        year = self.now.year
+        msg = EmailMessage()
+        msg['Subject'] = f'Standings spreadsheet for {year} MLB Season'
+        myaddr = Address('Ted Romer', 'tromer', 'gmail.com')
+        msg['From'] = myaddr
+        msg['To'] = myaddr
+        url = f'https://docs.google.com/spreadsheets/d/{self.get_spreadsheet_id_for_year(year)}/edit'
+        name = self._spreadsheet_name(year)
+        html_content = '''<html>
+  <head></head>
+  <body>
+    <p>See <a href="%s">%s</a>.</p>
+  </body>
+</html>''' % (url, name)
+        msg.set_content(f'See {url}')
+        msg.add_alternative(html_content, subtype='html')
+
+        secret_manager_client = secretmanager.SecretManagerServiceClient()
+        # Has retry built-in.
+        password = secret_manager_client.access_secret_version(
+            request={'name': GMAIL_SMTP_SECRET_NAME}).payload.data.decode()
+        # We would need to do our own retry.
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.login('tromer@gmail.com', password)
+            smtp.send_message(msg)

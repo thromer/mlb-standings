@@ -24,7 +24,12 @@ For real ... timeout is 1800 so that we can run hourly.
 
 gcloud --project=mlb-standings-001 functions deploy mlb-standings-001-update --gen2 --runtime=python311 --region=us-west1 --source=src --entry-point=update --trigger-http --allow-unauthenticated --timeout=1800 --service-account=mlb-standings-001-update@mlb-standings-001.iam.gserviceaccount.com
 
-Trigger URL is https://us-west1-mlb-standings-001.cloudfunctions.net/mlb-standings-001-update
+To run directly:
+
+``` bash
+curl -H "Authorization: Bearer $(gcloud auth print-identity-token)" \
+  https://us-west1-mlb-standings-001.cloudfunctions.net/mlb-standings-001-update
+```
 
 
 Logs are here
@@ -80,3 +85,5 @@ https://developers.google.com/resources/api-libraries/documentation/drive/v3/pyt
 By the way to delete a file created by service account: oddly can drag
 and drop to trash from Drive UI, but cannot use snowman menu in Drive
 or File menu in the file to move to trash.
+
+For secrets to work in cloud: in permissions tab, grant relevant service account the role Secret Manager Secret Accessor. To find the service account, look at details for the cloud function.

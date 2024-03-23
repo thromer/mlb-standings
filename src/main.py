@@ -1,8 +1,11 @@
 import flask
 import functions_framework
 
+import email
 import google.auth
 import logging
+import smtplib
+
 # TODO figure out haw to import these nicely and still have mypy work.
 import mlbstandings.google_wrappers
 import mlbstandings.updater
@@ -10,10 +13,13 @@ import mlbstandings.web
 
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from google.cloud import secretmanager
 from googleapiclient.discovery import build
 from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
 from mlbstandings.rate_limiter import SimpleRateLimiter
 from typing import Optional, cast
+
+GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
 
 logging.getLogger('backoff').addHandler(logging.StreamHandler())
 
@@ -78,4 +84,32 @@ def update(_: Optional[flask.Request], args=[]) -> str:
         status = updater.update()
         if status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
             break
+    return 'Done'
+
+
+def mailtest(_: Optional[flask.Request], args=[]) -> str:
+    msg = email.message.EmailMessage()
+    url = f'https://docs.google.com/spreadsheets/d/1_alHZscHsxiKi3Zp90wuSpJEqoAcrhBPQ9LRTytWgy4/edit'
+    name = 'MLB Standings 2024'
+    html_content = '''<html>
+  <head></head>
+  <body>
+    <p>See <a href="%s"> %s</a>.</p>
+  </body>
+</html>''' % (url, name)
+    print(html_content)
+    msg.set_content(f'See {url}')
+    msg.add_alternative(html_content, subtype='html')
+    msg['Subject'] = 'subject local'
+    msg['From'] = 'tromer@gmail.com'
+    msg['To'] = 'tromer@gmail.com'
+    secret_manager_client = secretmanager.SecretManagerServiceClient()
+    # Has retry built-in.
+    password = secret_manager_client.access_secret_version(
+        request={'name': GMAIL_SMTP_SECRET_NAME}).payload.data.decode()
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.login('tromer@gmail.com', password)
+        smtp.send_message(msg)
     return 'Done'
