@@ -10,6 +10,7 @@ CHART_ID = 411882614  # AL Central
 
 
 def main():
+    # More scopes? Re-run gcloud auth application-default login
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
     creds = google.auth.default(scopes=scopes)[0]
     spreadsheets = build('sheets', 'v4', credentials=creds).spreadsheets()

@@ -3,6 +3,7 @@
 import google.auth
 import mlbstandings.google_wrappers
 
+# More scopes? Re-run gcloud auth application-default login
 scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive.metadata.readonly']
 ss = mlbstandings.google_wrappers.Spreadsheets(google.auth.default(scopes=scopes)[0])

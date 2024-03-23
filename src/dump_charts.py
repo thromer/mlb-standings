@@ -11,6 +11,7 @@ SHEET_TITLE = 'al_all'
 
 
 def main():
+    # More scopes? Re-run gcloud auth application-default login
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
     creds = google.auth.default(scopes=scopes)[0]
     # https://developers.google.com/sheets/api/samples/sheet#read-sheet
