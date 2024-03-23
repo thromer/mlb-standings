@@ -76,3 +76,7 @@ Stuff
 https://googleapis.github.io/google-api-python-client/docs/dyn/sheets_v4.html
 
 https://developers.google.com/resources/api-libraries/documentation/drive/v3/python/latest/drive_v3.files.html
+
+By the way to delete a file created by service account: oddly can drag
+and drop to trash from Drive UI, but cannot use snowman menu in Drive
+or File menu in the file to move to trash.
