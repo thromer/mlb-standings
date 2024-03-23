@@ -10,6 +10,7 @@ import mlbstandings.web
 
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from googleapiclient.discovery import build
 from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
 from mlbstandings.rate_limiter import SimpleRateLimiter
 from typing import Optional, cast
@@ -24,6 +25,7 @@ def cf_test(request: Optional[flask.Request], args=[]) -> str:
         request_args = request.args
         print(f'{request_json=}')
         print(f'{request_args=}')
+    # More scopes? Re-run gcloud auth application-default login
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
     creds = google.auth.default(scopes=scopes)[0]
     sheets = mlbstandings.google_wrappers.Spreadsheets(creds)
@@ -38,6 +40,19 @@ def cf_test(request: Optional[flask.Request], args=[]) -> str:
     return str(new_val)
 
 
+@functions_framework.http
+def spreadsheetCopy(request: Optional[flask.Request], args=[]) -> str:
+    # More scopes? Re-run gcloud auth application-default login
+    scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
+              'https://www.googleapis.com/auth/spreadsheets',
+              'https://www.googleapis.com/auth/drive.metadata.readonly']
+    creds = google.auth.default(scopes=scopes)[0]
+    files = build('drive','v3',credentials=creds).files()
+    oldId='14h3hTCvXNzUqTtbegIzSE6JwetMgvtWB6xP9gv87gZs'
+    files.copy(fileId=oldId).execute()
+    return 'Done'
+
+
 CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 
@@ -49,13 +64,16 @@ def update(_: Optional[flask.Request], args=[]) -> str:
         backfill = True
     else:
         d = datetime.now(tz=ZoneInfo('Etc/UTC'))
-    scopes = ['https://www.googleapis.com/auth/spreadsheets',
+    # More scopes? Re-run gcloud auth application-default login
+    scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
+              'https://www.googleapis.com/auth/spreadsheets',
               'https://www.googleapis.com/auth/drive.metadata.readonly']
     creds = google.auth.default(scopes=scopes)[0]
+    files = mlbstandings.google_wrappers.Files(creds)
     sheets = mlbstandings.google_wrappers.Spreadsheets(creds)
     base_web = mlbstandings.web.Web()
     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
-    updater = mlbstandings.updater.Updater(d, sheets, CONTENTS_SPREADSHEET_ID, web)
+    updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
     while True:
         status = updater.update()
         if status == mlbstandings.updater.SeasonStatus.OVER or not backfill:

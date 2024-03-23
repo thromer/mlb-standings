@@ -42,13 +42,15 @@ class SeasonStatus(Enum):
 
 
 class Updater:
-    def __init__(self, now: datetime, spreadsheets: SpreadsheetsLike,
+    def __init__(self, now: datetime, files, spreadsheets: SpreadsheetsLike,
                  contents_id: str, web: WebLike) -> None:
         if now.tzinfo is None or now.tzinfo.utcoffset(now) is None:
             raise ValueError("now should not be naive")
         self.now = now.astimezone(ZoneInfo('America/Los_Angeles'))  # TODO encapsulate day boundary logic somewheres
+        self.files = files
         self.spreadsheets = spreadsheets
-        self._contents = self._build_contents(spreadsheets.spreadsheet(contents_id))
+        self.contents_spreadsheet = spreadsheets.spreadsheet(contents_id)
+        self._contents = self._build_contents(self.contents_spreadsheet)
         self.baseballref = BaseballReference(web)
 
     @staticmethod
@@ -68,7 +70,36 @@ class Updater:
         return f'{league.lower()}_uploaded'
 
     def get_spreadsheet_id_for_year(self, year: int) -> str:
-        return str(self._contents[year])
+        return self.get_spreadsheet_id_for_year_recursive(year, 0)
+
+    def get_spreadsheet_id_for_year_recursive(self, year: int, depth: int) -> str:
+        try:
+            return str(self._contents[year])
+        except KeyError as e:
+            pass
+        if depth > 0:
+            raise KeyError(year)
+        self.create_spreadsheet_for_year(year)
+        return self.get_spreadsheet_id_for_year_recursive(year, depth+1)
+
+    def create_spreadsheet_for_year(self, year: int):
+        # hack: use recursive to avoid trying to create previous year's spreadsheet
+        last_year_spreadsheet_id = self.get_spreadsheet_id_for_year_recursive(year-1, 1)
+
+        # copy from previous year's spreadsheet, note the new id
+        new_name = self._spreadsheet_name(year)
+        new_id = self.files.copy(last_year_spreadsheet_id, new_name)
+        print(f'Created {new_name} https://docs.google.com/spreadsheets/d/{new_id}/edit')
+
+        # clear fields
+        spreadsheet = self.spreadsheets.spreadsheet(new_id)
+        spreadsheet.clear_range('data_values')
+        for sheet_name in [self._upload_sheet_name(l) for l in _LEAGUES] + ['playoff_upload']:
+            spreadsheet.clear_sheet(sheet_name)
+
+        # add to contents
+        self.contents_spreadsheet.append_to_range('contents',[[year,new_id]])
+        self._contents = self._build_contents(self.contents_spreadsheet)
 
     def update_regular_season(self) -> SeasonStatus:
         """
@@ -186,7 +217,6 @@ class Updater:
         return result
 
     def update(self) -> SeasonStatus:
-        # TODO catch FileNotFoundError and copy (to tmp name) & clear & rename
         spreadsheet_id = self.get_spreadsheet_id_for_year(self.now.year)
         self.spreadsheet = self.spreadsheets.spreadsheet(spreadsheet_id)
         if self.update_regular_season() == SeasonStatus.IN_PROGRESS:

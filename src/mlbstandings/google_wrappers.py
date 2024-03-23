@@ -9,6 +9,7 @@ import backoff
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     # noinspection PyProtectedMember
+    from googleapiclient._apis.drive.v3.resources import DriveResource
     from googleapiclient._apis.sheets.v4.resources import SheetsResource
     from google.auth.credentials import Credentials
 
@@ -88,6 +89,27 @@ class Spreadsheet:
             valueInputOption="RAW"
         ).execute()
 
+    @backoff_on_retryable()
+    def append_to_range(self, range, rows):
+        return self.spreadsheets.values().append(
+            spreadsheetId=self.id,
+            range=range,
+            body={'majorDimension':'ROWS','values':rows},
+            valueInputOption='USER_ENTERED'
+        ).execute()
+
+    @backoff_on_retryable()
+    def clear_range(self, range):
+        return self.spreadsheets.values().clear(
+            spreadsheetId=self.id,
+            range=range
+        ).execute()
+
+    def clear_sheet(self, sheet_name):
+        append_res = self.append_to_range(f"'{sheet_name}'!A1:A", [['']])
+        clear_range = append_res['updates']['updatedRange'].replace('!A','!1:',1)
+        self.clear_range(clear_range)
+
 
 class Spreadsheets:
     def __init__(self, creds: Credentials) -> None:
@@ -96,3 +118,13 @@ class Spreadsheets:
 
     def spreadsheet(self, spreadsheet_id: str) -> Spreadsheet:
         return Spreadsheet(self.spreadsheets, spreadsheet_id)
+
+
+class Files:
+    def __init__(self, creds: Credentials) -> None:
+        service: DriveResource = build('drive', 'v3', credentials=creds)
+        self.files = service.files()
+
+    @backoff_on_retryable()
+    def copy(self, id, name):
+        return self.files.copy(fileId=id, body={'name': name}).execute()['id']
