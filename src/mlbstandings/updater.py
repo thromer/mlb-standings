@@ -169,11 +169,12 @@ class Updater:
                 values = [date_to_excel_date(day)] + rows[league]
                 sheet_range = rc0_range_to_sheet_range(((row_index, 0), (row_index, len(values) - 1)))
                 self.spreadsheet.write_values(self._upload_sheet_name(league), sheet_range, [values])
+                # This is needed if we're backfilling into a new sheet
+                newest_league_upload_day[league] = day
             last_day_uploaded = day
         print(f'{last_day_uploaded=}')
 
         # If we didn't upload anything on the last iteration it might be that we're at the end of the season.
-        # TODO This misses backfill case the first time around but I don't think I care that much.
         if last_day is None and last_day_uploaded != last_day_to_upload:
             last_day = self.baseballref.last_scheduled_regular_day(min(newest_league_upload_day.values()))
             if last_day < self.now.date():
@@ -224,7 +225,9 @@ class Updater:
         return self.update_post_season()
 
     def _get_newest_league_day(self, column: List[SheetValue], league: str, first_day: date) -> date:
+        # print(f'_get_newest_league_day(column={column}, league={league}, first_day={first_day}')
         if len(column) <= 1:
+            # print(f'returning {_MINDATE} because len(column)={len(column)}')
             return _MINDATE
         # Check that values sequentially increase starting with first_day - 1
         want = first_day - _ONE_DAY
@@ -238,6 +241,7 @@ class Updater:
 
         cell = column[-1]
         if type(cell) is not int:
+            # print(f'returning {_MINDATE} because type(column[-1])={type(column[-1])}')
             return _MINDATE
         else:
             return date_from_excel_date(cell)
