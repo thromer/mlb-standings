@@ -17,9 +17,9 @@ if TYPE_CHECKING:
 def backoff_on_retryable():
     return backoff.on_exception(
         backoff.expo,
-        HttpError,
+        (HttpError, TimeoutError),
         max_time=600,
-        giveup=lambda e : e.status_code not in set([429, 500, 503]),
+        giveup=lambda e : isinstance(e, HttpError) and e.status_code not in set([429, 500, 503]),
         max_value=60
     )
 
