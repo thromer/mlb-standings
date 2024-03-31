@@ -170,6 +170,7 @@ class Updater:
             self.announce_season_opened()
         for day in [first_day_to_upload + timedelta(days=d)
                     for d in range((last_day_to_upload - first_day_to_upload).days + 1)]:
+            print(f'update_regular_season: day={day}')
             if day == first_day - _ONE_DAY:
                 rows = self.baseballref.zeroday()
             else:
