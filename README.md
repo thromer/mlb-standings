@@ -8,10 +8,14 @@ Future work
 
 # local exec using default creds (pick a project, will need some services enabled I guess, at the very least 'Service Usage API'
 
+First get gcloud e.g. e.g. https://cloud.google.com/sdk/docs/install#deb
+```bash
+# Get cloud e.g. https://cloud.google.com/sdk/docs/install#deb
 gcloud init
 gcloud auth login
 gcloud auth application-default login --scopes=https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.admin,https://www.googleapis.com/auth/spreadsheets,https://www.googleapis.com/auth/drive
-gcloud auth application-default set-quota-project PROJECT
+gcloud auth application-default set-quota-project PROJECT  # maybe no longer needed?
+```
 
 And in cloud console 
 1. add self to Service Usage Consumer for PROJECT
