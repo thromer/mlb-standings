@@ -203,8 +203,9 @@ class BaseballReference:
         br_day = datetime.strptime(br_day_text, '%b %d, %Y').date()
         if br_day != day:
             return None
-        if self.no_games(soup):
-            return None
+        # This will mess up when there is a gap, e.g. 2024 season start
+        # if self.no_games(soup):
+        #    return None
         return {
             league: self._work(league, soup).row() for league in LEAGUES
         }
