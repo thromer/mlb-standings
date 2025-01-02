@@ -93,6 +93,8 @@ SCHEDULE_DATES_URL_FORMAT = (
 REGULAR_SEASON_ID = 'R'
 WORLD_SERIES_ID = 'W'
 
+class BaseballRefException(Exception):
+    pass
 
 class Standings:
     def __init__(self, league: str, stats: Dict[str, Dict[str, float]]):
@@ -173,6 +175,8 @@ class BaseballReference:
             f"startDate={day.strftime('%m/%d/%Y')}",
             f"endDate=12/31/{day.year}"])
         j = json.loads(self.web.read(url))
+        if len(j['dates']) <= 0:
+            raise BaseballRefException('No dates available from BaseballReference ... yet')
         date_str = j['dates'][-1]['games'][-1]['officialDate']
         return datetime.strptime(date_str, '%Y-%m-%d').date()
 

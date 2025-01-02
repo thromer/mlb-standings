@@ -165,9 +165,11 @@ class Updater:
         # TODO test oround midnight boundary (assuming that's what we want)
         last_day_uploaded = None
         print(f'first_day={first_day} {first_day_to_upload=} {last_day_to_upload=}')
-        if first_day_to_upload == first_day - _ONE_DAY:
-            print('announce new season')
-            self.announce_season_opened()
+        # TODO maybe make this work someday. (Currently repeats until
+        # baseball reference has some games or something)
+        # if first_day_to_upload == first_day - _ONE_DAY:
+        #     print('announce new season')
+        #     self.announce_season_opened()
         for day in [first_day_to_upload + timedelta(days=d)
                     for d in range((last_day_to_upload - first_day_to_upload).days + 1)]:
             print(f'update_regular_season: day={day}')
@@ -231,12 +233,16 @@ class Updater:
         self.spreadsheet.set_named_cell(_POST_SEASON_MD5, post_season['md5'])
         return result
 
-    def update(self) -> SeasonStatus:
+    def update(self) -> SeasonStatus | None:
         spreadsheet_id = self.get_spreadsheet_id_for_year(self.now.year)
         self.spreadsheet = self.spreadsheets.spreadsheet(spreadsheet_id)
-        if self.update_regular_season() == SeasonStatus.IN_PROGRESS:
-            return SeasonStatus.IN_PROGRESS
-        return self.update_post_season()
+        try:
+            if self.update_regular_season() == SeasonStatus.IN_PROGRESS:
+                return SeasonStatus.IN_PROGRESS
+            return self.update_post_season()
+        except BaseballRefException as e:
+            print(f'BaseballReferenceException {e}, hopefully transient');
+            return None
 
     def _get_newest_league_day(self, column: List[SheetValue], league: str, first_day: date) -> date:
         # print(f'_get_newest_league_day(column={column}, league={league}, first_day={first_day}')

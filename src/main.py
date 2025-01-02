@@ -82,7 +82,7 @@ def update(_: Optional[flask.Request], args=[]) -> str:
     updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
     while True:
         status = updater.update()
-        if status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
+        if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
             break
     return 'Done'
 
