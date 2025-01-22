@@ -91,3 +91,6 @@ and drop to trash from Drive UI, but cannot use snowman menu in Drive
 or File menu in the file to move to trash.
 
 For secrets to work in cloud: in permissions tab, grant relevant service account the role Secret Manager Secret Accessor. To find the service account, look at details for the cloud function.
+
+This is super helpful for understanding statsapi.mlb.com
+https://github.com/toddrob99/MLB-StatsAPI/wiki
