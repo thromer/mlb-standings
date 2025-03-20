@@ -43,7 +43,7 @@ MLB_ABBRS = {
  119: 'LA',
  120: 'WAS',
  121: 'NYM',
- 133: 'OAK',
+ 133: 'ATH',
  134: 'PIT',
  135: 'SD',
  136: 'SEA',
@@ -71,7 +71,7 @@ LEAGUES = {
     'AL': {
         'E': ['BAL', 'BOS', 'NYY', 'TB', 'TOR'],
         'C': ['CHW', 'CLE', 'DET', 'KC', 'MIN'],
-        'W': ['HOU', 'LAA', 'OAK', 'SEA', 'TEX']
+        'W': ['ATH', 'HOU', 'LAA', 'SEA', 'TEX']
     },
     'NL': {
         'E': ['ATL', 'MIA', 'NYM', 'PHI', 'WAS'],

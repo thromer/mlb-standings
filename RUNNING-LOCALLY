@@ -1,0 +1,16 @@
+Running locally one a new machine for the first time:
+
+* One time ever (not per machine), already done: create an oauth client (and branding page) with tromer@gmail.com
+
+* One time per machine
+
+** Download client id to mlb-standings/oauth_client_id.json
+
+** gcloud --project=mlb-standings-001 auth application-default login --client-id-file=oauth_client_id.json --scopes=https://www.googleapis.com/auth/spreadsheets,openid,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.login
+
+** gcloud --project=mlb-standings-001 auth application-default set-quota-project mlb-standings-001
+
+* src/run_main.py update
+
+
+
