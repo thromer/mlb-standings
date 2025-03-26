@@ -7,7 +7,7 @@ class Web:
         backoff.expo,
         (requests.exceptions.HTTPError, requests.exceptions.ConnectionError, requests.exceptions.Timeout),
         max_time=600,
-        giveup=lambda e : isinstance(e, requests.exceptions.HTTPError) and e.status_code not in set([429, 500, 503]),
+        giveup=lambda e : isinstance(e, requests.exceptions.HTTPError) and e.response.status_code not in set([429, 500, 503]),
         max_value=60
     )
     def read(url: str) -> str:
