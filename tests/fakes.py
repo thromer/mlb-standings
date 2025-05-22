@@ -214,6 +214,8 @@ class FakeWeb:
         fname = None
         if url == 'https://www.baseball-reference.com/leagues/majors/2023-schedule.shtml':
             fname = f'{self.data_dir}/{url.split("/")[-1]}'
+        elif url == 'https://statsapi.mlb.com/api/v1/schedule/?sportId=1&leagueId=103,104&scheduleTypes=games&gameTypes=R&fields=dates,games,officialDate&startDate=01/01/2023&endDate=12/31/2023':
+            fname = f'{self.data_dir}/schedule-for-first-day.json'
         else:
             m = re.match(
                 r'https://www.baseball-reference.com/boxes/\?year=(\d{4})&month=(\d{2})&day=(\d{2})', url)

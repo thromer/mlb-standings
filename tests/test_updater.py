@@ -29,7 +29,7 @@ def test_empty_before_opening_day(datafiles: pathlib.Path) -> None:
     spreadsheets = fakes.FakeSpreadsheets(datafiles)
     web = fakes.FakeWeb(TEST_DATA_DIR)
     try:
-        updater = mlbstandings.updater.Updater(now, spreadsheets, CONTENTS_SHEET_ID, web)
+        updater = mlbstandings.updater.Updater(now, None, spreadsheets, CONTENTS_SHEET_ID, web)
         updater.update()
     finally:
         spreadsheets.close()
@@ -57,7 +57,7 @@ def test_zero_row_multiple_days_done(datafiles: pathlib.Path) -> None:
     spreadsheets = fakes.FakeSpreadsheets(datafiles)
     web = fakes.FakeWeb(TEST_DATA_DIR)
     try:
-        updater = mlbstandings.updater.Updater(now, spreadsheets, CONTENTS_SHEET_ID, web)
+        updater = mlbstandings.updater.Updater(now, None, spreadsheets, CONTENTS_SHEET_ID, web)
         updater.update()
     finally:
         spreadsheets.close()

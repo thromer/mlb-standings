@@ -460,7 +460,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Los Angeles Angels @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "March 30, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202303300.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202303300.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -980,7 +980,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Los Angeles Angels @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 01, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304010.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304010.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -1370,7 +1370,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Los Angeles Angels @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 02, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304020.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304020.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -1786,7 +1786,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Cleveland Guardians @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 03, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304030.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304030.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -2150,7 +2150,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Cleveland Guardians @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 04, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304040.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304040.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -2488,7 +2488,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Cleveland Guardians @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 05, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304050.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304050.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -5478,7 +5478,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "New York Mets @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 14, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304140.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304140.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -5868,7 +5868,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "New York Mets @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 15, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304150.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304150.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -6232,7 +6232,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "New York Mets @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 16, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304160.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304160.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -6570,7 +6570,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Chicago Cubs @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 17, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304170.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304170.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -6986,7 +6986,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Chicago Cubs @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 18, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304180.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304180.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -7376,7 +7376,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Chicago Cubs @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 19, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304190.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304190.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -10444,7 +10444,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Cincinnati Reds @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 28, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304280.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304280.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -10782,7 +10782,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Cincinnati Reds @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 29, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304290.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304290.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -11172,7 +11172,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Cincinnati Reds @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "April 30, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202304300.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202304300.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -11718,7 +11718,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Seattle Mariners @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 02, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305020.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305020.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -12134,7 +12134,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Seattle Mariners @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 03, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305030.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305030.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -12446,7 +12446,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Seattle Mariners @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 04, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305040.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305040.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -14916,7 +14916,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Texas Rangers @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 11, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305110.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305110.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -15254,7 +15254,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Texas Rangers @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 12, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305120.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305120.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -15644,7 +15644,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Texas Rangers @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 13, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305130.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305130.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -16034,7 +16034,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Texas Rangers @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 14, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305140.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305140.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -16242,7 +16242,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Arizona D'Backs @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 15, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305150.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305150.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -16658,7 +16658,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Arizona D'Backs @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 16, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305160.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305160.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -17048,7 +17048,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Arizona D'Backs @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 17, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305170.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305170.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -20194,7 +20194,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Houston Astros @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 26, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305260.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305260.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -20584,7 +20584,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Houston Astros @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 27, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305270.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305270.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -20974,7 +20974,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Houston Astros @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 28, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305280.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305280.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -21234,7 +21234,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Atlanta Braves @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 29, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305290.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305290.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -21598,7 +21598,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Atlanta Braves @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 30, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305300.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305300.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -21988,7 +21988,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Atlanta Braves @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "May 31, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202305310.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202305310.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -25940,7 +25940,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Tampa Bay Rays @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 12, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306120.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306120.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -26278,7 +26278,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Tampa Bay Rays @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 13, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306130.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306130.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -26694,7 +26694,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Tampa Bay Rays @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 14, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306140.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306140.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -27006,7 +27006,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Tampa Bay Rays @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 15, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306150.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306150.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -27344,7 +27344,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Philadelphia Phillies @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 16, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306160.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306160.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -27708,7 +27708,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Philadelphia Phillies @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 17, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306170.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306170.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -28124,7 +28124,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Philadelphia Phillies @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 18, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306180.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306180.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -31010,7 +31010,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "New York Yankees @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 27, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306270.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306270.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -31400,7 +31400,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "New York Yankees @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 28, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306280.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306280.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -31738,7 +31738,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "New York Yankees @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 29, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306290.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306290.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -32076,7 +32076,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Chicago White Sox @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "June 30, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202306300.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202306300.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -32440,7 +32440,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Chicago White Sox @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 01, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307010.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307010.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -32856,7 +32856,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Chicago White Sox @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 02, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307020.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307020.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -35716,7 +35716,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Minnesota Twins @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 14, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307140.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307140.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -36132,7 +36132,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Minnesota Twins @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 15, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307150.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307150.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -36548,7 +36548,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Minnesota Twins @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 16, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307160.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307160.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -36860,7 +36860,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Boston Red Sox @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 17, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307170.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307170.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -37198,7 +37198,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Boston Red Sox @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 18, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307180.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307180.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -37588,7 +37588,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Boston Red Sox @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 19, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307190.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307190.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -37900,7 +37900,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Houston Astros @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 20, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307200.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307200.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -38290,7 +38290,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Houston Astros @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 21, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307210.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307210.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -38680,7 +38680,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Houston Astros @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 22, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307220.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307220.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -39070,7 +39070,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Houston Astros @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "July 23, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202307230.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202307230.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -43464,7 +43464,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "San Francisco Giants @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "August 05, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202308050.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202308050.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -43854,7 +43854,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "San Francisco Giants @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "August 06, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202308060.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202308060.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -44192,7 +44192,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Texas Rangers @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "August 07, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202308070.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202308070.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -44530,7 +44530,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Texas Rangers @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "August 08, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202308080.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202308080.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -44946,7 +44946,7 @@ loadJS( _sr_modern_url, function() { vjs_ready(sr_fire_js); });
 		"name": "Texas Rangers @ Oakland Athletics",
 			"sport": "Baseball",
 		"startDate": "August 09, 2023",
-			"url": "https://www.baseball-reference.com/boxes/OAK/OAK202308090.shtml",
+			"url": "https://www.baseball-reference.com/boxes/ATH/OAK202308090.shtml",
 		"eventStatus": "https://schema.org/EventScheduled",
 		"location": {
 			"@type": "Place",
@@ -63366,7 +63366,7 @@ function apiFunction(ApiHandshake)  {
 					
 					<option value="/teams/NYY/2023-schedule-scores.shtml">New York Yankees</option>
 					
-					<option value="/teams/OAK/2023-schedule-scores.shtml">Oakland Athletics</option>
+					<option value="/teams/ATH/2023-schedule-scores.shtml">Oakland Athletics</option>
 					
 					<option value="/teams/PHI/2023-schedule-scores.shtml">Philadelphia Phillies</option>
 					
@@ -63505,9 +63505,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
  (1)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202303300.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202303300.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -63713,9 +63713,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
  (13)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304010.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304010.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -63867,9 +63867,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
  (6)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304020.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304020.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -64031,9 +64031,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/CLE/2023.shtml">Cleveland Guardians</a>
  (12)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (11)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304030.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304030.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -64175,9 +64175,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/CLE/2023.shtml">Cleveland Guardians</a>
  (3)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304040.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304040.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -64309,9 +64309,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/CLE/2023.shtml">Cleveland Guardians</a>
  (6)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304050.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304050.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -64554,7 +64554,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (5)
  @
  <strong> <a href="/teams/TBR/2023.shtml">Tampa Bay Rays</a>
@@ -64708,7 +64708,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
  @
  <strong> <a href="/teams/TBR/2023.shtml">Tampa Bay Rays</a>
@@ -64862,7 +64862,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
  @
  <strong> <a href="/teams/TBR/2023.shtml">Tampa Bay Rays</a>
@@ -64906,7 +64906,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/BAL/2023.shtml">Baltimore Orioles</a>
@@ -65050,7 +65050,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (8)
  @
  <strong> <a href="/teams/BAL/2023.shtml">Baltimore Orioles</a>
@@ -65204,7 +65204,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (8)</strong>
  @
   <a href="/teams/BAL/2023.shtml">Baltimore Orioles</a>
@@ -65328,7 +65328,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (7)
  @
  <strong> <a href="/teams/BAL/2023.shtml">Baltimore Orioles</a>
@@ -65495,9 +65495,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/NYM/2023.shtml">New York Mets</a>
  (17)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (6)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304140.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304140.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -65649,9 +65649,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/NYM/2023.shtml">New York Mets</a>
  (3)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304150.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304150.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -65793,9 +65793,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/NYM/2023.shtml">New York Mets</a>
  (4)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304160.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304160.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -65927,9 +65927,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/CHC/2023.shtml">Chicago Cubs</a>
  (10)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304170.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304170.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -66091,9 +66091,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/CHC/2023.shtml">Chicago Cubs</a>
  (4)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304180.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304180.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -66245,9 +66245,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/CHC/2023.shtml">Chicago Cubs</a>
  (12)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304190.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304190.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -66500,7 +66500,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (5)</strong>
  @
   <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
@@ -66664,7 +66664,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
@@ -66818,7 +66818,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
@@ -66832,7 +66832,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (11)</strong>
  @
   <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
@@ -66946,7 +66946,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
@@ -67100,7 +67100,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
@@ -67254,7 +67254,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (7)
  @
  <strong> <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
@@ -67461,9 +67461,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/CIN/2023.shtml">Cincinnati Reds</a>
  (11)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (7)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304280.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304280.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -67595,9 +67595,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/CIN/2023.shtml">Cincinnati Reds</a>
  (3)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304290.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304290.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -67749,9 +67749,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/CIN/2023.shtml">Cincinnati Reds</a>
  (4)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (5)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202304300.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202304300.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -67967,9 +67967,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
  (2)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305020.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305020.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -68131,9 +68131,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
  (7)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305030.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305030.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -68255,9 +68255,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
  (5)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305040.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305040.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -68356,7 +68356,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (12)</strong>
  @
   <a href="/teams/KCR/2023.shtml">Kansas City Royals</a>
@@ -68510,7 +68510,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (5)</strong>
  @
   <a href="/teams/KCR/2023.shtml">Kansas City Royals</a>
@@ -68664,7 +68664,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/KCR/2023.shtml">Kansas City Royals</a>
@@ -68828,7 +68828,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/NYY/2023.shtml">New York Yankees</a>
@@ -68972,7 +68972,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (5)
  @
  <strong> <a href="/teams/NYY/2023.shtml">New York Yankees</a>
@@ -69126,7 +69126,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/NYY/2023.shtml">New York Yankees</a>
@@ -69233,9 +69233,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
  (4)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305110.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305110.shtml">Boxscore</a></em>
  </p>
 <p> &nbsp;&nbsp;&nbsp;&#187; <a href="/boxes/?date=2023-05-11">2023-05-11 Standings &amp; Scores</a></p>
 </div>
@@ -69367,9 +69367,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
  (7)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (9)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305120.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305120.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -69521,9 +69521,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
  (5)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305130.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305130.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -69675,9 +69675,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
  (11)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305140.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305140.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -69759,9 +69759,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/ARI/2023.shtml">Arizona D'Backs</a>
  (5)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305150.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305150.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -69923,9 +69923,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/ARI/2023.shtml">Arizona D'Backs</a>
  (8)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (9)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305160.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305160.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -70077,9 +70077,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/ARI/2023.shtml">Arizona D'Backs</a>
  (5)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305170.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305170.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -70242,7 +70242,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
@@ -70396,7 +70396,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
@@ -70540,7 +70540,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
  @
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
@@ -70764,7 +70764,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
@@ -70908,7 +70908,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
@@ -71062,7 +71062,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
@@ -71166,7 +71166,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
@@ -71323,9 +71323,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
  (5)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305260.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305260.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -71477,9 +71477,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
  (6)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305270.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305270.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -71631,9 +71631,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
  (10)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305280.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305280.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -71735,9 +71735,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/ATL/2023.shtml">Atlanta Braves</a>
  (2)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (7)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305290.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305290.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -71879,9 +71879,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/ATL/2023.shtml">Atlanta Braves</a>
  (1)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305300.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305300.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -72033,9 +72033,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/ATL/2023.shtml">Atlanta Braves</a>
  (4)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202305310.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202305310.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -72208,7 +72208,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
  @
  <strong> <a href="/teams/MIA/2023.shtml">Miami Marlins</a>
@@ -72372,7 +72372,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/MIA/2023.shtml">Miami Marlins</a>
@@ -72526,7 +72526,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (5)
  @
  <strong> <a href="/teams/MIA/2023.shtml">Miami Marlins</a>
@@ -72650,7 +72650,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)
  @
  <strong> <a href="/teams/PIT/2023.shtml">Pittsburgh Pirates</a>
@@ -72784,7 +72784,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (11)</strong>
  @
   <a href="/teams/PIT/2023.shtml">Pittsburgh Pirates</a>
@@ -72918,7 +72918,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (9)</strong>
  @
   <a href="/teams/PIT/2023.shtml">Pittsburgh Pirates</a>
@@ -73166,7 +73166,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (5)</strong>
  @
   <a href="/teams/MIL/2023.shtml">Milwaukee Brewers</a>
@@ -73320,7 +73320,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)</strong>
  @
   <a href="/teams/MIL/2023.shtml">Milwaukee Brewers</a>
@@ -73474,7 +73474,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (8)</strong>
  @
   <a href="/teams/MIL/2023.shtml">Milwaukee Brewers</a>
@@ -73601,9 +73601,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/TBR/2023.shtml">Tampa Bay Rays</a>
  (3)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306120.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306120.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -73735,9 +73735,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/TBR/2023.shtml">Tampa Bay Rays</a>
  (1)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306130.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306130.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -73899,9 +73899,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/TBR/2023.shtml">Tampa Bay Rays</a>
  (6)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306140.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306140.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -74023,9 +74023,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/TBR/2023.shtml">Tampa Bay Rays</a>
  (4)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306150.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306150.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -74157,9 +74157,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/PHI/2023.shtml">Philadelphia Phillies</a>
  (6)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306160.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306160.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -74301,9 +74301,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/PHI/2023.shtml">Philadelphia Phillies</a>
  (3)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306170.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306170.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -74465,9 +74465,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/PHI/2023.shtml">Philadelphia Phillies</a>
  (3)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306180.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306180.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -74650,7 +74650,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/CLE/2023.shtml">Cleveland Guardians</a>
@@ -74804,7 +74804,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (6)
  @
  <strong> <a href="/teams/CLE/2023.shtml">Cleveland Guardians</a>
@@ -74918,7 +74918,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/CLE/2023.shtml">Cleveland Guardians</a>
@@ -75132,7 +75132,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (5)</strong>
  @
   <a href="/teams/TOR/2023.shtml">Toronto Blue Jays</a>
@@ -75286,7 +75286,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/TOR/2023.shtml">Toronto Blue Jays</a>
@@ -75440,7 +75440,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/TOR/2023.shtml">Toronto Blue Jays</a>
@@ -75611,9 +75611,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/NYY/2023.shtml">New York Yankees</a>
  (1)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306270.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306270.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -75765,9 +75765,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/NYY/2023.shtml">New York Yankees</a>
  (11)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306280.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306280.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -75899,9 +75899,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/NYY/2023.shtml">New York Yankees</a>
  (10)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306290.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306290.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -76033,9 +76033,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/CHW/2023.shtml">Chicago White Sox</a>
  (4)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (7)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202306300.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202306300.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -76177,9 +76177,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/CHW/2023.shtml">Chicago White Sox</a>
  (6)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (7)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307010.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307010.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -76341,9 +76341,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/CHW/2023.shtml">Chicago White Sox</a>
  (8)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (7)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307020.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307020.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -76556,7 +76556,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)</strong>
  @
   <a href="/teams/DET/2023.shtml">Detroit Tigers</a>
@@ -76700,7 +76700,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (12)</strong>
  @
   <a href="/teams/DET/2023.shtml">Detroit Tigers</a>
@@ -76864,7 +76864,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
  @
  <strong> <a href="/teams/DET/2023.shtml">Detroit Tigers</a>
@@ -76958,7 +76958,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/BOS/2023.shtml">Boston Red Sox</a>
@@ -77112,7 +77112,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/BOS/2023.shtml">Boston Red Sox</a>
@@ -77266,7 +77266,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/BOS/2023.shtml">Boston Red Sox</a>
@@ -77473,9 +77473,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/MIN/2023.shtml">Minnesota Twins</a>
  (5)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307140.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307140.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -77637,9 +77637,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/MIN/2023.shtml">Minnesota Twins</a>
  (10)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (7)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307150.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307150.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -77801,9 +77801,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/MIN/2023.shtml">Minnesota Twins</a>
  (5)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307160.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307160.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -77925,9 +77925,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/BOS/2023.shtml">Boston Red Sox</a>
  (7)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307170.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307170.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -78059,9 +78059,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/BOS/2023.shtml">Boston Red Sox</a>
  (0)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307180.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307180.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -78213,9 +78213,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/BOS/2023.shtml">Boston Red Sox</a>
  (5)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (6)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307190.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307190.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -78337,9 +78337,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
  (3)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307200.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307200.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -78491,9 +78491,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
  (6)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307210.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307210.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -78645,9 +78645,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/HOU/2023.shtml">Houston Astros</a>
  (1)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (4)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307220.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307220.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -78799,9 +78799,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/HOU/2023.shtml">Houston Astros</a>
  (3)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202307230.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202307230.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -79074,7 +79074,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/SFG/2023.shtml">San Francisco Giants</a>
@@ -79218,7 +79218,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/SFG/2023.shtml">San Francisco Giants</a>
@@ -79346,7 +79346,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (8)</strong>
  @
   <a href="/teams/COL/2023.shtml">Colorado Rockies</a>
@@ -79500,7 +79500,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (11)</strong>
  @
   <a href="/teams/COL/2023.shtml">Colorado Rockies</a>
@@ -79654,7 +79654,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (0)
  @
  <strong> <a href="/teams/COL/2023.shtml">Colorado Rockies</a>
@@ -79922,7 +79922,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
  @
  <strong> <a href="/teams/LAD/2023.shtml">Los Angeles Dodgers</a>
@@ -80076,7 +80076,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
  @
  <strong> <a href="/teams/LAD/2023.shtml">Los Angeles Dodgers</a>
@@ -80210,7 +80210,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/LAD/2023.shtml">Los Angeles Dodgers</a>
@@ -80541,9 +80541,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/SFG/2023.shtml">San Francisco Giants</a>
  (1)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202308050.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202308050.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -80695,9 +80695,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/SFG/2023.shtml">San Francisco Giants</a>
  (6)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (8)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202308060.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202308060.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -80829,9 +80829,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
  (5)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (3)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202308070.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202308070.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -80963,9 +80963,9 @@ function apiFunction(ApiHandshake)  {
  <strong> <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
  (6)</strong>
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (1)
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202308080.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202308080.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -81127,9 +81127,9 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
  (0)
  @
- <strong> <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+ <strong> <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)</strong>
- &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/OAK/OAK202308090.shtml">Boxscore</a></em>
+ &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/boxes/ATH/OAK202308090.shtml">Boxscore</a></em>
  </p>
  <p class="game">
  
@@ -81402,7 +81402,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  (2)
  @
  <strong> <a href="/teams/WSN/2023.shtml">Washington Nationals</a>
@@ -81486,7 +81486,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:05 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/WSN/2023.shtml">Washington Nationals</a>
@@ -81610,7 +81610,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>1:35 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/WSN/2023.shtml">Washington Nationals</a>
@@ -81754,7 +81754,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:45 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/STL/2023.shtml">St. Louis Cardinals</a>
@@ -81888,7 +81888,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:45 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/STL/2023.shtml">St. Louis Cardinals</a>
@@ -82032,7 +82032,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>6:45 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/STL/2023.shtml">St. Louis Cardinals</a>
@@ -82313,7 +82313,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/BAL/2023.shtml">Baltimore Orioles</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202308180.shtml">Preview</a></em>
  </p>
@@ -82477,7 +82477,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/BAL/2023.shtml">Baltimore Orioles</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202308190.shtml">Preview</a></em>
  </p>
@@ -82611,7 +82611,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/BAL/2023.shtml">Baltimore Orioles</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202308200.shtml">Preview</a></em>
  </p>
@@ -82735,7 +82735,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/KCR/2023.shtml">Kansas City Royals</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202308210.shtml">Preview</a></em>
  </p>
@@ -82889,7 +82889,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/KCR/2023.shtml">Kansas City Royals</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202308220.shtml">Preview</a></em>
  </p>
@@ -82953,7 +82953,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/KCR/2023.shtml">Kansas City Royals</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202308230.shtml">Preview</a></em>
  </p>
@@ -83124,7 +83124,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>8:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/CHW/2023.shtml">Chicago White Sox</a>
@@ -83228,7 +83228,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/CHW/2023.shtml">Chicago White Sox</a>
@@ -83382,7 +83382,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/CHW/2023.shtml">Chicago White Sox</a>
@@ -83546,7 +83546,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>2:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/CHW/2023.shtml">Chicago White Sox</a>
@@ -83720,7 +83720,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>9:40 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
@@ -83874,7 +83874,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>9:40 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
@@ -83988,7 +83988,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>4:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
@@ -84229,7 +84229,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309010.shtml">Preview</a></em>
  </p>
@@ -84273,7 +84273,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309020.shtml">Preview</a></em>
  </p>
@@ -84507,7 +84507,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309030.shtml">Preview</a></em>
  </p>
@@ -84601,7 +84601,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/TOR/2023.shtml">Toronto Blue Jays</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309040.shtml">Preview</a></em>
  </p>
@@ -84815,7 +84815,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/TOR/2023.shtml">Toronto Blue Jays</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309050.shtml">Preview</a></em>
  </p>
@@ -84869,7 +84869,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/TOR/2023.shtml">Toronto Blue Jays</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309060.shtml">Preview</a></em>
  </p>
@@ -85154,7 +85154,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>8:05 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
@@ -85308,7 +85308,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:05 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
@@ -85482,7 +85482,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>2:35 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/TEX/2023.shtml">Texas Rangers</a>
@@ -85616,7 +85616,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>8:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/HOU/2023.shtml">Houston Astros</a>
@@ -85770,7 +85770,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>8:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/HOU/2023.shtml">Houston Astros</a>
@@ -85924,7 +85924,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/HOU/2023.shtml">Houston Astros</a>
@@ -86205,7 +86205,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/SDP/2023.shtml">San Diego Padres</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309150.shtml">Preview</a></em>
  </p>
@@ -86239,7 +86239,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/SDP/2023.shtml">San Diego Padres</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309160.shtml">Preview</a></em>
  </p>
@@ -86503,7 +86503,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/SDP/2023.shtml">San Diego Padres</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309170.shtml">Preview</a></em>
  </p>
@@ -86617,7 +86617,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309180.shtml">Preview</a></em>
  </p>
@@ -86771,7 +86771,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309190.shtml">Preview</a></em>
  </p>
@@ -86865,7 +86865,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/SEA/2023.shtml">Seattle Mariners</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309200.shtml">Preview</a></em>
  </p>
@@ -87029,7 +87029,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/DET/2023.shtml">Detroit Tigers</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309210.shtml">Preview</a></em>
  </p>
@@ -87173,7 +87173,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/DET/2023.shtml">Detroit Tigers</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309220.shtml">Preview</a></em>
  </p>
@@ -87257,7 +87257,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/DET/2023.shtml">Detroit Tigers</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309230.shtml">Preview</a></em>
  </p>
@@ -87481,7 +87481,7 @@ function apiFunction(ApiHandshake)  {
   <a href="/teams/DET/2023.shtml">Detroit Tigers</a>
  
  @
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  &nbsp;&nbsp;&nbsp;&nbsp;<em><a href="/previews/2023/OAK202309240.shtml">Preview</a></em>
  </p>
@@ -87666,7 +87666,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:40 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/MIN/2023.shtml">Minnesota Twins</a>
@@ -87820,7 +87820,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>7:40 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/MIN/2023.shtml">Minnesota Twins</a>
@@ -87884,7 +87884,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>1:10 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/MIN/2023.shtml">Minnesota Twins</a>
@@ -88088,7 +88088,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>9:38 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
@@ -88262,7 +88262,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>9:07 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
@@ -88326,7 +88326,7 @@ function apiFunction(ApiHandshake)  {
  <p class="game">
  <span tz="E"><strong>3:07 pm</strong></span>
  
-  <a href="/teams/OAK/2023.shtml">Oakland Athletics</a>
+  <a href="/teams/ATH/2023.shtml">Oakland Athletics</a>
  
  @
   <a href="/teams/LAA/2023.shtml">Los Angeles Angels</a>
@@ -88649,7 +88649,7 @@ function apiFunction(ApiHandshake)  {
 	 	<div class="division"><strong>AL West</strong>:
 <a href="/teams/HOU/">Houston Astros</a>, 
 <a href="/teams/LAA/">Los Angeles Angels</a>, 
-<a href="/teams/OAK/">Oakland Athletics</a>, 
+<a href="/teams/ATH/">Oakland Athletics</a>, 
 <a href="/teams/SEA/">Seattle Mariners</a>, 
 <a href="/teams/TEX/">Texas Rangers</a>
 		</div>	
