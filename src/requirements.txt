@@ -1,1 +1,6 @@
-../requirements.txt
+backoff
+beautifulsoup4
+functions_framework
+google-api-python-client
+google-auth
+google-cloud-secret-manager
