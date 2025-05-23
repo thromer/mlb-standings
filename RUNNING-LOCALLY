@@ -4,7 +4,7 @@ Running locally one a new machine for the first time:
 
 * One time per machine
 
-** Download client id to mlb-standings/oauth_client_id.json
+** Download client id to mlb-standings/oauth_client_id.json from https://console.cloud.google.com/auth/clients?project=mlb-standings-001
 
 ** gcloud --project=mlb-standings-001 auth application-default login --client-id-file=oauth_client_id.json --scopes=https://www.googleapis.com/auth/spreadsheets,openid,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.login
 
