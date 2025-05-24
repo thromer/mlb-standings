@@ -9,10 +9,10 @@ SHEET_TITLE = 'hacked copy of all'
 CHART_ID = 411882614  # AL Central
 
 
-def main():
+def main() -> None:
     # More scopes? Re-run gcloud auth application-default login
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
-    creds = google.auth.default(scopes=scopes)[0]
+    creds = google.auth.default(scopes=scopes)[0]  # type: ignore
     spreadsheets = build('sheets', 'v4', credentials=creds).spreadsheets()
     sheets = spreadsheets.get(
         spreadsheetId=SHEET_ID,
@@ -23,7 +23,7 @@ def main():
             sheet = s
             break
 
-    for chart in sheet['charts']:
+    for chart in sheet['charts']:  # type: ignore
         chart['spec']['title'] = str(chart['chartId'])
         # del chart['spec']['title']
         pass
@@ -32,7 +32,7 @@ def main():
             'spec': chart['spec'],
             'chartId': chart['chartId'],
         }}
-        for chart in sheet['charts']
+        for chart in sheet['charts']  # type: ignore
         if chart['chartId'] == CHART_ID
     ]
     print('BEFORE')

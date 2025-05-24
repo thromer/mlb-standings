@@ -2,7 +2,7 @@
 import sys
 
 
-def main(args):
+def main(args: list[str]) -> None:
     year = int(args[0])
     # If year is already in toc, return
     # Make a copy of the newest row in toc, staying in the same folder (can a cloud function do that?)

@@ -64,7 +64,7 @@ class FakeSheet:
     # def transposed_values(self) -> SheetArray:
     #     return numpy.transpose(self.values)
 
-    def read_values(self, sheet_range: str, major_dimension: Dimension) -> SheetArray:
+    def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
         rc0_range = sheet_range_to_rc0_range(sheet_range)
         print(f'{rc0_range=}')
         r_min = rc0_range[0][0] if rc0_range[0][0] != -1 else self.r_min
@@ -110,10 +110,8 @@ class FakeSheet:
         print(f'transpose({values})={result}')
         return result
 
-    def write_values(self, sheet_range: str, values: SheetArray, major_dimension: Dimension) -> None:
-        print(f'write_values({sheet_range}, {values}, {major_dimension}')
-        if major_dimension == 'COLUMNS':
-            values = self.transpose(values)
+    def set_range(self, sheet_range: str, values: SheetArray) -> None:
+        print(f'write_values({sheet_range}, {values}')
         rc0_range = sheet_range_to_rc0_range(sheet_range)
         print(f'{rc0_range=}')
         r_min = rc0_range[0][0] if rc0_range[0][0] != -1 else self.r_min
@@ -139,8 +137,6 @@ class FakeSheet:
         for r in range(r_min, r_max + 1):
             for c in range(c_min, c_max + 1):
                 in_r, in_c = r - r_min, c - c_min
-                if major_dimension == 'COLUMNS':
-                    in_r, in_c = in_c, in_r
                 self.values[r][c] = values[in_r][in_c]
         print(f'{self.values=}')
 
@@ -163,31 +159,34 @@ class FakeSpreadsheet:
         for sheet_name, sheet in self.sheets.items():
             sheet.tocsv(self.data_dir / f'{sheet_name}.csv')
 
-    def get_named_range(self, name: str) -> SheetArray:
-        return cast(SheetArray, self.named_ranges[name])
+    def get_range(self, range_str: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
+        print(f'get_range(range_str={range_str}, major_dimension={major_dimension}')
+        if range_str in self.named_ranges:
+            return cast(SheetArray, self.named_ranges[range_str])
+        n, r = range_str.split('!', 1)
+        return self.sheets[n].get_range(r, major_dimension)
 
-    def set_named_range(self, name: str, arr: SheetArray) -> None:
-        self.named_ranges[name] = arr
+    def get_cell(self, cell_str: str) -> SheetValue:
+        return _convert_cell(self.get_range(cell_str)[0][0])
 
-    def get_named_cell(self, name: str) -> SheetValue:
-        return _convert_cell(self.get_named_range(name)[0][0])
+    def set_range(self, range_str: str, values: SheetArray) -> None:
+        if range_str in self.named_ranges:
+            self.named_ranges[range_str] = values
+            return
+        n, r = range_str.split('!', 1)
+        self.sheets[n].set_range(r, values)
 
-    def set_named_cell(self, name: str, value: SheetValue) -> None:
-        self.named_ranges[name] = [[value]]
+    def set_cell(self, cell_str: str, value: SheetValue) -> None:
+        self.set_range(cell_str, [[value]])
 
-    def read_values(self, sheet_name: str, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
-        print(f'read_values(sheet_name={sheet_name}, sheet_range={sheet_range}')
-        return self.sheets[sheet_name].read_values(sheet_range, major_dimension)
+    def append_to_range(self, range_str: str, rows: SheetArray) -> dict[str, Any]:
+        raise NotImplementedError()
 
-    def get_range(self, sheet_range: str, major_dimension: Dimension = 'ROWS') -> SheetArray:
-        message = f'get_range(sheet_sheet_range={sheet_range}'
-        print(message)
-        n, r = sheet_range.split('!', 1)
-        return self.read_values(n, r, major_dimension)
+    def clear_range(self, range_str: str) -> None:
+        raise NotImplementedError()
 
-    def write_values(self, sheet_name: str, sheet_range: str,
-                     values: SheetArray, major_dimension: Dimension = 'ROWS') -> None:
-        self.sheets[sheet_name].write_values(sheet_range, values, major_dimension)
+    def clear_sheet(self, sheet_name: str) -> None:
+        raise NotImplementedError()
 
 
 class FakeSpreadsheets:
@@ -203,6 +202,10 @@ class FakeSpreadsheets:
         ss = FakeSpreadsheet(self.test_data_dir, spreadsheet_id)
         self.spreadsheets.append(ss)
         return ss
+
+class FakeFiles:
+    def copy(self, id: str, name: str) -> str:
+        raise NotImplementedError()
 
 
 class FakeWeb:

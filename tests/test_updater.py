@@ -6,7 +6,6 @@ from zoneinfo import ZoneInfo
 import pytest
 
 import fakes
-import mlbstandings.google_wrappers
 import mlbstandings.updater
 import mlbstandings.web
 from fixtures import TEST_DATA_DIR
@@ -27,14 +26,15 @@ def test_empty_before_opening_day(datafiles: pathlib.Path) -> None:
         print(f.name)
     now = datetime(2023, 3, 30, tzinfo=ZoneInfo('America/Los_Angeles'))
     spreadsheets = fakes.FakeSpreadsheets(datafiles)
+    files = fakes.FakeFiles()
     web = fakes.FakeWeb(TEST_DATA_DIR)
     try:
-        updater = mlbstandings.updater.Updater(now, None, spreadsheets, CONTENTS_SHEET_ID, web)
+        updater = mlbstandings.updater.Updater(now, files, spreadsheets, CONTENTS_SHEET_ID, web)
         updater.update()
     finally:
         spreadsheets.close()
     spreadsheet = spreadsheets.spreadsheet(updater.get_spreadsheet_id_for_year(2023))
-    first_day_val = spreadsheet.get_named_cell('first_day')
+    first_day_val = spreadsheet.get_cell('first_day')
     if type(first_day_val) is not int:
         raise TypeError(f'{first_day_val} has type {type(first_day_val)}')
     print(f"first_day={date_from_excel_date(first_day_val)}")
@@ -55,9 +55,10 @@ def test_zero_row_multiple_days_done(datafiles: pathlib.Path) -> None:
     """Add data from multiple days"""
     now = datetime(2023, 5, 1, tzinfo=ZoneInfo('America/Los_Angeles'))
     spreadsheets = fakes.FakeSpreadsheets(datafiles)
+    files = fakes.FakeFiles()
     web = fakes.FakeWeb(TEST_DATA_DIR)
     try:
-        updater = mlbstandings.updater.Updater(now, None, spreadsheets, CONTENTS_SHEET_ID, web)
+        updater = mlbstandings.updater.Updater(now, files, spreadsheets, CONTENTS_SHEET_ID, web)
         updater.update()
     finally:
         spreadsheets.close()
