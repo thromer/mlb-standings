@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from requests.exceptions import HTTPError, Timeout
 from requests.sessions import Session
-from urllib.parse import quote
+from urllib.parse import quote  # TODO remove probably
 
 import backoff
 
@@ -35,14 +35,15 @@ class Spreadsheet:
         self.id = spreadsheet_id
 
     @backoff_on_retryable()
-    def set_range(self, range_str: str, vals: SheetArray) -> None:
+    def set_range(self, range_str: str, values: SheetArray) -> None:
         url = f'https://sheets.googleapis.com/v4/spreadsheets/{self.id}/values/{quote(range_str)}'
         params = {
             'valueInputOption': 'RAW',
             'includeValuesInResponse': 'false',
             'alt': 'json',
         }
-        resp = self.session.put(url, params=params, json=vals)
+        # print(f'PUT {url}')
+        resp = self.session.put(url, params=params, json={'values': values})
         resp.raise_for_status()
 
     def set_cell(self, cell_str: str, value: SheetValue) -> None:
@@ -56,6 +57,7 @@ class Spreadsheet:
             'valueRenderOption': 'UNFORMATTED_VALUE',
             'dateTimeRenderOption': 'SERIAL_NUMBER',
         }
+        # print(f'GET {url}')
         resp = self.session.get(url, params=params)
         resp.raise_for_status()
         return cast(SheetArray, resp.json().get('values', [[]]))
@@ -67,20 +69,22 @@ class Spreadsheet:
         return range_values[0][0]
 
     @backoff_on_retryable()
-    def append_to_range(self, range_str: str, rows: SheetArray) -> dict[str, Any]:
+    def append_to_range(self, range_str: str, values: SheetArray) -> dict[str, Any]:
         url = f'https://content-sheets.googleapis.com/v4/spreadsheets/{self.id}/values/{quote(range_str)}:append'
         params = {
             'valueInputOption': 'USER_ENTERED',
             'includeValuesInResponse': 'false',
             'alt': 'json',
         }
-        resp = self.session.post(url, params=params)
+        # print(f'POST {url}')
+        resp = self.session.post(url, params=params, json={'values': values})
         resp.raise_for_status()
         return cast(dict[str, Any], resp.json())
 
     @backoff_on_retryable()
     def clear_range(self, range_str: str) -> None:
         url = f'https://sheets.googleapis.com/v4/spreadsheets/{self.id}/values/{quote(range_str)}:clear'
+        # print(f'POST {url}')
         resp = self.session.post(url)
         resp.raise_for_status()
 
