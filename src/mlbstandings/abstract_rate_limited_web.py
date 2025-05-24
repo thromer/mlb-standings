@@ -1,4 +1,5 @@
 from mlbstandings.typing_protocols import *
+from typing import Any
 
 
 class AbstractRateLimitedWeb:
@@ -6,6 +7,6 @@ class AbstractRateLimitedWeb:
         self.web = web
         self.limiter = limiter
 
-    def read(self, url: str) -> str:
+    def read(self, url: str, headers: dict[str, Any]={}) -> str:
         self.limiter.delay()
-        return self.web.read(url)
+        return self.web.read(url, headers=headers)

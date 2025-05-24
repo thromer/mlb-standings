@@ -1,5 +1,6 @@
 import hashlib
 import json
+import socket
 
 import bs4
 import itertools
@@ -147,6 +148,19 @@ class Standings:
 class BaseballReference:
     def __init__(self, web: WebLike) -> None:
         self.web = web
+        self.hostname = 'www.baseball-reference.com'
+        # TODO HACK FOR TESTING REMOVE
+        self.force_ipv4()
+        print('reading...')
+        resp = self.web.read(f'https://{self.hostname}/boxes/?year=2025&month=05&day=01', headers={'Host': self.hostname})
+        print(f'{resp[:15]=}')
+
+    @staticmethod
+    def force_ipv4() -> None:
+        old_getaddrinfo = socket.getaddrinfo
+        def new_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+            return old_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
+        socket.getaddrinfo = new_getaddrinfo
 
     @staticmethod
     @cache
@@ -197,8 +211,8 @@ class BaseballReference:
 
     def spreadsheet_row(self, day: date) -> Optional[Dict[str, List[Union[str, int]]]]:
         """Returns ready-to-paste rows (other than day) for the day if available, None otherwise"""
-        url = day.strftime('https://www.baseball-reference.com/boxes/?year=%Y&month=%m&day=%d')
-        data = self.web.read(url)
+        url = day.strftime(f'https://{self.hostname}/boxes/?year=%Y&month=%m&day=%d')
+        data = self.web.read(url, headers={'Host': self.hostname})
         soup = bs4.BeautifulSoup(data, features='html.parser')
         today_button = soup.find('span', class_='button2 current')
         if today_button is None or type(today_button) is not bs4.element.Tag:

@@ -66,6 +66,15 @@ CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 @functions_framework.http
 def update(_: Optional[flask.Request], args: list[str]=[]) -> str:
+    import subprocess
+    url = 'https://www.baseball-reference.com/boxes/?year=2025&month=05&day=23'
+    result = subprocess.run(['curl', '-v', url], capture_output=True, text=True)
+    print("CURL output:", result.stderr)  # Verbose output goes to stderr
+    import requests
+    resp=requests.get(url, stream=True)
+    resp.raise_for_status()
+    print(resp.content.decode(resp.encoding)[:10])
+    return 'byebye\n'  ## TODO !!!
     backfill = False
     if len(args) > 0:
         d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
@@ -89,7 +98,7 @@ def update(_: Optional[flask.Request], args: list[str]=[]) -> str:
         status = updater.update()
         if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
             break
-    return 'Done'
+    return 'Done\n'
 
 
 def mailtest(_: Optional[flask.Request], args:list[str]=[]) -> str:
