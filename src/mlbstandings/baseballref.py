@@ -8,7 +8,7 @@ from mlbstandings.typing_protocols import *
 from datetime import date, datetime
 from functools import cache
 
-from typing import List, Dict, Union, Optional, TYPE_CHECKING
+from typing import Any, List, Dict, Union, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from mlbstandings.shared_types import SheetValue
@@ -190,7 +190,7 @@ class BaseballReference:
 
     @staticmethod
     def no_games(s: bs4.BeautifulSoup) -> bool:
-        for h3 in s.find(id='content').find_all('h3'):
+        for h3 in s.find(id='content').find_all('h3'):  # type: ignore
             if h3.text == 'No Games Were or Have Yet Been Played on This Date':
                 return True
         return False
@@ -254,7 +254,7 @@ class BaseballReference:
             return _CANONICAL_MLB_TEAM_ABBRS[mlb_abbr]
         return mlb_abbr
 
-    def grab_post_season(self, year: date):
+    def grab_post_season(self, year: date) -> dict[str, Any]:
         url = (f'https://statsapi.mlb.com/api/v1/schedule/postseason?season={year.year}&'
                'fields=copyright,dates,date,games,status,statusCode,description,gameType,'
                'seriesGameNumber,gamesInSeries,teams,team,id,score')

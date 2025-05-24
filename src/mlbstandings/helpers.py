@@ -19,7 +19,7 @@ def sheet_coltoindex(col: str) -> int:
     num = 0
     for c in col:
         if c not in string.ascii_letters:
-            raise ValueError('Bad column name {col}')
+            raise ValueError(f'Bad column name {col}')
         num = num * 26 + (ord(c.upper()) - ord('A')) + 1
     return num - 1
 

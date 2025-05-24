@@ -52,7 +52,7 @@ class SeasonStatus(Enum):
 
 
 class Updater:
-    def __init__(self, now: datetime, files, spreadsheets: SpreadsheetsLike,
+    def __init__(self, now: datetime, files: FilesLike, spreadsheets: SpreadsheetsLike,
                  contents_id: str, web: WebLike) -> None:
         if now.tzinfo is None or now.tzinfo.utcoffset(now) is None:
             raise ValueError("now should not be naive")
@@ -67,7 +67,7 @@ class Updater:
     def _build_contents(contents_spreadsheet: SpreadsheetLike) -> Dict[int, str]:
         return {
             int(row[0]): str(row[1])
-            for row in contents_spreadsheet.get_named_range('contents')
+            for row in contents_spreadsheet.get_range('contents')
             if len(row) == 2 and type(row[0]) is int
         }
 
@@ -92,7 +92,7 @@ class Updater:
         self.create_spreadsheet_for_year(year)
         return self.get_spreadsheet_id_for_year_recursive(year, depth+1)
 
-    def create_spreadsheet_for_year(self, year: int):
+    def create_spreadsheet_for_year(self, year: int) -> None:
         # hack: use recursive to avoid trying to create previous year's spreadsheet
         last_year_spreadsheet_id = self.get_spreadsheet_id_for_year_recursive(year-1, 1)
 
@@ -130,29 +130,28 @@ class Updater:
             somewhere saying "last day of the season was X"
         * Good news: even if we handle a special case wrong, it'll get better the next day, probably.
     """
-        first_day_val = self.spreadsheet.get_named_cell(_FIRST_DAY)
+        first_day_val = self.spreadsheet.get_cell(_FIRST_DAY)
         if type(first_day_val) is int:
             first_day = date_from_excel_date(first_day_val)
         else:
             # TODO error handling
             first_day = self.baseballref.first_day(date(self.now.year, 1, 1))
-            self.spreadsheet.set_named_cell(_FIRST_DAY, date_to_excel_date(first_day))
-        last_day_val = self.spreadsheet.get_named_cell(_LAST_DAY)
+            self.spreadsheet.set_cell(_FIRST_DAY, date_to_excel_date(first_day))
+        last_day_val = self.spreadsheet.get_cell(_LAST_DAY)
         last_day = date_from_excel_date(last_day_val) if type(last_day_val) is int else None
         if last_day is not None:
             return SeasonStatus.OVER
         print(f'last_day before {last_day}')
         column_as = {
-            league: self.spreadsheet.read_values(self._upload_sheet_name(league), 'A:A', major_dimension='COLUMNS')[0]
+            league: self.spreadsheet.get_range(f"{self._upload_sheet_name(league)}!A:A", major_dimension='COLUMNS')[0]
             for league in _LEAGUES
         }
         for league in _LEAGUES:
             # TODO this would be a nice time to make sure formatting for column A is correct
             if len(column_as[league]) == 0:
                 row = self.baseballref.header_row(league)
-                self.spreadsheet.write_values(
-                    self._upload_sheet_name(league),
-                    rc0_range_to_sheet_range(((0, 0), (0, len(row)))),
+                self.spreadsheet.set_range(
+                    f"{self._upload_sheet_name(league)}!{rc0_range_to_sheet_range(((0, 0), (0, len(row))))}",
                     [[cast(SheetValue, 'Date')] + row])
         newest_league_upload_day = {
             league: self._get_newest_league_day(column_as[league], league, first_day)
@@ -184,7 +183,7 @@ class Updater:
             for league in _LEAGUES:
                 values = [date_to_excel_date(day)] + rows[league]
                 sheet_range = rc0_range_to_sheet_range(((row_index, 0), (row_index, len(values) - 1)))
-                self.spreadsheet.write_values(self._upload_sheet_name(league), sheet_range, [values])
+                self.spreadsheet.set_range(f"{self._upload_sheet_name(league)}!{sheet_range}", [values])
                 # This is needed if we're backfilling into a new sheet
                 newest_league_upload_day[league] = day
             last_day_uploaded = day
@@ -195,7 +194,7 @@ class Updater:
             last_day = self.baseballref.last_scheduled_regular_day(min(newest_league_upload_day.values()))
             if last_day < self.now.date():
                 print('update _LAST_DAY')
-                self.spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
+                self.spreadsheet.set_cell(_LAST_DAY, date_to_excel_date(last_day))
                 return SeasonStatus.OVER
 
         return SeasonStatus.IN_PROGRESS
@@ -208,29 +207,29 @@ class Updater:
         # for league in _LEAGUES:
         #     last_day = min(last_day, self._update_league(spreadsheet, first_day, league))
         # if last_day >= date(self.now.year, 1, 1):
-        #     spreadsheet.set_named_cell(_LAST_DAY, date_to_excel_date(last_day))
+        #     spreadsheet.set_cell(_LAST_DAY, date_to_excel_date(last_day))
 
     def update_post_season(self) -> SeasonStatus:
         # TODO I don't think this is quite robust but ok.
-        last_post_season_day_val = self.spreadsheet.get_named_cell(_LAST_POST_SEASON_DAY)
+        last_post_season_day_val = self.spreadsheet.get_cell(_LAST_POST_SEASON_DAY)
         last_post_season_day = date_from_excel_date(last_post_season_day_val) if type(last_post_season_day_val) is int else None
         if last_post_season_day is not None and last_post_season_day < self.now.date():
             return SeasonStatus.OVER
         post_season = self.baseballref.grab_post_season(self.now)
-        previous_md5 = self.spreadsheet.get_named_cell(_POST_SEASON_MD5)
+        previous_md5 = self.spreadsheet.get_cell(_POST_SEASON_MD5)
         in_progress = post_season['last_scheduled_day'] >= self.now.date()
         result = SeasonStatus.IN_PROGRESS if in_progress else SeasonStatus.OVER
         if post_season['md5'] == previous_md5:
             # ugh
-            self.spreadsheet.set_named_cell(_LAST_POST_SEASON_DAY, date_to_excel_date(
+            self.spreadsheet.set_cell(_LAST_POST_SEASON_DAY, date_to_excel_date(
                 post_season['last_scheduled_day']))
             return result
         table = [post_season['header']] + post_season['rows']
-        self.spreadsheet.write_values('playoff_upload','A:H',table)
+        self.spreadsheet.set_range('playoff_upload!A:H',table)
         if not in_progress:
-            self.spreadsheet.set_named_cell(_LAST_POST_SEASON_DAY, date_to_excel_date(
+            self.spreadsheet.set_cell(_LAST_POST_SEASON_DAY, date_to_excel_date(
                 post_season['last_scheduled_day']))
-        self.spreadsheet.set_named_cell(_POST_SEASON_MD5, post_season['md5'])
+        self.spreadsheet.set_cell(_POST_SEASON_MD5, post_season['md5'])
         return result
 
     def update(self) -> SeasonStatus | None:
@@ -266,7 +265,7 @@ class Updater:
         else:
             return date_from_excel_date(cell)
 
-    def announce_season_opened(self):
+    def announce_season_opened(self) -> None:
         year = self.now.year
         msg = EmailMessage()
         msg['Subject'] = f'Standings spreadsheet for {year} MLB Season'

@@ -10,10 +10,10 @@ SHEET_ID = '14h3hTCvXNzUqTtbegIzSE6JwetMgvtWB6xP9gv87gZs'
 SHEET_TITLE = 'al_all'
 
 
-def main():
+def main() -> None:
     # More scopes? Re-run gcloud auth application-default login
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
-    creds = google.auth.default(scopes=scopes)[0]
+    creds = google.auth.default(scopes=scopes)[0]  # type: ignore
     # https://developers.google.com/sheets/api/samples/sheet#read-sheet
     # GET https://sheets.googleapis.com/v4/spreadsheets/SPREADSHEET_ID?&fields=sheets.properties
     # https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/get
@@ -27,7 +27,7 @@ def main():
         if s['properties']['title'] == SHEET_TITLE:
             sheet = s
             break
-    pprint.pprint(sheet['charts'][0]['spec'])
+    pprint.pprint(sheet['charts'][0]['spec'])  # type: ignore
 
 
 main()
