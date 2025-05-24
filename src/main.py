@@ -79,12 +79,15 @@ def update(_: Optional[flask.Request], args=[]) -> str:
     sheets = mlbstandings.google_wrappers.Spreadsheets(creds)
     base_web = mlbstandings.web.Web()
     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
+    # TODO remove once everything works with new versions
+    base_web.read('https://www.baseball-reference.com/')
+    print('No problem reading www.baseball-reference.com')
     updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
     while True:
         status = updater.update()
         if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
             break
-    return 'Done'
+    return 'Done\n'
 
 
 def mailtest(_: Optional[flask.Request], args=[]) -> str:
