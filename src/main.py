@@ -64,14 +64,12 @@ CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/<path:path>', methods=['GET', 'POST'])
-def update(path: str='', method:str=''):
-    return 'Abort'
+def update(path=''):
     backfill = False
 #    if len(args) > 0:
 #        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
 #        backfill = True
 #    else:
-    print(f'update {path=} {method=}')
     d = datetime.now(tz=ZoneInfo('Etc/UTC'))
     # More scopes? Re-run gcloud auth application-default login
     scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
@@ -90,8 +88,7 @@ def update(path: str='', method:str=''):
         status = updater.update()
         if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
             break
-    print('Returning normally ...')
-    return 'Done'
+    return 'Done\n'
 
 
 def mailtest(_: Optional[flask.Request], args=[]) -> str:

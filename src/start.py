@@ -12,7 +12,7 @@ cmd = [
     '--threads=8', 
     '--timeout=0',
 #    '--log-level=debug',
-    'main:update'
+    'main:app'
 ]
 os.execvp('gunicorn', cmd)
 
