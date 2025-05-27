@@ -1,12 +1,11 @@
 import flask
-import functions_framework
 
 import email
 import google.auth
 import logging
 import smtplib
 
-# TODO figure out haw to import these nicely and still have mypy work.
+# TODO figure out how to import these nicely and still have mypy work.
 import mlbstandings.light_google_wrappers
 import mlbstandings.updater
 import mlbstandings.web
@@ -24,8 +23,10 @@ GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions
 
 logging.getLogger('backoff').addHandler(logging.StreamHandler())
 
-@functions_framework.http
-def cf_test(request: Optional[flask.Request], args: list[str]=[]) -> str:
+# TODO Handle more than one function maybe.
+app = flask.Flask(__name__)
+
+def cf_test(request: Optional[flask.Request], args=[]) -> str:
     print(type(request))
     if isinstance(request, flask.Request):
         request_json = request.get_json(silent=True)
@@ -58,20 +59,21 @@ def cf_test(request: Optional[flask.Request], args: list[str]=[]) -> str:
 #     files = build('drive','v3',credentials=creds).files()
 #     oldId='14h3hTCvXNzUqTtbegIzSE6JwetMgvtWB6xP9gv87gZs'
 #     files.copy(fileId=oldId).execute()
-#     return 'Done'
+#     return 'Done\n'
 
 
 CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 
-@functions_framework.http
-def update(_: Optional[flask.Request], args: list[str]=[]) -> str:
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/<path:path>', methods=['GET', 'POST'])
+def update(path=''):
     backfill = False
-    if len(args) > 0:
-        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
-        backfill = True
-    else:
-        d = datetime.now(tz=ZoneInfo('Etc/UTC'))
+#    if len(args) > 0:
+#        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
+#        backfill = True
+#    else:
+    d = datetime.now(tz=ZoneInfo('Etc/UTC'))
     # More scopes? Re-run gcloud auth application-default login.
     # But not working locally :(
     # How did I update scopes for the cloud function esp auth/drive ?
@@ -92,7 +94,7 @@ def update(_: Optional[flask.Request], args: list[str]=[]) -> str:
         status = updater.update()
         if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
             break
-    return 'Done'
+    return 'Done\n'
 
 
 def mailtest(_: Optional[flask.Request], args:list[str]=[]) -> str:
@@ -120,4 +122,4 @@ def mailtest(_: Optional[flask.Request], args:list[str]=[]) -> str:
         smtp.starttls()
         smtp.login('tromer@gmail.com', password)
         smtp.send_message(msg)
-    return 'Done'
+    return 'Done\n'
