@@ -1,4 +1,16 @@
-#!/usr/bin/env bash
-PROJECT_ID=mlb-standings-001
-SERVICE_ACCOUNT=mlb-standings-001-update
-cd $(realpath "$(dirname "${BASH_SOURCE[0]}")") && gcloud --project=mlb-standings-001 functions deploy mlb-standings-001-update --gen2 --runtime=python312 --region=us-west1 --source=src --entry-point=update --trigger-http --no-allow-unauthenticated --timeout=1800 --service-account=${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com
+#!/usr/bin/bash
+
+cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
+    docker build -t us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update:latest . &&
+    docker push us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update:latest &&
+    gcloud run deploy \
+	   --image us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update \
+	   --base-image us-west1-docker.pkg.dev/serverless-runtimes/google-22/runtimes/python312 \
+	   --region us-west1 mlb-standings-001-update \
+	   --concurrency 1 \
+	   --max-instances 1 \
+	   --timeout 1800 \
+	   --cpu=0.1 \
+	   --memory=256Mi &&
+    docker images ls -f 'reference=us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update*' | 
+	tail -n +2 | awk '{print $3}' | xargs docker image rm
