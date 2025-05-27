@@ -65,7 +65,8 @@ CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def update(path: str='', method:str=''):
-#    backfill = False
+    return 'Abort'
+    backfill = False
 #    if len(args) > 0:
 #        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
 #        backfill = True
@@ -89,7 +90,8 @@ def update(path: str='', method:str=''):
         status = updater.update()
         if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
             break
-    return 'Done\n'
+    print('Returning normally ...')
+    return 'Done'
 
 
 def mailtest(_: Optional[flask.Request], args=[]) -> str:

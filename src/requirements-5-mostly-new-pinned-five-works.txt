@@ -1,13 +1,13 @@
 backoff==2.2.1
-beautifulsoup4==4.13.4
+beautifulsoup4==4.12.2
 blinker==1.9.0
 cachetools==5.5.2
 certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.2.1
-Flask==3.1.1
+Flask==2.3.3
 google-api-core==2.24.2
-google-api-python-client==2.170.0
+google-api-python-client==2.97.0
 google-auth==2.22.0
 google-auth-httplib2==0.2.0
 google-cloud-secret-manager==2.23.3
@@ -31,7 +31,6 @@ requests==2.32.3
 rsa==4.9.1
 six==1.17.0
 soupsieve==2.7
-typing_extensions==4.13.2
 uritemplate==4.1.1
 urllib3==1.26.20
 Werkzeug==3.1.3
