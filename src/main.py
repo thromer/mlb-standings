@@ -1,4 +1,5 @@
 import flask
+import requests
 
 #repro0 import email
 #repro1 import google.auth
@@ -8,18 +9,18 @@ import flask
 # TODO figure out how to import these nicely and still have mypy work.
 #repro0 import mlbstandings.light_google_wrappers
 #repro0 import mlbstandings.updater
-import mlbstandings.web
+#repro3 import mlbstandings.web
 
-from datetime import datetime
-from zoneinfo import ZoneInfo
+#repro3 from datetime import datetime
+#repro3 from zoneinfo import ZoneInfo
 #repro0 from google.auth.transport.requests import AuthorizedSession
 #repro0 from google.cloud import secretmanager
 # from googleapiclient.discovery import build
 #repro0 from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
 #repro0 from mlbstandings.rate_limiter import SimpleRateLimiter
-from typing import Optional, cast
+#repro3 from typing import Optional, cast
 
-GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
+#repro3 GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
 
 #repro0 logging.getLogger('backoff').addHandler(logging.StreamHandler())
 
@@ -62,33 +63,35 @@ app = flask.Flask(__name__)
 #     return 'Done\n'
 
 
-CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
+#repro3 CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def update(path=''):
-    backfill = False
+#repro3    backfill = False
 #    if len(args) > 0:
 #        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
 #        backfill = True
 #    else:
-    d = datetime.now(tz=ZoneInfo('Etc/UTC'))
+#repro3    d = datetime.now(tz=ZoneInfo('Etc/UTC'))
     # More scopes? Re-run gcloud auth application-default login.
     # But not working locally :(
     # How did I update scopes for the cloud function esp auth/drive ?
-    scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
-              'https://www.googleapis.com/auth/spreadsheets',
-              'https://www.googleapis.com/auth/drive.metadata.readonly']  # unlikely we need this?
+#repro3     scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
+#repro3               'https://www.googleapis.com/auth/spreadsheets',
+#repro3               'https://www.googleapis.com/auth/drive.metadata.readonly']  # unlikely we need this?
 #repro0     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
 #repro0     authed_session = AuthorizedSession(creds)  # type: ignore
 #repro0     files = mlbstandings.light_google_wrappers.Files(authed_session)
 #repro0     sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
-    base_web = mlbstandings.web.Web()
+#repro3     base_web = mlbstandings.web.Web()
 #repro0     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
 #repro0     updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
     # TODO remove once everything works with new versions
-    base_web.read('https://www.baseball-reference.com/')
+    r = requests.get('https://www.baseball-reference.com/')
+    r.raise_for_status()
+#repro3     base_web.read('https://www.baseball-reference.com/')
     print('No problem reading www.baseball-reference.com')
 #repro0     while True:
 #repro0         status = updater.update()
