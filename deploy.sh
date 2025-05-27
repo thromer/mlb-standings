@@ -12,5 +12,5 @@ cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
 	   --timeout 1800 \
 	   --cpu=0.1 \
 	   --memory=256Mi &&
-    docker images ls -f 'reference=us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update*' | 
+    docker images ls -f 'reference=us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update*' |
 	tail -n +2 | awk '{print $3}' | xargs docker image rm
