@@ -1,52 +1,52 @@
 import flask
 
-#repro import email
-import google.auth
-#repro import logging
-#repro import smtplib
+#repro0 import email
+#repro1 import google.auth
+#repro0 import logging
+#repro0 import smtplib
 
 # TODO figure out how to import these nicely and still have mypy work.
-#repro import mlbstandings.light_google_wrappers
-#repro import mlbstandings.updater
+#repro0 import mlbstandings.light_google_wrappers
+#repro0 import mlbstandings.updater
 import mlbstandings.web
 
 from datetime import datetime
 from zoneinfo import ZoneInfo
-#repro from google.auth.transport.requests import AuthorizedSession
-#repro from google.cloud import secretmanager
+#repro0 from google.auth.transport.requests import AuthorizedSession
+#repro0 from google.cloud import secretmanager
 # from googleapiclient.discovery import build
-#repro from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
-#repro from mlbstandings.rate_limiter import SimpleRateLimiter
+#repro0 from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
+#repro0 from mlbstandings.rate_limiter import SimpleRateLimiter
 from typing import Optional, cast
 
 GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
 
-#repro logging.getLogger('backoff').addHandler(logging.StreamHandler())
+#repro0 logging.getLogger('backoff').addHandler(logging.StreamHandler())
 
 # TODO Handle more than one function maybe.
 app = flask.Flask(__name__)
 
-#repro def cf_test(request: Optional[flask.Request], args=[]) -> str:
-#repro     print(type(request))
-#repro     if isinstance(request, flask.Request):
-#repro         request_json = request.get_json(silent=True)
-#repro         request_args = request.args
-#repro         print(f'{request_json=}')
-#repro         print(f'{request_args=}')
-#repro     # More scopes? Re-run gcloud auth application-default login
-#repro     scopes = ['https://www.googleapis.com/auth/spreadsheets']
-#repro     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
-#repro     authed_session = AuthorizedSession(creds)  # type: ignore
-#repro     sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
-#repro     spreadsheet = sheets.spreadsheet('1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo')
-#repro     before = spreadsheet.get_range('Sheet1!A6:A6')
-#repro     old_val = before[0][0]
-#repro     new_val = 0 if type(old_val) is str else cast(int, old_val) + 1
-#repro     print(f"Before {before}")
-#repro     spreadsheet.set_range('Sheet1!A6:A6', [[new_val]])
-#repro     print(f"After {spreadsheet.get_range('Sheet1!A6:A6')}")
-#repro 
-#repro     return str(new_val)
+#repro0 def cf_test(request: Optional[flask.Request], args=[]) -> str:
+#repro0     print(type(request))
+#repro0     if isinstance(request, flask.Request):
+#repro0         request_json = request.get_json(silent=True)
+#repro0         request_args = request.args
+#repro0         print(f'{request_json=}')
+#repro0         print(f'{request_args=}')
+#repro0     # More scopes? Re-run gcloud auth application-default login
+#repro0     scopes = ['https://www.googleapis.com/auth/spreadsheets']
+#repro0     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
+#repro0     authed_session = AuthorizedSession(creds)  # type: ignore
+#repro0     sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
+#repro0     spreadsheet = sheets.spreadsheet('1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo')
+#repro0     before = spreadsheet.get_range('Sheet1!A6:A6')
+#repro0     old_val = before[0][0]
+#repro0     new_val = 0 if type(old_val) is str else cast(int, old_val) + 1
+#repro0     print(f"Before {before}")
+#repro0     spreadsheet.set_range('Sheet1!A6:A6', [[new_val]])
+#repro0     print(f"After {spreadsheet.get_range('Sheet1!A6:A6')}")
+#repro0 
+#repro0     return str(new_val)
 
 
 # @functions_framework.http
@@ -80,46 +80,46 @@ def update(path=''):
     scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
               'https://www.googleapis.com/auth/spreadsheets',
               'https://www.googleapis.com/auth/drive.metadata.readonly']  # unlikely we need this?
-#repro     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
-#repro     authed_session = AuthorizedSession(creds)  # type: ignore
-#repro     files = mlbstandings.light_google_wrappers.Files(authed_session)
-#repro     sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
+#repro0     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
+#repro0     authed_session = AuthorizedSession(creds)  # type: ignore
+#repro0     files = mlbstandings.light_google_wrappers.Files(authed_session)
+#repro0     sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
     base_web = mlbstandings.web.Web()
-#repro     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
-#repro     updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
+#repro0     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
+#repro0     updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
     # TODO remove once everything works with new versions
     base_web.read('https://www.baseball-reference.com/')
     print('No problem reading www.baseball-reference.com')
-#repro     while True:
-#repro         status = updater.update()
-#repro         if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
-#repro             break
+#repro0     while True:
+#repro0         status = updater.update()
+#repro0         if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
+#repro0             break
     return 'Done\n'
 
 
-#repro def mailtest(_: Optional[flask.Request], args:list[str]=[]) -> str:
-#repro     msg = email.message.EmailMessage()
-#repro     url = f'https://docs.google.com/spreadsheets/d/1_alHZscHsxiKi3Zp90wuSpJEqoAcrhBPQ9LRTytWgy4/edit'
-#repro     name = 'MLB Standings 2024'
-#repro     html_content = '''<html>
-#repro   <head></head>
-#repro   <body>
-#repro     <p>See <a href="%s"> %s</a>.</p>
-#repro   </body>
-#repro </html>''' % (url, name)
-#repro     print(html_content)
-#repro     msg.set_content(f'See {url}')
-#repro     msg.add_alternative(html_content, subtype='html')
-#repro     msg['Subject'] = 'subject local'
-#repro     msg['From'] = 'tromer@gmail.com'
-#repro     msg['To'] = 'tromer@gmail.com'
-#repro     secret_manager_client = secretmanager.SecretManagerServiceClient()
-#repro     # Has retry built-in.
-#repro     password = secret_manager_client.access_secret_version(
-#repro         request={'name': GMAIL_SMTP_SECRET_NAME}).payload.data.decode()
-#repro     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-#repro         smtp.ehlo()
-#repro         smtp.starttls()
-#repro         smtp.login('tromer@gmail.com', password)
-#repro         smtp.send_message(msg)
-#repro     return 'Done\n'
+#repro0 def mailtest(_: Optional[flask.Request], args:list[str]=[]) -> str:
+#repro0     msg = email.message.EmailMessage()
+#repro0     url = f'https://docs.google.com/spreadsheets/d/1_alHZscHsxiKi3Zp90wuSpJEqoAcrhBPQ9LRTytWgy4/edit'
+#repro0     name = 'MLB Standings 2024'
+#repro0     html_content = '''<html>
+#repro0   <head></head>
+#repro0   <body>
+#repro0     <p>See <a href="%s"> %s</a>.</p>
+#repro0   </body>
+#repro0 </html>''' % (url, name)
+#repro0     print(html_content)
+#repro0     msg.set_content(f'See {url}')
+#repro0     msg.add_alternative(html_content, subtype='html')
+#repro0     msg['Subject'] = 'subject local'
+#repro0     msg['From'] = 'tromer@gmail.com'
+#repro0     msg['To'] = 'tromer@gmail.com'
+#repro0     secret_manager_client = secretmanager.SecretManagerServiceClient()
+#repro0     # Has retry built-in.
+#repro0     password = secret_manager_client.access_secret_version(
+#repro0         request={'name': GMAIL_SMTP_SECRET_NAME}).payload.data.decode()
+#repro0     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+#repro0         smtp.ehlo()
+#repro0         smtp.starttls()
+#repro0         smtp.login('tromer@gmail.com', password)
+#repro0         smtp.send_message(msg)
+#repro0     return 'Done\n'
