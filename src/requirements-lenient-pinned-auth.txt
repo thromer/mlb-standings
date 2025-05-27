@@ -1,0 +1,6 @@
+backoff
+functions-framework
+google-auth==2.22.0
+requests
+google-cloud-secret-manager
+beautifulsoup4

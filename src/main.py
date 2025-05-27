@@ -85,6 +85,9 @@ def update(_: Optional[flask.Request], args: list[str]=[]) -> str:
     base_web = mlbstandings.web.Web()
     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
     updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
+    # TODO remove once everything works with new versions
+    base_web.read('https://www.baseball-reference.com/')
+    print('No problem reading www.baseball-reference.com')
     while True:
         status = updater.update()
         if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
