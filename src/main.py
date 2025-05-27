@@ -1,5 +1,4 @@
 import flask
-import functions_framework
 
 import email
 import google.auth
@@ -23,7 +22,9 @@ GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions
 
 logging.getLogger('backoff').addHandler(logging.StreamHandler())
 
-@functions_framework.http
+# TODO Handle more than one function maybe.
+app = flask.Flask(__name__)
+
 def cf_test(request: Optional[flask.Request], args=[]) -> str:
     print(type(request))
     if isinstance(request, flask.Request):
@@ -46,7 +47,6 @@ def cf_test(request: Optional[flask.Request], args=[]) -> str:
     return str(new_val)
 
 
-@functions_framework.http
 def spreadsheetCopy(request: Optional[flask.Request], args=[]) -> str:
     # More scopes? Re-run gcloud auth application-default login
     scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
@@ -62,14 +62,16 @@ def spreadsheetCopy(request: Optional[flask.Request], args=[]) -> str:
 CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 
-@functions_framework.http
-def update(_: Optional[flask.Request], args=[]) -> str:
-    backfill = False
-    if len(args) > 0:
-        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
-        backfill = True
-    else:
-        d = datetime.now(tz=ZoneInfo('Etc/UTC'))
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/<path:path>', methods=['GET', 'POST'])
+def update(path: str='', method:str=''):
+#    backfill = False
+#    if len(args) > 0:
+#        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
+#        backfill = True
+#    else:
+    print(f'update {path=} {method=}')
+    d = datetime.now(tz=ZoneInfo('Etc/UTC'))
     # More scopes? Re-run gcloud auth application-default login
     scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
               'https://www.googleapis.com/auth/spreadsheets',

@@ -8,16 +8,14 @@ print('start.py [stderr]', file=sys.stderr)
 print('start.py [stdout]', file=sys.stderr)
 port = os.environ.get('PORT', '8080')
 cmd = [
-    'functions-framework',
-    f'--port={port}', 
-    '--target',
-    'update'
+    'gunicorn',
+    f'--bind=:{port}', 
+    '--workers=1', 
+    '--threads=8', 
+    '--timeout=0',
+    '--log-level=debug',
+    'main:update'
 ]
-print(f'running functions-framework args={cmd}', file=sys.stderr)
-try:
-    os.execvp('functions-framework', cmd)
-except e:
-    print(e, file=sys.stderr)
-    time.sleep(60)
-    raise
+print(f'running gunicorn args={cmd}', file=sys.stderr)
+os.execvp('gunicorn', cmd)
 
