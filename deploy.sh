@@ -6,11 +6,14 @@ cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
     gcloud run deploy \
 	   --image us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update \
 	   --base-image us-west1-docker.pkg.dev/serverless-runtimes/google-22/runtimes/python312 \
-	   --region us-west1 mlb-standings-001-update \
+	   --region us-west1 \
+	   --no-allow-unauthenticated \
 	   --concurrency 1 \
 	   --max-instances 1 \
 	   --timeout 1800 \
-	   --cpu=0.1 \
-	   --memory=256Mi &&
+	   --cpu=0.2 \
+	   --memory=256Mi \
+	   --cpu-boost \
+	   mlb-standings-001-update &&
     docker images ls -f 'reference=us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update*' |
-	tail -n +2 | awk '{print $3}' | xargs docker image rm
+	tail -n +2 | awk '$2 != "latest" {print $3}' | xargs -r docker image rm
