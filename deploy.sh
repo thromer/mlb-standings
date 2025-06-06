@@ -20,7 +20,7 @@ DEPLOY_LOG="/tmp/mlb-standings-001-deploy-${TIMESTAMP}.log"
 cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
     docker build --progress=plain -t ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update:latest . |& tee "${BUILD_LOG}" &&
     ensure_logs_bucket &&
-    gcloud --project=${PROJECT} storage cp "${BUILD_LOG}" ${LOGS_BUCKET}/ &&
+    gcloud --project=${PROJECT} storage cp --gzip-local-all "${BUILD_LOG}" ${LOGS_BUCKET}/ &&
     docker push ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update:latest &&
     gcloud run deploy \
 	   --project=${PROJECT} \
@@ -35,6 +35,6 @@ cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
 	   --memory=256Mi \
 	   --cpu-boost \
 	   mlb-standings-001-update |& tee "${DEPLOY_LOG}" &&
-    gcloud --project=${PROJECT} storage cp "${DEPLOY_LOG}" ${LOGS_BUCKET}/ &&
+    gcloud --project=${PROJECT} storage cp --gzip-local-all "${DEPLOY_LOG}" ${LOGS_BUCKET}/ &&
     docker image ls -f "reference=${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update*" |
     	tail -n +2 | awk '$2 != "latest" {print $3}' | xargs -r docker image rm
