@@ -36,5 +36,5 @@ cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
 	   --cpu-boost \
 	   mlb-standings-001-update |& tee "${DEPLOY_LOG}" &&
     gcloud --project=${PROJECT} storage cp "${DEPLOY_LOG}" ${LOGS_BUCKET}/ &&
-    docker images ls -f "reference=${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update*" |
+    docker image ls -f "reference=${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update*" |
     	tail -n +2 | awk '$2 != "latest" {print $3}' | xargs -r docker image rm
