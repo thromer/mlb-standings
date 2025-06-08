@@ -3,7 +3,7 @@
 set -o pipefail
 
 shopt -s expand_aliases
-alias ts="python3 -u -c \"import sys, datetime; [print(f'{datetime.datetime.utcnow().isoformat()}Z {line}', end='') for line in sys.stdin]\""
+source $HOME/.bash_script_aliases
 
 PROJECT=mlb-standings-001
 LOCATION=us-west1
