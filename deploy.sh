@@ -9,7 +9,7 @@ cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
 	   --region us-west1 \
 	   --no-allow-unauthenticated \
 	   --concurrency 1 \
-	   --max-instances 1 \
+	   --max-instances 8 \
 	   --timeout 1800 \
 	   --cpu=0.2 \
 	   --memory=256Mi \
