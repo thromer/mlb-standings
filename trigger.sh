@@ -9,5 +9,5 @@ URL="https://${SERVICE}-${PROJECT_NUMBER}.${LOCATION}.run.app/${APP}"
 TOKEN="$(gcloud --project=${PROJECT} auth print-identity-token)"
 
 curl -H "Content-Type: application/json" \
-     -H "Authorization: ${TOKEN}" \
+     -H "Authorization: Bearer ${TOKEN}" \
      "${URL}" -d '{}'
