@@ -7,6 +7,7 @@ source $HOME/.bash_script_aliases
 
 PROJECT=mlb-standings-001
 LOCATION=us-west1
+SERVICE=mlb-standings-001-update
 LOGS_BUCKET=gs://${PROJECT}_build-logs
 
 ensure_logs_bucket() {
@@ -21,13 +22,13 @@ TIMESTAMP="$(date -u +'%Y-%m-%dT%H:%M:%S.%NZ')"
 BUILD_LOG="/tmp/mlb-standings-001-build-${TIMESTAMP}.log"
 DEPLOY_LOG="/tmp/mlb-standings-001-deploy-${TIMESTAMP}.log"
 cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
-    docker build --progress=plain -t ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update:latest . |& ts |& tee "${BUILD_LOG}" &&
+    docker build --progress=plain -t ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/${SERVICE}:latest . |& ts |& tee "${BUILD_LOG}" &&
     ensure_logs_bucket &&
     gcloud --project=${PROJECT} storage cp --gzip-local-all "${BUILD_LOG}" ${LOGS_BUCKET}/ &&
-    docker push ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update:latest &&
+    docker push ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/${SERVICE}:latest &&
     gcloud run deploy \
 	   --project=${PROJECT} \
-	   --image ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update \
+	   --image ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/${SERVICE} \
 	   --base-image ${LOCATION}-docker.pkg.dev/serverless-runtimes/google-22/runtimes/python312 \
 	   --region ${LOCATION} \
 	   --no-allow-unauthenticated \
@@ -37,7 +38,7 @@ cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
 	   --cpu=0.2 \
 	   --memory=256Mi \
 	   --cpu-boost \
-	   mlb-standings-001-update |& ts |& tee "${DEPLOY_LOG}" &&
+	   ${SERVICE} |& ts |& tee "${DEPLOY_LOG}" &&
     gcloud --project=${PROJECT} storage cp --gzip-local-all "${DEPLOY_LOG}" ${LOGS_BUCKET}/ &&
-    docker image ls -f "reference=${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/mlb-standings-001-update*" |
+    docker image ls -f "reference=${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/${SERVICE}*" |
     	tail -n +2 | awk '$2 != "latest" {print $3}' | xargs -r docker image rm
