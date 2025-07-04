@@ -1,7 +1,7 @@
 from datetime import date
 from typing import List, Dict, cast
 
-from fakes import FakeWeb
+from .fakes import FakeWeb
 from fixtures import TEST_DATA_DIR
 from mlbstandings.baseballref import BaseballReference
 from mlbstandings.shared_types import SheetValue

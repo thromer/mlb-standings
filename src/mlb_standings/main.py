@@ -6,17 +6,17 @@ import logging
 import smtplib
 
 # TODO figure out how to import these nicely and still have mypy work.
-import mlbstandings.light_google_wrappers
-import mlbstandings.updater
-import mlbstandings.web
+import mlb_standings.mlbstandings.light_google_wrappers
+import mlb_standings.mlbstandings.updater
+import mlb_standings.mlbstandings.web
 
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from google.auth.transport.requests import AuthorizedSession
 from google.cloud import secretmanager
 # from googleapiclient.discovery import build
-from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
-from mlbstandings.rate_limiter import SimpleRateLimiter
+from mlb_standings.mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
+from mlb_standings.mlbstandings.rate_limiter import SimpleRateLimiter
 from typing import Optional, cast
 
 GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
@@ -37,7 +37,7 @@ def cf_test(request: Optional[flask.Request], args=[]) -> str:
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
     authed_session = AuthorizedSession(creds)  # type: ignore
-    sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
+    sheets = mlb_standings.mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
     spreadsheet = sheets.spreadsheet('1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo')
     before = spreadsheet.get_range('Sheet1!A6:A6')
     old_val = before[0][0]
@@ -82,17 +82,17 @@ def update(path=''):
               'https://www.googleapis.com/auth/drive.metadata.readonly']  # unlikely we need this?
     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
     authed_session = AuthorizedSession(creds)  # type: ignore
-    files = mlbstandings.light_google_wrappers.Files(authed_session)
-    sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
-    base_web = mlbstandings.web.Web()
+    files = mlb_standings.mlbstandings.light_google_wrappers.Files(authed_session)
+    sheets = mlb_standings.mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
+    base_web = mlb_standings.mlbstandings.web.Web()
     web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
-    updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
+    updater = mlb_standings.mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
     # TODO remove once everything works with new versions
     base_web.read('https://www.baseball-reference.com/')
     print('No problem reading www.baseball-reference.com')
     while True:
         status = updater.update()
-        if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
+        if status == None or status == mlb_standings.mlbstandings.updater.SeasonStatus.OVER or not backfill:
             break
     return 'Done\n'
 
