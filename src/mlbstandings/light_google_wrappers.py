@@ -1,16 +1,14 @@
 from __future__ import annotations
 
-from requests.exceptions import HTTPError, Timeout
-from requests.sessions import Session
+from typing import TYPE_CHECKING, Any, Callable, TypeVar, cast
 from urllib.parse import quote  # TODO remove probably
 
 import backoff
+from requests.exceptions import HTTPError, Timeout
+from requests.sessions import Session
 
 from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
 
-
-
-from typing import cast, Any, Callable, TYPE_CHECKING, TypeVar
 if TYPE_CHECKING:
     # noinspection PyProtectedMember
     # from googleapiclient._apis.drive.v3.resources import DriveResource

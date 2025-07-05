@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import google.auth
 import pprint
-from googleapiclient.discovery import build
 
+import google.auth
+from googleapiclient.discovery import build
 
 SHEET_ID = '14h3hTCvXNzUqTtbegIzSE6JwetMgvtWB6xP9gv87gZs'
 # SHEET_TITLE = 'hacked copy of all'

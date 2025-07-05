@@ -1,6 +1,6 @@
-from datetime import date
 import re
 import string
+from datetime import date
 from typing import Tuple
 
 _EXCEL_EPOCH = date(1900, 1, 1).toordinal() - 2

@@ -1,14 +1,13 @@
 import hashlib
-import json
-
-import bs4
 import itertools
-
-from mlbstandings.typing_protocols import *
+import json
 from datetime import date, datetime
 from functools import cache
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
-from typing import Any, List, Dict, Union, Optional, TYPE_CHECKING
+import bs4
+
+from mlbstandings.typing_protocols import *
 
 if TYPE_CHECKING:
     from mlbstandings.shared_types import SheetValue

@@ -4,6 +4,7 @@ from gunicorn.app.base import BaseApplication
 
 from .app import app
 
+
 class StandaloneApplication(BaseApplication):
     def __init__(self, application, options=None):
         self.options = options or {}

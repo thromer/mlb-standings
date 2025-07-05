@@ -2,11 +2,10 @@
 import itertools
 import json
 import sys
-
 from datetime import date
-from mlbstandings import web
-from mlbstandings import baseballref
 from pprint import pprint
+
+from mlbstandings import baseballref, web
 
 w = web.Web()
 br = baseballref.BaseballReference(w)

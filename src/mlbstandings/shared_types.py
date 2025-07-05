@@ -1,4 +1,4 @@
-from typing import Literal, List, Union
+from typing import List, Literal, Union
 
 Dimension = Literal['DIMENSION_UNSPECIFIED', 'ROWS', 'COLUMNS']
 SheetValue = Union[str, int]

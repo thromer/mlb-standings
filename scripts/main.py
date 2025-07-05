@@ -1,16 +1,16 @@
-import flask
-
 import email.message
-import google.auth
 import logging
 import smtplib
 
-import mlbstandings.light_google_wrappers
-
-from google.auth.transport.requests import AuthorizedSession
-from google.cloud import secretmanager
 # from googleapiclient.discovery import build
 from typing import Optional, cast
+
+import flask
+import google.auth
+from google.auth.transport.requests import AuthorizedSession
+from google.cloud import secretmanager
+
+import mlbstandings.light_google_wrappers
 
 GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
 
