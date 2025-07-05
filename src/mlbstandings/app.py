@@ -1,5 +1,4 @@
 import flask
-from flask.typing import ResponseReturnValue
 
 import google.auth
 import logging
@@ -22,7 +21,7 @@ CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 
 @app.route('/', methods=['GET', 'POST'])
-def update() -> ResponseReturnValue:
+def update():
     backfill = False
 #    if len(args) > 0:
 #        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
