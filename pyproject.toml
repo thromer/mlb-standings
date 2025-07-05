@@ -1,5 +1,5 @@
 [project]
-name = "mlb-standings"
+name = "mlbstandings"
 version = "0.1.0"
 description = "Automatically maintain spreadsheet with MLB standings graphs"
 readme = "README.md"
@@ -25,7 +25,7 @@ dev = [
 ]
 
 [project.scripts]
-mlb-standings = "mlb_standings:main"
+serve = "mlbstandings.service:serve"
 
 [build-system]
 requires = ["hatchling"]

@@ -7,8 +7,7 @@ import pytest
 
 from .fakes import FakeFiles, FakeSpreadsheets, FakeWeb
 import mlbstandings.updater
-import mlbstandings.web
-from fixtures import TEST_DATA_DIR
+from .fixtures import TEST_DATA_DIR
 from mlbstandings.helpers import date_from_excel_date
 
 CONTENTS_SHEET_ID = 'contents'

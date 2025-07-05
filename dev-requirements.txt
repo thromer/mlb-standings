@@ -1,6 +1,0 @@
--r src/requirements.txt
-mypy
-pytest
-pytest-datafiles
-types-beautifulsoup4
-types-requests
