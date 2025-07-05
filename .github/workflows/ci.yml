@@ -16,12 +16,14 @@ jobs:
     - uses: actions/checkout@v4
     - uses: astral-sh/setup-uv@v6.3.1
       with:
-        python-version: "3.13"
+        enable-cache: true
+    - run: uv python install
     - name: requirements.txt
       run: |
         if ! uv export --frozen --no-hashes --format requirements-txt | cmp -s requirements.txt -; then
           echo "Re-run uv export --frozen --no-hashes --format requirements-txt > requirements.txt"
           exit 1
         fi
+    - run: uv sync --frozen
     - name: pytest
       run: uv run --frozen pytest
