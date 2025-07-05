@@ -27,11 +27,11 @@ class Web:
     )
     def read(url: str) -> str:
         if url.find('https://www.baseball-reference.com/') == 0:
-            print(f'Using urllib in Web.read({url}')
+            print(f'Using urllib in Web.read({url})')
             req = urllib.request.Request(url)
             resp = urllib.request.urlopen(req) 
             return resp.read().decode('ISO-8859-1')
-        print(f'Using requests in Web.read({url}')
+        print(f'Using requests in Web.read({url})')
         r = requests.get(url)
         r.raise_for_status()
         if r.encoding is None:
