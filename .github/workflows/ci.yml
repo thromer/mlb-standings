@@ -1,0 +1,27 @@
+# CI tests
+
+name: CI
+
+on:
+ push:
+   branches: [ "main" ]
+ pull_request:
+   branches: [ "main" ]
+ workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: astral-sh/setup-uv@v6.3.1
+      with:
+        python-version: "3.13"
+    - name: requirements.txt
+      run: |
+        if ! uv --frozen export --format requirements-txt | cmp -s requirements.txt -; then
+          echo "Re-run uv export --frozen --format requirements-txt > requirements.txt"
+          exit 1
+        fi
+    - name: pytest
+      run: uv --frozen run pytest
