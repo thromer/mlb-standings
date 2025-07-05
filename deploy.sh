@@ -21,7 +21,8 @@ ensure_logs_bucket() {
 TIMESTAMP="$(date -u +'%Y-%m-%dT%H:%M:%S.%NZ')"
 BUILD_LOG="/tmp/mlb-standings-001-build-${TIMESTAMP}.log"
 DEPLOY_LOG="/tmp/mlb-standings-001-deploy-${TIMESTAMP}.log"
-cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
+cd "$(realpath "$(dirname "${BASH_SOURCE[0]}")")" &&
+    uv sync --all-packages &&
     docker build --progress=plain -t ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/${SERVICE}:latest . |& ts |& tee "${BUILD_LOG}" &&
     ensure_logs_bucket &&
     gcloud --project=${PROJECT} storage cp --gzip-local-all "${BUILD_LOG}" ${LOGS_BUCKET}/ &&
@@ -29,7 +30,7 @@ cd $(realpath "$(dirname "${BASH_SOURCE[0]}")")/src &&
     gcloud run deploy \
 	   --project=${PROJECT} \
 	   --image ${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/${SERVICE} \
-	   --base-image ${LOCATION}-docker.pkg.dev/serverless-runtimes/google-22/runtimes/python312 \
+	   --base-image ${LOCATION}-docker.pkg.dev/serverless-runtimes/google-22/runtimes/python313 \
 	   --region ${LOCATION} \
 	   --no-allow-unauthenticated \
 	   --concurrency 1 \

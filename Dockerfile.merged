@@ -1,0 +1,11 @@
+# Simulate deployed service for local testing.
+FROM us-west1-docker.pkg.dev/serverless-runtimes/google-22/runtimes/python313 AS base
+FROM us-west1-docker.pkg.dev/mlb-standings-001/artifacts/mlb-standings-001-update AS service
+
+FROM base
+COPY --from=service /workspace /workspace
+
+ENV PYTHONPATH=/workspace/.venv/lib/python3.13/site-packages
+ENV PATH=/workspace/.venv/bin:$PATH
+
+CMD ["serve"]

@@ -1,6 +1,0 @@
-backoff
-functions-framework
-google-auth
-requests
-google-cloud-secret-manager
-beautifulsoup4

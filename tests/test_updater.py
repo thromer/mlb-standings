@@ -5,10 +5,9 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-import fakes
+from .fakes import FakeFiles, FakeSpreadsheets, FakeWeb
 import mlbstandings.updater
-import mlbstandings.web
-from fixtures import TEST_DATA_DIR
+from .fixtures import TEST_DATA_DIR
 from mlbstandings.helpers import date_from_excel_date
 
 CONTENTS_SHEET_ID = 'contents'
@@ -25,9 +24,9 @@ def test_empty_before_opening_day(datafiles: pathlib.Path) -> None:
     for f in datafiles.iterdir():
         print(f.name)
     now = datetime(2023, 3, 30, tzinfo=ZoneInfo('America/Los_Angeles'))
-    spreadsheets = fakes.FakeSpreadsheets(datafiles)
-    files = fakes.FakeFiles()
-    web = fakes.FakeWeb(TEST_DATA_DIR)
+    spreadsheets = FakeSpreadsheets(datafiles)
+    files = FakeFiles()
+    web = FakeWeb(TEST_DATA_DIR)
     try:
         updater = mlbstandings.updater.Updater(now, files, spreadsheets, CONTENTS_SHEET_ID, web)
         updater.update()
@@ -54,9 +53,9 @@ def test_zero_row_opening_day_done() -> None:
 def test_zero_row_multiple_days_done(datafiles: pathlib.Path) -> None:
     """Add data from multiple days"""
     now = datetime(2023, 5, 1, tzinfo=ZoneInfo('America/Los_Angeles'))
-    spreadsheets = fakes.FakeSpreadsheets(datafiles)
-    files = fakes.FakeFiles()
-    web = fakes.FakeWeb(TEST_DATA_DIR)
+    spreadsheets = FakeSpreadsheets(datafiles)
+    files = FakeFiles()
+    web = FakeWeb(TEST_DATA_DIR)
     try:
         updater = mlbstandings.updater.Updater(now, files, spreadsheets, CONTENTS_SHEET_ID, web)
         updater.update()

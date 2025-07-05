@@ -1,22 +1,15 @@
 import flask
 
-import email
+import email.message
 import google.auth
 import logging
 import smtplib
 
-# TODO figure out how to import these nicely and still have mypy work.
 import mlbstandings.light_google_wrappers
-import mlbstandings.updater
-import mlbstandings.web
 
-from datetime import datetime
-from zoneinfo import ZoneInfo
 from google.auth.transport.requests import AuthorizedSession
 from google.cloud import secretmanager
 # from googleapiclient.discovery import build
-from mlbstandings.abstract_rate_limited_web import AbstractRateLimitedWeb
-from mlbstandings.rate_limiter import SimpleRateLimiter
 from typing import Optional, cast
 
 GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
@@ -26,7 +19,7 @@ logging.getLogger('backoff').addHandler(logging.StreamHandler())
 # TODO Handle more than one function maybe.
 app = flask.Flask(__name__)
 
-def cf_test(request: Optional[flask.Request], args=[]) -> str:
+def cf_test(request: Optional[flask.Request], _) -> str:
     print(type(request))
     if isinstance(request, flask.Request):
         request_json = request.get_json(silent=True)
@@ -62,42 +55,7 @@ def cf_test(request: Optional[flask.Request], args=[]) -> str:
 #     return 'Done\n'
 
 
-CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
-
-
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/<path:path>', methods=['GET', 'POST'])
-def update(path=''):
-    backfill = False
-#    if len(args) > 0:
-#        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
-#        backfill = True
-#    else:
-    d = datetime.now(tz=ZoneInfo('Etc/UTC'))
-    # More scopes? Re-run gcloud auth application-default login.
-    # But not working locally :(
-    # How did I update scopes for the cloud function esp auth/drive ?
-    scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
-              'https://www.googleapis.com/auth/spreadsheets',
-              'https://www.googleapis.com/auth/drive.metadata.readonly']  # unlikely we need this?
-    creds = google.auth.default(scopes=scopes)[0]  # type: ignore
-    authed_session = AuthorizedSession(creds)  # type: ignore
-    files = mlbstandings.light_google_wrappers.Files(authed_session)
-    sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
-    base_web = mlbstandings.web.Web()
-    web = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
-    updater = mlbstandings.updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, web)
-    # TODO remove once everything works with new versions
-    base_web.read('https://www.baseball-reference.com/')
-    print('No problem reading www.baseball-reference.com')
-    while True:
-        status = updater.update()
-        if status == None or status == mlbstandings.updater.SeasonStatus.OVER or not backfill:
-            break
-    return 'Done\n'
-
-
-def mailtest(_: Optional[flask.Request], args:list[str]=[]) -> str:
+def mailtest(_: Optional[flask.Request]) -> str:
     msg = email.message.EmailMessage()
     url = f'https://docs.google.com/spreadsheets/d/1_alHZscHsxiKi3Zp90wuSpJEqoAcrhBPQ9LRTytWgy4/edit'
     name = 'MLB Standings 2024'
