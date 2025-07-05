@@ -40,9 +40,6 @@ def update() -> ResponseReturnValue:
     base_web = web.Web()
     w = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
     u = updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, w)
-    # TODO remove once everything works with new versions
-    base_web.read('https://www.baseball-reference.com/')
-    print('No problem reading www.baseball-reference.com')
     while True:
         status = u.update()
         if status is None or status == updater.SeasonStatus.OVER or not backfill:
