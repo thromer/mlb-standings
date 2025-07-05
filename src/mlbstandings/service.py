@@ -1,7 +1,9 @@
 import os
-from .app import app
 
 from gunicorn.app.base import BaseApplication
+
+from .app import app
+
 
 class StandaloneApplication(BaseApplication):
     def __init__(self, app, options=None):

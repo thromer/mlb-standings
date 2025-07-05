@@ -1,10 +1,11 @@
 from datetime import date
-from typing import List, Dict, cast
+from typing import Dict, List, cast
+
+from mlbstandings.baseballref import BaseballReference
+from mlbstandings.shared_types import SheetValue
 
 from .fakes import FakeWeb
 from .fixtures import TEST_DATA_DIR
-from mlbstandings.baseballref import BaseballReference
-from mlbstandings.shared_types import SheetValue
 
 
 def test_first_day() -> None:

@@ -1,9 +1,12 @@
+import urllib.error
+
+# TODO remove once we're running on a system that works with urllib3 + baseball-reference.com
+import urllib.request  # import Request, urlopen
+
 import backoff
 import requests
-# TODO remove once we're running on a system that works with urllib3 + baseball-reference.com
-import urllib.request # import Request, urlopen
-import urllib.error
- 
+
+
 class Web:
     @staticmethod
     def retryable(code: int) -> bool:

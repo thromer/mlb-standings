@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import google.auth
-
 from google.auth.transport.requests import AuthorizedSession
 
 import mlbstandings.light_google_wrappers

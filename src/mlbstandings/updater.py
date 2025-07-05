@@ -1,9 +1,11 @@
-from datetime import timedelta, MINYEAR
-from enum import Enum
-from zoneinfo import ZoneInfo
-
-from email.message import EmailMessage
+import smtplib
+import sys
+from datetime import MINYEAR, timedelta
 from email.headerregistry import Address
+from email.message import EmailMessage
+from enum import Enum
+from typing import TYPE_CHECKING, cast
+from zoneinfo import ZoneInfo
 
 from google.cloud import secretmanager
 
@@ -11,11 +13,6 @@ from mlbstandings.baseballref import *
 from mlbstandings.helpers import *
 from mlbstandings.shared_types import *
 from mlbstandings.typing_protocols import *
-
-import smtplib
-import sys
-
-from typing import TYPE_CHECKING, cast
 
 if TYPE_CHECKING:
     from datetime import date, datetime

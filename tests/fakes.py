@@ -5,18 +5,18 @@ import json
 import os.path
 import re
 import string
-
 from pathlib import Path
-from mlbstandings.helpers import sheet_range_to_rc0_range
-from mlbstandings.shared_types import SheetValue
-# noinspection PyUnresolvedReferences
-from mlbstandings.shared_types import SheetArray
-
 from typing import TYPE_CHECKING, cast
 
+from mlbstandings.helpers import sheet_range_to_rc0_range
+
+# noinspection PyUnresolvedReferences
+from mlbstandings.shared_types import SheetArray, SheetValue
+
 if TYPE_CHECKING:
-    from mlbstandings.shared_types import *
     from typing import Any, List
+
+    from mlbstandings.shared_types import *
     from mlbstandings.typing_protocols import *
 
 

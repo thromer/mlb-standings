@@ -5,10 +5,11 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from .fakes import FakeFiles, FakeSpreadsheets, FakeWeb
 import mlbstandings.updater
-from .fixtures import TEST_DATA_DIR
 from mlbstandings.helpers import date_from_excel_date
+
+from .fakes import FakeFiles, FakeSpreadsheets, FakeWeb
+from .fixtures import TEST_DATA_DIR
 
 CONTENTS_SHEET_ID = 'contents'
 
