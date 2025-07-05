@@ -7,21 +7,31 @@ import urllib.error
 class Web:
     @staticmethod
     def retryable(code: int) -> bool:
-        return False  # TODO
+        return code in set([429, 500, 503])
+    @staticmethod
+    def giveup(e: Exception) -> bool:
+        if isinstance(e, requests.exceptions.HTTPError):
+            code = e.response.status_code
+        elif isinstance(e, urllib.error.HTTPError):
+            code = e.code
+        else:
+            return False
+        return not Web.retryable(code)
     @staticmethod
     @backoff.on_exception(
         backoff.expo,
         (requests.exceptions.HTTPError, urllib.error.HTTPError, requests.exceptions.ConnectionError, requests.exceptions.Timeout),
         max_time=600,
-        giveup=lambda e : isinstance(e, requests.exceptions.HTTPError) and e.response.status_code not in set([429, 500, 503]),
+        giveup=lambda e : Web.giveup(e),
         max_value=60
     )
     def read(url: str) -> str:
-        print(f'Web.read({url}')
         if url.find('https://www.baseball-reference.com/') == 0:
+            print(f'Using urllib in Web.read({url}')
             req = urllib.request.Request(url)
             resp = urllib.request.urlopen(req) 
             return resp.read().decode('ISO-8859-1')
+        print(f'Using requests in Web.read({url}')
         r = requests.get(url)
         r.raise_for_status()
         if r.encoding is None:
