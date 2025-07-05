@@ -23,7 +23,7 @@ class Web:
         (requests.exceptions.HTTPError, urllib.error.HTTPError, requests.exceptions.ConnectionError, requests.exceptions.Timeout),
         max_time=600,
         giveup=lambda e: Web.giveup(e),
-        max_value=60
+        max_value=60,
     )
     def read(url: str) -> str:
         if url.startswith('https://www.baseball-reference.com/'):
