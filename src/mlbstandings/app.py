@@ -1,4 +1,5 @@
 import flask
+from flask.typing import ResponseReturnValue
 
 import google.auth
 import logging
@@ -21,7 +22,7 @@ CONTENTS_SPREADSHEET_ID = '1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo'
 
 
 @app.route('/', methods=['GET', 'POST'])
-def update():
+def update() -> ResponseReturnValue:
     backfill = False
 #    if len(args) > 0:
 #        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
@@ -32,8 +33,7 @@ def update():
     # But not working locally :(
     # How did I update scopes for the cloud function esp auth/drive ?
     scopes = ['https://www.googleapis.com/auth/drive',  # to create spreadsheets
-              'https://www.googleapis.com/auth/spreadsheets',
-              'https://www.googleapis.com/auth/drive.metadata.readonly']  # unlikely we need this?
+              'https://www.googleapis.com/auth/spreadsheets']
     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
     authed_session = AuthorizedSession(creds)  # type: ignore
     files = light_google_wrappers.Files(authed_session)
