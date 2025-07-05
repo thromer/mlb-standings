@@ -122,10 +122,8 @@ typing-extensions==4.14.1
     #   beautifulsoup4
     #   mypy
     #   pyright
-urllib3==1.26.20
-    # via
-    #   mlbstandings
-    #   requests
+urllib3==2.5.0
+    # via requests
 watchdog==6.0.0
     # via functions-framework
 werkzeug==3.1.3
