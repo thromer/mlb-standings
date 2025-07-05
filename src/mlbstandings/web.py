@@ -26,7 +26,7 @@ class Web:
         max_value=60
     )
     def read(url: str) -> str:
-        if url.startswith('https://www.baseball-reference.com/') == 0:
+        if url.startswith('https://www.baseball-reference.com/'):
             print(f'Using urllib in Web.read({url})')
             req = urllib.request.Request(url)
             with urllib.request.urlopen(req) as resp:
