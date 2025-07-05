@@ -3,7 +3,6 @@ import os
 from gunicorn.app.base import BaseApplication
 
 from .app import app
-from . import web
 
 class StandaloneApplication(BaseApplication):
     def __init__(self, app, options=None):
@@ -36,8 +35,4 @@ def run_server(application, port: str, workers: int):
     StandaloneApplication(application, options).run()
 
 def serve() -> None:
-    # TODO remove this block once #8 is properly fixed
-    base_web = web.Web()
-    base_web.read('https://www.baseball-reference.com/')
-    print('No problem reading www.baseball-reference.com')
     run_server(app, os.environ.get('PORT', '8080'), 1)
