@@ -46,6 +46,6 @@ def update():
     print('No problem reading www.baseball-reference.com')
     while True:
         status = u.update()
-        if status == None or status == updater.SeasonStatus.OVER or not backfill:
+        if status is None or status == updater.SeasonStatus.OVER or not backfill:
             break
     return 'Done\n'

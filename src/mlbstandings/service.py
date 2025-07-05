@@ -31,7 +31,7 @@ def run_server(application, port: str, workers: int):
         # 'logger_class': 'debug',  # ?
     }
 
-    StandaloneApplication(app, options).run()
+    StandaloneApplication(application, options).run()
 
 def serve() -> None:
     run_server(app, os.environ.get('PORT', '8080'), 1)
