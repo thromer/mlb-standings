@@ -5,9 +5,9 @@ from gunicorn.app.base import BaseApplication
 from .app import app
 
 class StandaloneApplication(BaseApplication):
-    def __init__(self, app, options=None):
+    def __init__(self, application, options=None):
         self.options = options or {}
-        self.application = app
+        self.application = application
         super().__init__()
 
     def load_config(self):
