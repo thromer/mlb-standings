@@ -4,7 +4,7 @@ import json
 import bs4
 import itertools
 
-from mlbstandings.typing_protocols import *
+from mlbstandings.typing_protocols import WebLike
 from datetime import date, datetime
 from functools import cache
 
@@ -217,9 +217,9 @@ class BaseballReference:
     def _work(self, league: str, soup: bs4.BeautifulSoup) -> Standings:
         table_id = f'standings-upto-{league}-overall'
         overall_table = soup.find(id=table_id)
-        if overall_table is not None and type(overall_table) == bs4.element.Tag:
+        if overall_table is not None and type(overall_table) is bs4.element.Tag:
             overall_table = overall_table.tbody
-        if overall_table is None or type(overall_table) != bs4.element.Tag:
+        if overall_table is None or type(overall_table) is not bs4.element.Tag:
             raise ValueError(f'{table_id} is missing or exists with no tbody')
 
         # Get everyone's stats

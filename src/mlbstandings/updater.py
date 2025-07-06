@@ -1,25 +1,24 @@
+
+
+
 from datetime import timedelta, MINYEAR
+from email.headerregistry import Address
+from email.message import EmailMessage
 from enum import Enum
+from google.cloud import secretmanager
+from mlbstandings.baseballref import BaseballReference, BaseballRefException
+from mlbstandings.helpers import date_from_excel_date, date_to_excel_date, rc0_range_to_sheet_range
+from mlbstandings.shared_types import SheetValue
+from mlbstandings.typing_protocols import FilesLike, SpreadsheetLike, SpreadsheetsLike, WebLike
 from zoneinfo import ZoneInfo
 
-from email.message import EmailMessage
-from email.headerregistry import Address
-
-from google.cloud import secretmanager
-
-from mlbstandings.baseballref import *
-from mlbstandings.helpers import *
-from mlbstandings.shared_types import *
-from mlbstandings.typing_protocols import *
-
 import smtplib
-import sys
 
 from typing import TYPE_CHECKING, cast
 
 if TYPE_CHECKING:
     from datetime import date, datetime
-    from typing import Dict, List, Union
+    from typing import Dict, List
 
 """
 Invariants:
@@ -85,7 +84,7 @@ class Updater:
     def get_spreadsheet_id_for_year_recursive(self, year: int, depth: int) -> str:
         try:
             return str(self._contents[year])
-        except KeyError as e:
+        except KeyError:
             pass
         if depth > 0:
             raise KeyError(year)
@@ -104,7 +103,7 @@ class Updater:
         # clear fields
         spreadsheet = self.spreadsheets.spreadsheet(new_id)
         spreadsheet.clear_range('data_values')
-        for sheet_name in [self._upload_sheet_name(l) for l in _LEAGUES] + ['playoff_upload']:
+        for sheet_name in [self._upload_sheet_name(league) for league in _LEAGUES] + ['playoff_upload']:
             spreadsheet.clear_sheet(sheet_name)
 
         # add to contents
@@ -240,7 +239,7 @@ class Updater:
                 return SeasonStatus.IN_PROGRESS
             return self.update_post_season()
         except BaseballRefException as e:
-            print(f'BaseballReferenceException {e}, hopefully transient');
+            print(f'BaseballReferenceException {e}, hopefully transient')
             return None
 
     def _get_newest_league_day(self, column: List[SheetValue], league: str, first_day: date) -> date:
@@ -251,10 +250,10 @@ class Updater:
         # Check that values sequentially increase starting with first_day - 1
         want = first_day - _ONE_DAY
         for sheet_val in column[1:]:
-            if type(sheet_val) != int:
+            if type(sheet_val) is not int:
                 raise ValueError(f'Unexpected value {sheet_val} in column A2:A')
             got = date_from_excel_date(sheet_val)
-            if type(sheet_val) != int or got != want:
+            if type(sheet_val) is not int or got != want:
                 raise ValueError(f'Expected date {want} in {self._upload_sheet_name(league)} but got {got}')
             want = want + _ONE_DAY
 
