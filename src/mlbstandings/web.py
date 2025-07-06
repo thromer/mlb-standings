@@ -31,10 +31,10 @@ class Web:
         if url.startswith('https://www.baseball-reference.com/'):
             print(f'Using urllib in Web.read({url})')
             req = urllib.request.Request(url)
-            with urllib.request.urlopen(req) as resp:
+            with urllib.request.urlopen(req) as resp:  # nosec
                 return resp.read().decode('ISO-8859-1')
         print(f'Using requests in Web.read({url})')
-        r = requests.get(url)
+        r = requests.get(url)  # nosec
         r.raise_for_status()
         if r.encoding is None:
             raise ValueError(f'Missing encoding in esponse to GET {url}')

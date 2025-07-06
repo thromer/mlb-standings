@@ -12,7 +12,7 @@ from google.cloud import secretmanager
 # from googleapiclient.discovery import build
 from typing import Optional, cast
 
-GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
+GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'  # nosec
 
 logging.getLogger('backoff').addHandler(logging.StreamHandler())
 

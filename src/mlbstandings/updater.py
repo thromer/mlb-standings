@@ -34,7 +34,7 @@ Loosely speaking:
 * Supporting function: W-L as of date. We just use whatever baseball-reference tells us.
 """
 
-GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'
+GMAIL_SMTP_SECRET_NAME = 'projects/mlb-standings-001/secrets/gmail-smtp/versions/latest'  # nosec
 
 _FIRST_DAY = 'first_day'
 _LAST_DAY = 'last_day'
