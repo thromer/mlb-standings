@@ -259,7 +259,7 @@ class BaseballReference:
                'fields=copyright,dates,date,games,status,statusCode,description,gameType,'
                'seriesGameNumber,gamesInSeries,teams,team,id,score')
         d = self.web.read(url)
-        md5 = hashlib.md5(d.encode('UTF-8')).hexdigest()
+        md5 = hashlib.md5(d.encode('UTF-8'), usedforsecurity=False).hexdigest()
         j = json.loads(d)
         header = ['description', 'gameType', 'seriesGameNumber', 'gamesInSeries',
                   'awayId', 'homeId', 'awayScore', 'homeScore']
