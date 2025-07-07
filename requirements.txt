@@ -4,6 +4,7 @@
 backoff==2.2.1
     # via mlbstandings
 bandit==1.8.6
+basedpyright==1.29.5
 beautifulsoup4==4.13.4
     # via mlbstandings
 blinker==1.9.0
@@ -79,6 +80,8 @@ mypy-extensions==1.1.0
     # via mypy
 nodeenv==1.9.1
     # via pyright
+nodejs-wheel-binaries==22.17.0
+    # via basedpyright
 packaging==25.0
     # via
     #   deprecation
@@ -126,12 +129,16 @@ rich==14.0.0
     # via bandit
 rsa==4.9.1
     # via google-auth
+ruff==0.12.2
 setuptools==80.9.0
     # via pbr
 soupsieve==2.7
     # via beautifulsoup4
 stevedore==5.4.1
     # via bandit
+types-beautifulsoup4==4.12.0.20250516
+types-html5lib==1.1.11.20250516
+    # via types-beautifulsoup4
 types-requests==2.31.0.6
 types-urllib3==1.26.25.14
     # via types-requests

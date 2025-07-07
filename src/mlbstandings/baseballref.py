@@ -4,14 +4,14 @@ import json
 import bs4
 import itertools
 
-from mlbstandings.typing_protocols import WebLike
+
+from .typing_protocols import WebLike
 from datetime import date, datetime
 from functools import cache
 
-from typing import Any, List, Dict, Union, Optional, TYPE_CHECKING
+from typing import ReadOnly, TypedDict, cast, final
 
-if TYPE_CHECKING:
-    from mlbstandings.shared_types import SheetValue
+from .shared_types import SheetValue
 
 
 _CANONICAL_TEAM_ABBRS = {
@@ -96,14 +96,15 @@ WORLD_SERIES_ID = 'W'
 class BaseballRefException(Exception):
     pass
 
+@final
 class Standings:
-    def __init__(self, league: str, stats: Dict[str, Dict[str, float]]):
+    def __init__(self, league: str, stats: dict[str, dict[str, float]]):
         self.league = league
         self.stats = stats
         self.divisions = LEAGUES[league]
         self.all_teams = LEAGUE_TEAMS[league]
         # Get sole leader(s) for each division, so we can exclude them from WC list
-        sole_leaders = set()
+        sole_leaders: set[str] = set()
         for div_teams in self.divisions.values():
             count_best = 0
             best = float('-inf')
@@ -121,9 +122,9 @@ class Standings:
                 sole_leaders.add(sole)
 
         # +/- .500
-        # plus_minus: List[Union[str, int]] = [int(stats[t]['w'] - stats[t]['l']) for t in all_teams]
+        # plus_minus: list[str | int] = [int(stats[t]['w'] - stats[t]['l']) for t in all_teams]
 
-        self.div_orders: Dict[str, List[str]] = {
+        self.div_orders: dict[str, list[str]] = {
             # sort by negative winning pct, then by abbr (both ascending)
             # TODO probably should make sort step a function since it is repeated below.
             division: sorted(sorted(self.divisions[division]), key=lambda team: -stats[team]['pct'])
@@ -131,19 +132,27 @@ class Standings:
         }
 
         wc_teams = set(self.all_teams) - sole_leaders
-        self.wc_order: List[str] = sorted(sorted(wc_teams), key=lambda team: -stats[team]['pct'])
+        self.wc_order: list[str] = sorted(sorted(wc_teams), key=lambda team: -stats[team]['pct'])
 
-    def plus_minus(self) -> Dict[str, int]:
+    def plus_minus(self) -> dict[str, int]:
         return {t: int(self.stats[t]['w'] - self.stats[t]['l']) for t in self.all_teams}
 
-    def row(self) -> List[Union[str, int]]:
+    def row(self) -> list[str | int]:
         pm = self.plus_minus()
-        div_orders: List[str] = list(itertools.chain.from_iterable([self.div_orders[d] for d in DIVISION_ORDER]))
-        plus_minus: List[int] = [pm[t] for t in self.all_teams]
+        div_orders: list[str] = list(itertools.chain.from_iterable([self.div_orders[d] for d in DIVISION_ORDER]))
+        plus_minus: list[int] = [pm[t] for t in self.all_teams]
         result = plus_minus + div_orders + self.wc_order
         return result
 
 
+class PostSeason(TypedDict):
+    md5: ReadOnly[str]
+    header: ReadOnly[list[str]]
+    rows: ReadOnly[list[list[str]]]
+    last_scheduled_day: ReadOnly[date]
+
+
+@final
 class BaseballReference:
     def __init__(self, web: WebLike) -> None:
         self.web = web
@@ -164,8 +173,8 @@ class BaseballReference:
             SCHEDULE_DATES_URL_FORMAT % REGULAR_SEASON_ID,
             f"startDate=01/01/{y}",
             f"endDate=12/31/{y}"])
-        j = json.loads(self.web.read(url))
-        date_str = j['dates'][0]['games'][0]['officialDate']
+        j = json.loads(self.web.read(url))  # pyright:ignore[reportAny]
+        date_str = cast(str, j['dates'][0]['games'][0]['officialDate'])
         return datetime.strptime(date_str, '%Y-%m-%d').date()
 
     def last_scheduled_day(self, day: date, type_id: str) -> date:
@@ -174,10 +183,10 @@ class BaseballReference:
             SCHEDULE_DATES_URL_FORMAT % type_id,
             f"startDate={day.strftime('%m/%d/%Y')}",
             f"endDate=12/31/{day.year}"])
-        j = json.loads(self.web.read(url))
-        if len(j['dates']) <= 0:
+        j = json.loads(self.web.read(url))  # pyright:ignore[reportAny]
+        if len(cast(str, j['dates'])) <= 0:
             raise BaseballRefException('No dates available from BaseballReference ... yet')
-        date_str = j['dates'][-1]['games'][-1]['officialDate']
+        date_str = cast(str, j['dates'][-1]['games'][-1]['officialDate'])
         return datetime.strptime(date_str, '%Y-%m-%d').date()
 
     def last_scheduled_regular_day(self, day: date) -> date:
@@ -195,7 +204,7 @@ class BaseballReference:
                 return True
         return False
 
-    def spreadsheet_row(self, day: date) -> Optional[Dict[str, List[Union[str, int]]]]:
+    def spreadsheet_row(self, day: date) -> dict[str, list[str | int]] | None:
         """Returns ready-to-paste rows (other than day) for the day if available, None otherwise"""
         url = day.strftime('https://www.baseball-reference.com/boxes/?year=%Y&month=%m&day=%d')
         data = self.web.read(url)
@@ -234,12 +243,12 @@ class BaseballReference:
         return Standings(league, stats)
 
     @staticmethod
-    def zeroday() -> Optional[Dict[str, List[Union[str, int]]]]:
+    def zeroday() -> dict[str, list[str | int]]:
         stats = {abbr: {'w': 0, 'l': 0, 'pct': 0.5} for abbr in itertools.chain.from_iterable(LEAGUE_TEAMS.values())}
         return {league: Standings(league, stats).row() for league in LEAGUES.keys()}
 
     @staticmethod
-    def header_row(league: str) -> List[SheetValue]:
+    def header_row(league: str) -> list[SheetValue]:
         divs = LEAGUES[league]
         return list(
             itertools.chain.from_iterable(
@@ -254,22 +263,22 @@ class BaseballReference:
             return _CANONICAL_MLB_TEAM_ABBRS[mlb_abbr]
         return mlb_abbr
 
-    def grab_post_season(self, year: date) -> dict[str, Any]:
+    def grab_post_season(self, year: date) -> PostSeason:
         url = (f'https://statsapi.mlb.com/api/v1/schedule/postseason?season={year.year}&'
                'fields=copyright,dates,date,games,status,statusCode,description,gameType,'
                'seriesGameNumber,gamesInSeries,teams,team,id,score')
         d = self.web.read(url)
         md5 = hashlib.md5(d.encode('UTF-8'), usedforsecurity=False).hexdigest()
-        j = json.loads(d)
+        j = json.loads(d)  # pyright:ignore[reportAny]
         header = ['description', 'gameType', 'seriesGameNumber', 'gamesInSeries',
                   'awayId', 'homeId', 'awayScore', 'homeScore']
         rows = []
-        for x in itertools.chain.from_iterable([d['games'] for d in j['dates']]):
-            a = x['teams']['away']
-            h = x['teams']['home']
+        for x in itertools.chain.from_iterable([d['games'] for d in j['dates']]):  # pyright:ignore[reportAny]
+            a = cast(str, x['teams']['away'])
+            h = cast(str, x['teams']['home'])
             if x['status']['statusCode'] != 'F':
                 continue
-            rows.append([
+            rows.append(cast(list[str], [
                 x['description'][0],
                 x['gameType'],
                 x['seriesGameNumber'],
@@ -277,7 +286,7 @@ class BaseballReference:
                 self.mlb_id_to_abbr(a['team']['id']),
                 self.mlb_id_to_abbr(h['team']['id']),
                 a['score'],
-                h['score']])
+                h['score']]))
         return {
             'md5': md5, 'header': header, 'rows': rows,
             'last_scheduled_day': datetime.strptime(max([d['date'] for d in j['dates']]), '%Y-%m-%d').date()}

@@ -6,7 +6,7 @@ from urllib.parse import quote  # TODO remove probably
 
 import backoff
 
-from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
+from .shared_types import Dimension, SheetArray, SheetValue
 
 
 
