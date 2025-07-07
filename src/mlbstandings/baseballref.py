@@ -144,7 +144,7 @@ class Standings:
         result = plus_minus + div_orders + self.wc_order
         return result
 
-
+# TODO consider being more strict about rows
 class PostSeason(TypedDict):
     md5: ReadOnly[str]
     header: ReadOnly[list[str]]
@@ -263,6 +263,36 @@ class BaseballReference:
             return _CANONICAL_MLB_TEAM_ABBRS[mlb_abbr]
         return mlb_abbr
 
+    """For example, dates element of tab level json object will look like:
+  "dates": [
+    {
+      "date": "2024-10-01",
+      "games": [
+        {
+          "gameType": "F",
+          "status": {
+            "statusCode": "F"
+          },
+          "teams": {
+            "away": {
+              "score": 3,
+              "team": {
+                "id": 116
+              }
+            },
+            "home": {
+              "score": 1,
+              "team": {
+                "id": 117
+              }
+            }
+          },
+          "description": "AL Wild Card Series ",
+          "gamesInSeries": 3,
+          "seriesGameNumber": 1
+        },
+        ...
+"""
     def grab_post_season(self, year: date) -> PostSeason:
         url = (f'https://statsapi.mlb.com/api/v1/schedule/postseason?season={year.year}&'
                'fields=copyright,dates,date,games,status,statusCode,description,gameType,'
