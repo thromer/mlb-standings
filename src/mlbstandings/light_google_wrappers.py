@@ -98,7 +98,8 @@ class Spreadsheets:
         self.session = session
 
     def close(self) -> None:
-        self.session.close()
+        # self.session.close()
+        pass
 
     def spreadsheet(self, spreadsheet_id: str) -> Spreadsheet:
         return Spreadsheet(self.session, spreadsheet_id)
