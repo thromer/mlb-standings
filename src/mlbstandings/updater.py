@@ -71,10 +71,10 @@ class Updater:
         )  # TODO: encapsulate day boundary logic somewheres
         self.files = files
         self.spreadsheets = spreadsheets
-        spreadsheet_id = self.get_spreadsheet_id_for_year(self.now.year)
-        self.spreadsheet = self.spreadsheets.spreadsheet(spreadsheet_id)
         self.contents_spreadsheet = spreadsheets.spreadsheet(contents_id)
         self._contents = self._build_contents(self.contents_spreadsheet)
+        spreadsheet_id = self.get_spreadsheet_id_for_year(self.now.year)
+        self.spreadsheet = self.spreadsheets.spreadsheet(spreadsheet_id)
         self.baseballref = BaseballReference(web)
 
     @staticmethod
