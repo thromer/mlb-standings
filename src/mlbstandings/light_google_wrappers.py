@@ -30,6 +30,9 @@ class Spreadsheet:
         self.session = session
         self.id = spreadsheet_id
 
+    def close(self) -> None:
+        return None
+
     # @backoff_on_retryable()
     def set_range(self, range_str: str, values: SheetArray) -> None:
         url = f"https://sheets.googleapis.com/v4/spreadsheets/{self.id}/values/{quote(range_str)}"
@@ -99,7 +102,7 @@ class Spreadsheets:
 
     def close(self) -> None:
         # self.session.close()
-        pass
+        return None
 
     def spreadsheet(self, spreadsheet_id: str) -> Spreadsheet:
         return Spreadsheet(self.session, spreadsheet_id)
