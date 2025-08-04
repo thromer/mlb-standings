@@ -1,6 +1,9 @@
-from mlbstandings.typing_protocols import *
+from typing import final
+
+from mlbstandings.typing_protocols import RateLimiterLike, WebLike
 
 
+@final
 class AbstractRateLimitedWeb:
     def __init__(self, web: WebLike, limiter: RateLimiterLike) -> None:
         self.web = web

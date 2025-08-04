@@ -1,13 +1,17 @@
 from __future__ import annotations
 
-from typing import Any, Callable, TypeVar, cast, final
-from urllib.parse import quote  # TODO remove probably
+from typing import TYPE_CHECKING, Any, Callable, TypeVar, cast, final, override
+from urllib.parse import quote  # TODO: remove probably
 
 import backoff
 from requests.exceptions import HTTPError, Timeout
-from requests.sessions import Session
+
+
+if TYPE_CHECKING:
+    from requests.sessions import Session
 
 from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
+from mlbstandings.typing_protocols import FilesLike, SpreadsheetLike, SpreadsheetsLike
 
 
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
@@ -25,15 +29,13 @@ def backoff_on_retryable() -> Callable[[_CallableT], _CallableT]:
 
 
 @final
-class Spreadsheet:
+class Spreadsheet(SpreadsheetLike):
     def __init__(self, session: Session, spreadsheet_id: str) -> None:
         self.session = session
         self.id = spreadsheet_id
 
-    def close(self) -> None:
-        return None
-
-    # @backoff_on_retryable()
+    @backoff_on_retryable()
+    @override
     def set_range(self, range_str: str, values: SheetArray) -> None:
         url = f"https://sheets.googleapis.com/v4/spreadsheets/{self.id}/values/{quote(range_str)}"
         params = {
@@ -45,10 +47,12 @@ class Spreadsheet:
         resp = self.session.put(url, params=params, json={"values": values})
         resp.raise_for_status()
 
+    @override
     def set_cell(self, cell_str: str, value: SheetValue) -> None:
         self.set_range(cell_str, [[value]])
 
-    # @backoff_on_retryable()
+    @backoff_on_retryable()
+    @override
     def get_range(
         self, range_str: str, major_dimension: Dimension = "ROWS"
     ) -> SheetArray:
@@ -63,13 +67,15 @@ class Spreadsheet:
         resp.raise_for_status()
         return cast(SheetArray, resp.json().get("values", [[]]))
 
+    @override
     def get_cell(self, cell_str: str) -> SheetValue:
         range_values = self.get_range(cell_str)
         if len(range_values) == 0 or len(range_values[0]) == 0:
             return ""
         return range_values[0][0]
 
-    # @backoff_on_retryable()
+    @backoff_on_retryable()
+    @override
     def append_to_range(self, range_str: str, values: SheetArray) -> dict[str, Any]:
         url = f"https://content-sheets.googleapis.com/v4/spreadsheets/{self.id}/values/{quote(range_str)}:append"
         params = {
@@ -82,13 +88,15 @@ class Spreadsheet:
         resp.raise_for_status()
         return cast(dict[str, Any], resp.json())
 
-    # @backoff_on_retryable()
+    @backoff_on_retryable()
+    @override
     def clear_range(self, range_str: str) -> None:
         url = f"https://sheets.googleapis.com/v4/spreadsheets/{self.id}/values/{quote(range_str)}:clear"
         # print(f'POST {url}')
         resp = self.session.post(url)
         resp.raise_for_status()
 
+    @override
     def clear_sheet(self, sheet_name: str) -> None:
         append_res = self.append_to_range(f"'{sheet_name}'!A1:A", [[""]])
         clear_range = append_res["updates"]["updatedRange"].replace("!A", "!1:", 1)
@@ -96,24 +104,22 @@ class Spreadsheet:
 
 
 @final
-class Spreadsheets:
+class Spreadsheets(SpreadsheetsLike):
     def __init__(self, session: Session) -> None:
         self.session = session
 
-    def close(self) -> None:
-        # self.session.close()
-        return None
-
-    def spreadsheet(self, spreadsheet_id: str) -> Spreadsheet:
+    @override
+    def spreadsheet(self, spreadsheet_id: str) -> SpreadsheetLike:
         return Spreadsheet(self.session, spreadsheet_id)
 
 
 @final
-class Files:
+class Files(FilesLike):
     def __init__(self, session: Session) -> None:
         self.session = session
 
     @backoff_on_retryable()
+    @override
     def copy(self, id: str, name: str) -> str:
         url = f"https://content.googleapis.com/drive/v3/files/{id}/copy"
         params = {"alt": "json"}
