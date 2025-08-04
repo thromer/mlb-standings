@@ -26,6 +26,8 @@ class SpreadsheetLike(Protocol):
 
 
 class SpreadsheetsLike(Protocol):
+    def close(self) -> None: ...
+    
     def spreadsheet(self, spreadsheet_id: str) -> SpreadsheetLike: ...
 
 
