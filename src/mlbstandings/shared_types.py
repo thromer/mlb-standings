@@ -1,5 +1,6 @@
-from typing import Literal, List, Union
+from typing import Literal
 
-Dimension = Literal['DIMENSION_UNSPECIFIED', 'ROWS', 'COLUMNS']
-SheetValue = Union[str, int]
-SheetArray = List[List[SheetValue]]
+
+Dimension = Literal["DIMENSION_UNSPECIFIED", "ROWS", "COLUMNS"]
+SheetValue = str | int
+SheetArray = list[list[SheetValue]]

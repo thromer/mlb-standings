@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
+import sys
 from typing import List
 
 import main
-import sys
 
 
 def command_line(args: List[str]) -> None:

@@ -20,6 +20,7 @@ dev = [
     "pytest>=8.4.1,<9",
     "pytest-datafiles>=3.0.0,<4",
     # "types-beautifulsoup4>=4.12.0.20250516,<5",
+    "ruff>=0.12.2",
     "types-requests>=2.31.0.6,<3",
 ]
 
@@ -35,3 +36,76 @@ addopts = [
     "--import-mode=importlib",
     "--strict-markers",
 ]
+
+[tool.ruff.lint]
+
+select = [
+    "ALL",
+]
+
+# wip
+ignore = [
+    # TODO: TBD or future work
+    "A",
+    "ANN",
+    "BLE",
+    "C4",
+    "C90",
+    "DTZ",
+    "E501",   # line-too-long
+    "FBT",
+    "N",
+    "PERF",
+    "PGH",
+    "PLR",
+    "PT",
+    "PTH",
+    "RET",
+    "RUF",
+    "S",
+    "SIM",
+    "SLF",
+    "T20",
+    "TRY",
+    "UP",
+
+    # ... need to go through the list ...
+
+    # Real
+    "COM812", # missing-trailing-comma -- let the formatter deal with it
+    "D",      # pydocstyle
+    "ERA",    # eradicate
+    "FIX002", # line-contains-todo
+    "T201",   # print
+    "TC006",  # runtime-cast-value
+    "TD002",  # missing-todo-author
+    "TD003",  # missing-todo-link
+    "TRY002", # raise-vanilla-class
+    "TRY003", # raise-vanilla-args
+]
+
+# Fine tuning:
+# scripts/ruff-all.sh check --output-format=concise . | grep -v '^Found ' | grep -v 'fixable with the'   |   cut -d ' ' -f 2-  | sort | uniq -c | sort -n
+# extend-select = [ "ALL" ]
+
+# select = [ "ALL" ]
+# select = [ "..." ]
+# extend-select = [ ... ]
+# select = ["F", "E", "B", "Q" ]
+# select = ["ALL"]
+
+
+[tool.ruff.lint.extend-per-file-ignores]
+"**/tests/**/*.py" = ["S101"]  # assertions
+
+# [tool.ruff.lint.per-file-ignores]
+# "tests/**/*.py" = ["ARG001", "PLR2004"]  # Tests can use fixtures
+
+# [tool.ruff.lint.mccabe]
+# max-complexity = 10
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2

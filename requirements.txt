@@ -112,6 +112,7 @@ requests==2.32.4
     #   mlbstandings
 rsa==4.9.1
     # via google-auth
+ruff==0.12.2
 soupsieve==2.7
     # via beautifulsoup4
 types-requests==2.31.0.6
