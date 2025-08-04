@@ -96,6 +96,9 @@ class Spreadsheets:
     def __init__(self, session: Session) -> None:
         self.session = session
 
+    def close(self) -> None:
+        pass
+
     def spreadsheet(self, spreadsheet_id: str) -> Spreadsheet:
         return Spreadsheet(self.session, spreadsheet_id)
 
