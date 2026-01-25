@@ -14,7 +14,7 @@ from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
 from mlbstandings.typing_protocols import FilesLike, SpreadsheetLike, SpreadsheetsLike
 
 
-_CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
+_CallableT = TypeVar("_CallableT", bound=Callable[..., Any])  # pyright: ignore[reportExplicitAny]
 
 
 def backoff_on_retryable() -> Callable[[_CallableT], _CallableT]:
@@ -65,7 +65,7 @@ class Spreadsheet(SpreadsheetLike):
         # print(f'GET {url}')
         resp = self.session.get(url, params=params)
         resp.raise_for_status()
-        return cast(SheetArray, resp.json().get("values", [[]]))
+        return cast(SheetArray, resp.json().get("values", [[]]))  # pyright: ignore[reportAny]
 
     @override
     def get_cell(self, cell_str: str) -> SheetValue:
@@ -76,7 +76,7 @@ class Spreadsheet(SpreadsheetLike):
 
     @backoff_on_retryable()
     @override
-    def append_to_range(self, range_str: str, values: SheetArray) -> dict[str, Any]:
+    def append_to_range(self, range_str: str, values: SheetArray) -> dict[str, Any]:  # pyright: ignore[reportExplicitAny]
         url = f"https://content-sheets.googleapis.com/v4/spreadsheets/{self.id}/values/{quote(range_str)}:append"
         params = {
             "valueInputOption": "USER_ENTERED",
@@ -86,7 +86,7 @@ class Spreadsheet(SpreadsheetLike):
         # print(f'POST {url}')
         resp = self.session.post(url, params=params, json={"values": values})
         resp.raise_for_status()
-        return cast(dict[str, Any], resp.json())
+        return cast(dict[str, Any], resp.json())  # pyright: ignore[reportExplicitAny]
 
     @backoff_on_retryable()
     @override
@@ -99,8 +99,8 @@ class Spreadsheet(SpreadsheetLike):
     @override
     def clear_sheet(self, sheet_name: str) -> None:
         append_res = self.append_to_range(f"'{sheet_name}'!A1:A", [[""]])
-        clear_range = append_res["updates"]["updatedRange"].replace("!A", "!1:", 1)
-        self.clear_range(clear_range)
+        clear_range = append_res["updates"]["updatedRange"].replace("!A", "!1:", 1)  # pyright: ignore[reportAny]
+        self.clear_range(clear_range)  # pyright: ignore[reportAny]
 
 
 @final

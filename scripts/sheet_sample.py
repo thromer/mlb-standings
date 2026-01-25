@@ -12,7 +12,7 @@ scopes = [
     "https://www.googleapis.com/auth/drive.metadata.readonly",
 ]
 ss = mlbstandings.light_google_wrappers.Spreadsheets(
-    AuthorizedSession(google.auth.default(scopes=scopes)[0])
+    AuthorizedSession(google.auth.default(scopes=scopes)[0])  # pyright: ignore[reportUnknownArgumentType, reportUnknownMemberType]
 )  # type: ignore
 
 s = ss.spreadsheet("1ci-zPNJ8s0ZHbm9OBG49dF_DIOGloQPQKF3rmNUwZvA")

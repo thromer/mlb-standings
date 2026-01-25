@@ -14,7 +14,7 @@ from mlbstandings.helpers import (
     date_to_excel_date,
     rc0_range_to_sheet_range,
 )
-from mlbstandings.shared_types import SheetValue
+from mlbstandings.shared_types import SheetArray, SheetValue
 
 
 if TYPE_CHECKING:
@@ -261,23 +261,23 @@ class Updater:
             return SeasonStatus.OVER
         post_season = self.baseballref.grab_post_season(self.now)
         previous_md5 = self.spreadsheet.get_cell(_POST_SEASON_MD5)
-        in_progress = post_season["last_scheduled_day"] >= self.now.date()
+        in_progress = post_season.last_scheduled_day >= self.now.date()
         result = SeasonStatus.IN_PROGRESS if in_progress else SeasonStatus.OVER
-        if post_season["md5"] == previous_md5:
+        if post_season.md5 == previous_md5:
             # ugh
             self.spreadsheet.set_cell(
                 _LAST_POST_SEASON_DAY,
-                date_to_excel_date(post_season["last_scheduled_day"]),
+                date_to_excel_date(post_season.last_scheduled_day),
             )
             return result
-        table = [post_season["header"]] + post_season["rows"]
+        table: SheetArray = [post_season.header] + post_season.rows
         self.spreadsheet.set_range("playoff_upload!A:H", table)
         if not in_progress:
             self.spreadsheet.set_cell(
                 _LAST_POST_SEASON_DAY,
-                date_to_excel_date(post_season["last_scheduled_day"]),
+                date_to_excel_date(post_season.last_scheduled_day),
             )
-        self.spreadsheet.set_cell(_POST_SEASON_MD5, post_season["md5"])
+        self.spreadsheet.set_cell(_POST_SEASON_MD5, post_season.md5)
         return result
 
     def update(self) -> SeasonStatus | None:
@@ -335,7 +335,7 @@ class Updater:
 
         secret_manager_client = SecretManagerServiceClient()
         # Has retry built-in.
-        password = secret_manager_client.access_secret_version(
+        password = secret_manager_client.access_secret_version(  # pyright: ignore[reportUnknownMemberType]
             request={"name": GMAIL_SMTP_SECRET_NAME}
         ).payload.data.decode()
         # We would need to do our own retry.

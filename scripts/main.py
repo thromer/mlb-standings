@@ -3,12 +3,12 @@ import logging
 import smtplib
 
 # from googleapiclient.discovery import build
-from typing import Optional, cast
+from typing import cast
 
 import flask
 import google.auth
 from google.auth.transport.requests import AuthorizedSession
-from google.cloud import secretmanager
+from google.cloud.secretmanager import SecretManagerServiceClient
 
 import mlbstandings.light_google_wrappers
 
@@ -21,7 +21,7 @@ logging.getLogger("backoff").addHandler(logging.StreamHandler())
 app = flask.Flask(__name__)
 
 
-def cf_test(request: Optional[flask.Request], _) -> str:
+def cf_test(request: flask.Request | None, _) -> str:
     print(type(request))
     if isinstance(request, flask.Request):
         request_json = request.get_json(silent=True)
@@ -33,8 +33,8 @@ def cf_test(request: Optional[flask.Request], _) -> str:
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive.file",
     ]
-    creds = google.auth.default(scopes=scopes)[0]  # type: ignore
-    authed_session = AuthorizedSession(creds)  # type: ignore
+    creds = google.auth.default(scopes=scopes)[0]  # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
+    authed_session = AuthorizedSession(creds)  # pyright: ignore[reportUnknownArgumentType]
     sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)
     spreadsheet = sheets.spreadsheet("1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo")
     before = spreadsheet.get_range("Sheet1!A6:A6")
@@ -60,7 +60,7 @@ def cf_test(request: Optional[flask.Request], _) -> str:
 #     return 'Done\n'
 
 
-def mailtest(_: Optional[flask.Request]) -> str:
+def mailtest(_req: flask.Request | None) -> str:
     msg = email.message.EmailMessage()
     url = "https://docs.google.com/spreadsheets/d/1_alHZscHsxiKi3Zp90wuSpJEqoAcrhBPQ9LRTytWgy4/edit"
     name = "MLB Standings 2024"
@@ -76,14 +76,14 @@ def mailtest(_: Optional[flask.Request]) -> str:
     msg["Subject"] = "subject local"
     msg["From"] = "tromer@gmail.com"
     msg["To"] = "tromer@gmail.com"
-    secret_manager_client = secretmanager.SecretManagerServiceClient()
+    secret_manager_client = SecretManagerServiceClient()
     # Has retry built-in.
-    password = secret_manager_client.access_secret_version(
+    password = secret_manager_client.access_secret_version(  # pyright: ignore[reportUnknownMemberType]
         request={"name": GMAIL_SMTP_SECRET_NAME}
     ).payload.data.decode()
     with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.login("tromer@gmail.com", password)
-        smtp.send_message(msg)
+        _ = smtp.ehlo()
+        _ = smtp.starttls()
+        _ = smtp.login("tromer@gmail.com", password)
+        _ = smtp.send_message(msg)
     return "Done\n"

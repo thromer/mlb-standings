@@ -1,9 +1,10 @@
 import hashlib
 import itertools
 import json
+from dataclasses import dataclass
 from datetime import date, datetime
 from functools import cache
-from typing import TYPE_CHECKING, Any, final
+from typing import TYPE_CHECKING, Any, cast, final
 
 import bs4
 
@@ -12,8 +13,16 @@ import bs4
 
 
 if TYPE_CHECKING:
-    from mlbstandings.shared_types import SheetValue
+    from mlbstandings.shared_types import SheetArray, SheetValue
     from mlbstandings.typing_protocols import WebLike
+
+
+@dataclass
+class PostSeason:
+    md5: str
+    header: list[SheetValue]
+    rows: SheetArray
+    last_scheduled_day: date
 
 
 _CANONICAL_TEAM_ABBRS = {
@@ -181,8 +190,8 @@ class BaseballReference:
                 f"endDate=12/31/{y}",
             ]
         )
-        j = json.loads(self.web.read(url))
-        date_str = j["dates"][0]["games"][0]["officialDate"]
+        j = json.loads(self.web.read(url))  # pyright: ignore[reportAny]
+        date_str = cast(str, j["dates"][0]["games"][0]["officialDate"])
         return datetime.strptime(date_str, "%Y-%m-%d").date()
 
     def last_scheduled_day(self, day: date, type_id: str) -> date:
@@ -194,11 +203,11 @@ class BaseballReference:
                 f"endDate=12/31/{day.year}",
             ]
         )
-        j = json.loads(self.web.read(url))
-        if len(j["dates"]) <= 0:
+        dates = cast(list[Any], json.loads(self.web.read(url))["dates"])  # pyright: ignore[reportExplicitAny]
+        if len(dates) <= 0:
             msg = "No dates available from BaseballReference ... yet"
             raise BaseballRefException(msg)
-        date_str = j["dates"][-1]["games"][-1]["officialDate"]
+        date_str = cast(str, dates[-1]["games"][-1]["officialDate"])
         return datetime.strptime(date_str, "%Y-%m-%d").date()
 
     def last_scheduled_regular_day(self, day: date) -> date:
@@ -211,9 +220,10 @@ class BaseballReference:
 
     @staticmethod
     def no_games(s: bs4.BeautifulSoup) -> bool:
-        for h3 in s.find(id="content").find_all("h3"):  # type: ignore
-            if h3.text == "No Games Were or Have Yet Been Played on This Date":
-                return True
+        if (content := s.find(id="content")) and isinstance(content, bs4.Tag):
+            for h3 in cast(list[bs4.Tag], content.find_all("h3")):
+                if h3.text == "No Games Were or Have Yet Been Played on This Date":
+                    return True
         return False
 
     def spreadsheet_row(self, day: date) -> dict[str, list[str | int]] | None:
@@ -247,18 +257,18 @@ class BaseballReference:
 
         # Get everyone's stats
         stats = {}
-        for tr in overall_table.find_all("tr"):
-            tds = tr.find_all("td")
-            abbr = self.canonicalize_abbr(tr.th.text)
-            wins = int(tds[0].text)
-            losses = int(tds[1].text)
+        for tr in overall_table.find_all("tr"):  # pyright: ignore[reportAny]
+            tds = tr.find_all("td")  # pyright: ignore[reportAny]
+            abbr = self.canonicalize_abbr(tr.th.text)  # pyright: ignore[reportAny]
+            wins = int(tds[0].text)  # pyright: ignore[reportAny]
+            losses = int(tds[1].text)  # pyright: ignore[reportAny]
             stats[abbr] = {
                 "w": wins,
                 "l": losses,
                 "pct": 0.5 if wins + losses == 0 else wins / (wins + losses),
             }
 
-        return Standings(league, stats)
+        return Standings(league, stats)  # pyright: ignore[reportUnknownArgumentType]
 
     @staticmethod
     def zeroday() -> dict[str, list[str | int]] | None:
@@ -289,7 +299,7 @@ class BaseballReference:
             return _CANONICAL_MLB_TEAM_ABBRS[mlb_abbr]
         return mlb_abbr
 
-    def grab_post_season(self, year: date) -> dict[str, Any]:
+    def grab_post_season(self, year: date):
         url = (
             f"https://statsapi.mlb.com/api/v1/schedule/postseason?season={year.year}&"
             "fields=copyright,dates,date,games,status,statusCode,description,gameType,"
@@ -297,8 +307,8 @@ class BaseballReference:
         )
         d = self.web.read(url)
         md5 = hashlib.md5(d.encode("UTF-8")).hexdigest()
-        j = json.loads(d)
-        header = [
+        j = json.loads(d)  # pyright: ignore[reportAny]
+        header: list[SheetValue] = [
             "description",
             "gameType",
             "seriesGameNumber",
@@ -308,10 +318,10 @@ class BaseballReference:
             "awayScore",
             "homeScore",
         ]
-        rows = []
-        for x in itertools.chain.from_iterable([d["games"] for d in j["dates"]]):
-            a = x["teams"]["away"]
-            h = x["teams"]["home"]
+        rows: SheetArray = []
+        for x in itertools.chain.from_iterable([d["games"] for d in j["dates"]]):  # pyright: ignore[reportAny]
+            a = x["teams"]["away"]  # pyright: ignore[reportAny]
+            h = x["teams"]["home"]  # pyright: ignore[reportAny]
             if x["status"]["statusCode"] != "F":
                 continue
             rows.append(
@@ -320,17 +330,18 @@ class BaseballReference:
                     x["gameType"],
                     x["seriesGameNumber"],
                     x["gamesInSeries"],
-                    self.mlb_id_to_abbr(a["team"]["id"]),
-                    self.mlb_id_to_abbr(h["team"]["id"]),
+                    self.mlb_id_to_abbr(a["team"]["id"]),  # pyright: ignore[reportAny]
+                    self.mlb_id_to_abbr(h["team"]["id"]),  # pyright: ignore[reportAny]
                     a["score"],
                     h["score"],
                 ]
             )
-        return {
-            "md5": md5,
-            "header": header,
-            "rows": rows,
-            "last_scheduled_day": datetime.strptime(
-                max([d["date"] for d in j["dates"]]), "%Y-%m-%d"
+        return PostSeason(
+            md5,
+            header,
+            rows,
+            datetime.strptime(
+                max([d["date"] for d in j["dates"]]),  # pyright: ignore[reportAny]
+                "%Y-%m-%d",
             ).date(),
-        }
+        )

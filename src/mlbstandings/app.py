@@ -42,8 +42,8 @@ def update() -> ResponseReturnValue:
         "https://www.googleapis.com/auth/drive",  # to create spreadsheets
         "https://www.googleapis.com/auth/spreadsheets",
     ]
-    creds = google.auth.default(scopes=scopes)[0]  # type: ignore
-    authed_session = AuthorizedSession(creds)  # type: ignore
+    creds = google.auth.default(scopes=scopes)[0]  # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
+    authed_session = AuthorizedSession(creds)  # pyright: ignore[reportUnknownArgumentType]
     files = light_google_wrappers.Files(authed_session)
     sheets: SpreadsheetsLike = light_google_wrappers.Spreadsheets(authed_session)
     base_web = web.Web()

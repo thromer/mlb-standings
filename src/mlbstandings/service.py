@@ -1,5 +1,5 @@
 import os
-from typing import TYPE_CHECKING, final, override
+from typing import TYPE_CHECKING, Any, final, override
 
 from gunicorn.app.base import BaseApplication
 
@@ -21,9 +21,6 @@ class StandaloneApplication(BaseApplication):
 
     @override
     def load_config(self):
-        if self.cfg is None:
-            msg = "Inconceivable!"
-            raise Exception(msg)
         config = {
             key: value
             for key, value in self.options.items()
@@ -33,12 +30,12 @@ class StandaloneApplication(BaseApplication):
             self.cfg.set(key.lower(), value)
 
     @override
-    def load(self):
+    def load(self) -> Any:  # pyright: ignore[reportAny, reportExplicitAny]
         return self.application
 
 
 def run_server(application: Flask, port: str, workers: int):
-    options = {
+    options: dict[str, str | int | None] = {
         "bind": f":{port}",
         "workers": workers,
         # 'worker_class': 'sync',

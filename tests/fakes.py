@@ -25,12 +25,12 @@ if TYPE_CHECKING:
     from typing import Any
 
 
-def _convert_cell(cell: Any) -> SheetValue:
-    if type(cell) is int:
+def _convert_cell(cell: Any) -> SheetValue:  # pyright: ignore[reportAny, reportExplicitAny]
+    if type(cell) is int:  # pyright: ignore[reportAny]
         return int(cell)
-    if type(cell) is str:
+    if type(cell) is str:  # pyright: ignore[reportAny]
         return int(cell) if cell.isnumeric() else cell
-    msg = f"cell has unexpected type {type(cell)}"
+    msg = f"cell has unexpected type {type(cell)}"  # pyright: ignore[reportAny]
     raise TypeError(msg)
 
 
@@ -159,8 +159,8 @@ class FakeSpreadsheet(SpreadsheetLike):
     def __init__(self, test_data_dir: Path, spreadsheet_id: str) -> None:
         self.data_dir = test_data_dir / spreadsheet_id
         with (self.data_dir / "named_ranges.json").open() as nr:
-            self.named_ranges = json.load(nr)
-        print(self.named_ranges)
+            self.named_ranges = json.load(nr)  # pyright: ignore[reportAny]
+        print(self.named_ranges)  # pyright: ignore[reportAny]
         self.sheets = {
             os.path.splitext(fpath.name)[0]: FakeSheet.fromcsv(fpath)
             for fpath in self.data_dir.glob("*.csv")
@@ -169,7 +169,7 @@ class FakeSpreadsheet(SpreadsheetLike):
 
     def close(self) -> None:
         with (self.data_dir / "named_ranges.json").open("w") as nr:
-            json.dump(self.named_ranges, nr)
+            json.dump(self.named_ranges, nr)  # pyright: ignore[reportAny]
         for sheet_name, sheet in self.sheets.items():
             sheet.tocsv(self.data_dir / f"{sheet_name}.csv")
 
@@ -178,7 +178,7 @@ class FakeSpreadsheet(SpreadsheetLike):
         self, range_str: str, major_dimension: Dimension = "ROWS"
     ) -> SheetArray:
         print(f"get_range(range_str={range_str}, major_dimension={major_dimension}")
-        if range_str in self.named_ranges:
+        if range_str in self.named_ranges:  # pyright: ignore[reportAny]
             return cast(SheetArray, self.named_ranges[range_str])
         n, r = range_str.split("!", 1)
         return self.sheets[n].get_range(r, major_dimension)
@@ -189,8 +189,8 @@ class FakeSpreadsheet(SpreadsheetLike):
 
     @override
     def set_range(self, range_str: str, values: SheetArray) -> None:
-        if range_str in self.named_ranges:
-            self.named_ranges[range_str] = values
+        if range_str in self.named_ranges:  # pyright: ignore[reportAny]
+            self.named_ranges[range_str] = values  # pyright: ignore[reportAny]
             return
         n, r = range_str.split("!", 1)
         self.sheets[n].set_range(r, values)
@@ -200,7 +200,7 @@ class FakeSpreadsheet(SpreadsheetLike):
         self.set_range(cell_str, [[value]])
 
     @override
-    def append_to_range(self, range_str: str, values: SheetArray) -> dict[str, Any]:
+    def append_to_range(self, range_str: str, values: SheetArray) -> dict[str, Any]:  # pyright:ignore[reportExplicitAny]
         raise NotImplementedError
 
     @override

@@ -42,8 +42,8 @@ class Web(WebLike):
         if url.startswith("https://www.baseball-reference.com/"):
             print(f"Using urllib in Web.read({url})")
             req = urllib.request.Request(url)
-            with urllib.request.urlopen(req) as resp:
-                return resp.read().decode("ISO-8859-1")
+            with urllib.request.urlopen(req) as resp:  # pyright: ignore[reportAny]
+                return resp.read().decode("ISO-8859-1")  # pyright: ignore[reportAny]
         print(f"Using requests in Web.read({url})")
         r = requests.get(url)
         r.raise_for_status()
