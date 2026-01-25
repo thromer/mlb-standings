@@ -1,4 +1,5 @@
 import abc
+
 # from _typeshed import Incomplete
 
 # TOO_MANY_REQUESTS: int
@@ -18,6 +19,7 @@ import abc
 #     def data(self): ...
 
 class Request(metaclass=abc.ABCMeta):
-    pass
+    ...
+
 #     @abc.abstractmethod
 #     def __call__(self, url, method: str = ..., body: Incomplete | None = ..., headers: Incomplete | None = ..., timeout: Incomplete | None = ..., **kwargs): ...

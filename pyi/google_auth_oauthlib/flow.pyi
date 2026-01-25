@@ -1,23 +1,24 @@
 # import wsgiref.util
-from _typeshed import Incomplete
-from typing import Any
-from typing import List
+from typing import Any, List
 
+from _typeshed import Incomplete
 from google.oauth2.credentials import Credentials
 
 class Flow:
-    pass
-#     client_type: Incomplete
-#     client_config: Incomplete
-#     oauth2session: Incomplete
-#     code_verifier: Incomplete
-#     autogenerate_code_verifier: Incomplete
-#     def __init__(self, oauth2session, client_type, client_config, redirect_uri: Incomplete | None = ..., code_verifier: Incomplete | None = ..., autogenerate_code_verifier: bool = ...) -> None: ...
-#     @classmethod
-#     def from_client_config(cls, client_config, scopes, **kwargs): ...
+    #     client_type: Incomplete
+    #     client_config: Incomplete
+    #     oauth2session: Incomplete
+    #     code_verifier: Incomplete
+    #     autogenerate_code_verifier: Incomplete
+    #     def __init__(self, oauth2session, client_type, client_config, redirect_uri: Incomplete | None = ..., code_verifier: Incomplete | None = ..., autogenerate_code_verifier: bool = ...) -> None: ...
+    #     @classmethod
+    #     def from_client_config(cls, client_config, scopes, **kwargs): ...
     @classmethod
-    #def from_client_secrets_file(cls, client_secrets_file: str, scopes: List[str, ...], **kwargs) -> Flow: ...
-    def from_client_secrets_file(cls, client_secrets_file: str, scopes: List[str], **kwargs: Any) -> InstalledAppFlow: ...
+    # def from_client_secrets_file(cls, client_secrets_file: str, scopes: List[str, ...], **kwargs) -> Flow: ...
+    def from_client_secrets_file(
+        cls, client_secrets_file: str, scopes: List[str], **kwargs: Any
+    ) -> InstalledAppFlow: ...
+
 #     @property
 #     def redirect_uri(self): ...
 #     def authorization_url(self, **kwargs): ...
@@ -27,8 +28,19 @@ class Flow:
 #     def authorized_session(self): ...
 
 class InstalledAppFlow(Flow):
-#     redirect_uri: Incomplete
-    def run_local_server(self, host: str = ..., bind_addr: Incomplete | None = ..., port: int = ..., authorization_prompt_message: Incomplete = ..., success_message: Incomplete = ..., open_browser: bool = ..., redirect_uri_trailing_slash: bool = ..., timeout_seconds: Incomplete | None = ..., **kwargs: Any) -> Credentials: ...
+    #     redirect_uri: Incomplete
+    def run_local_server(
+        self,
+        host: str = ...,
+        bind_addr: Incomplete | None = ...,
+        port: int = ...,
+        authorization_prompt_message: Incomplete = ...,
+        success_message: Incomplete = ...,
+        open_browser: bool = ...,
+        redirect_uri_trailing_slash: bool = ...,
+        timeout_seconds: Incomplete | None = ...,
+        **kwargs: Any,
+    ) -> Credentials: ...
 
 # class _WSGIRequestHandler(wsgiref.simple_server.WSGIRequestHandler):
 #     def log_message(self, format, *args) -> None: ...

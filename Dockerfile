@@ -2,7 +2,7 @@
 
 # We use the same image as the runtime base image so that Python
 # version and location matches. Might save on data transfer costs.
-FROM us-west1-docker.pkg.dev/serverless-runtimes/google-22/runtimes/python313 AS builder
+FROM us-west1-docker.pkg.dev/serverless-runtimes/google-24/runtimes/python314 AS builder
 
 # Sorta hacky solution to being able to write to /workspace
 USER root
@@ -22,7 +22,7 @@ RUN uv sync --frozen --no-dev --no-editable
 FROM scratch
 COPY --from=builder /workspace/.venv /workspace/.venv
 
-ENV PYTHONPATH=/workspace/.venv/lib/python3.13/site-packages
+ENV PYTHONPATH=/workspace/.venv/lib/python3.14/site-packages
 ENV PATH=/workspace/.venv/bin:$PATH
 
 CMD ["serve"]

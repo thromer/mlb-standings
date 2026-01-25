@@ -11,6 +11,6 @@ def main(args: list[str]) -> None:
     # Rename it
     # Clear out al_uploaded and nl_uploaded
     # Add it to toc
-    pass
+
 
 main(sys.argv[1:])

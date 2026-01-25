@@ -1,8 +1,10 @@
 # import io
 # from _typeshed import Incomplete
+from typing import Callable, Optional
+
 from _typeshed import IdentityFunction
-from typing import Optional, Callable
 from flask import Request
+
 # from functions_framework import event_conversion as event_conversion
 # from functions_framework.background_event import BackgroundEvent as BackgroundEvent
 # from functions_framework.exceptions import EventConversionException as EventConversionException, FunctionsFrameworkException as FunctionsFrameworkException, MissingSourceException as MissingSourceException
@@ -17,6 +19,7 @@ from flask import Request
 # def cloud_event(func): ...
 # def typed(*args): ...
 def http(func: Callable[[Optional[Request]], str]) -> IdentityFunction: ...
+
 # def setup_logging(): ...
 # def read_request(response): ...
 # def crash_handler(e): ...
