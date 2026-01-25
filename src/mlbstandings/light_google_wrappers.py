@@ -121,8 +121,18 @@ class Files(FilesLike):
     @backoff_on_retryable()
     @override
     def copy(self, id: str, name: str) -> str:
-        url = f"https://content.googleapis.com/drive/v3/files/{id}/copy"
-        params = {"alt": "json"}
-        resp = self.session.post(url, params=params, json={"name": name})
-        resp.raise_for_status()
-        return cast(str, resp.json()["id"])
+        get_url = f"https://content.googleapis.com/drive/v3/files/{id}"
+        get_resp = self.session.get(
+            get_url, params={"fields": "parents", "alt": "json"}
+        )
+        get_resp.raise_for_status()
+        parents = cast(list[str], get_resp.json().get("parents", []))  # pyright: ignore[reportAny]
+        if not parents:
+            msg = f"No parents found for source object {id}"
+            raise RuntimeError(msg)
+        post_url = f"https://content.googleapis.com/drive/v3/files/{id}/copy"
+        post_resp = self.session.post(
+            post_url, params={"alt": "json"}, json={"name": name, "parents": parents}
+        )
+        post_resp.raise_for_status()
+        return cast(str, post_resp.json()["id"])
