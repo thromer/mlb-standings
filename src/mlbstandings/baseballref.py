@@ -3,13 +3,17 @@ import itertools
 import json
 from datetime import date, datetime
 from functools import cache
-from typing import Any, final
+from typing import TYPE_CHECKING, Any, final
 
 import bs4
 
+
 # from mlbstandings.typing_protocols import *
-from mlbstandings.shared_types import SheetValue
-from mlbstandings.typing_protocols import WebLike
+
+
+if TYPE_CHECKING:
+    from mlbstandings.shared_types import SheetValue
+    from mlbstandings.typing_protocols import WebLike
 
 
 _CANONICAL_TEAM_ABBRS = {

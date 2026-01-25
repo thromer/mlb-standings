@@ -1,10 +1,13 @@
 import os
-from typing import final, override
+from typing import TYPE_CHECKING, final, override
 
-from flask import Flask
 from gunicorn.app.base import BaseApplication
 
 from .app import app
+
+
+if TYPE_CHECKING:
+    from flask import Flask
 
 
 @final

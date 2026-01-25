@@ -1,6 +1,8 @@
-from typing import final
+from typing import TYPE_CHECKING, final
 
-from mlbstandings.typing_protocols import RateLimiterLike, WebLike
+
+if TYPE_CHECKING:
+    from mlbstandings.typing_protocols import RateLimiterLike, WebLike
 
 
 @final

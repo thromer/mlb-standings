@@ -3,7 +3,7 @@ from datetime import MINYEAR, date, datetime, timedelta
 from email.headerregistry import Address
 from email.message import EmailMessage
 from enum import Enum
-from typing import cast, final
+from typing import TYPE_CHECKING, cast, final
 from zoneinfo import ZoneInfo
 
 from google.cloud.secretmanager_v1 import SecretManagerServiceClient
@@ -15,12 +15,15 @@ from mlbstandings.helpers import (
     rc0_range_to_sheet_range,
 )
 from mlbstandings.shared_types import SheetValue
-from mlbstandings.typing_protocols import (
-    FilesLike,
-    SpreadsheetLike,
-    SpreadsheetsLike,
-    WebLike,
-)
+
+
+if TYPE_CHECKING:
+    from mlbstandings.typing_protocols import (
+        FilesLike,
+        SpreadsheetLike,
+        SpreadsheetsLike,
+        WebLike,
+    )
 
 
 """

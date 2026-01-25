@@ -1,7 +1,7 @@
 """Test updater.py"""
 
-import pathlib
 from datetime import datetime
+from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
 
 import pytest
@@ -11,6 +11,10 @@ from mlbstandings.helpers import date_from_excel_date
 
 from .fakes import FakeFiles, FakeSpreadsheets, FakeWeb
 from .fixtures import TEST_DATA_DIR
+
+
+if TYPE_CHECKING:
+    import pathlib
 
 
 CONTENTS_SHEET_ID = "contents"

@@ -5,11 +5,12 @@ from zoneinfo import ZoneInfo
 
 import flask
 import google.auth
-from flask.typing import ResponseReturnValue
 from google.auth.transport.requests import AuthorizedSession
 
 
 if TYPE_CHECKING:
+    from flask.typing import ResponseReturnValue
+
     from mlbstandings.typing_protocols import SpreadsheetsLike
 
 # TODO: figure out how to import these nicely and still have mypy work.

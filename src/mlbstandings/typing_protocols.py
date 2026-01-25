@@ -1,6 +1,8 @@
-from typing import Any, Protocol
+from typing import TYPE_CHECKING, Any, Protocol
 
-from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
+
+if TYPE_CHECKING:
+    from mlbstandings.shared_types import Dimension, SheetArray, SheetValue
 
 
 class SheetLike(Protocol):
