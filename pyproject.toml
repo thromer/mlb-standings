@@ -9,17 +9,18 @@ dependencies = [
     "beautifulsoup4>=4.13.4,<5",
     "functions-framework>=3.8.3,<4",
     "google-auth>=2.40.3,<3",
+    "google-auth-oauthlib>=1.2.4",
     "google-cloud-secret-manager>=2.24.0,<3",
     "requests>=2.32.4,<3",
 ]
 
 [dependency-groups]
 dev = [
+    "basedpyright>=1.37.2",
     "mypy>=1.16.1,<2",
     "pyright>=1.1.402",
     "pytest>=8.4.1,<9",
     "pytest-datafiles>=3.0.0,<4",
-    # "types-beautifulsoup4>=4.12.0.20250516,<5",
     "ruff>=0.12.2",
     "types-beautifulsoup4>=4.12.0.20250516",
     "types-gunicorn>=23.0.0.20251031",

@@ -26,6 +26,13 @@ app = flask.Flask(__name__)
 
 CONTENTS_SPREADSHEET_ID = "1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo"
 
+# TODO: get these from constants.py
+PROJECT_ID = "mlb-standings-001"
+SECRET_ID = "creds"
+SCOPES = [
+    "https://www.googleapis.com/auth/drive.file",
+]
+
 
 @app.route("/", methods=["GET", "POST"])
 def update() -> ResponseReturnValue:
@@ -38,11 +45,7 @@ def update() -> ResponseReturnValue:
     # More scopes? Re-run gcloud auth application-default login.
     # But not working locally :(
     # How did I update scopes for the cloud function esp auth/drive ?
-    scopes = [
-        "https://www.googleapis.com/auth/drive",  # to create spreadsheets
-        "https://www.googleapis.com/auth/spreadsheets",
-    ]
-    creds = google.auth.default(scopes=scopes)[0]  # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
+    creds = google.auth.default(scopes=SCOPES)[0]  # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
     authed_session = AuthorizedSession(creds)  # pyright: ignore[reportUnknownArgumentType]
     files = light_google_wrappers.Files(authed_session)
     sheets: SpreadsheetsLike = light_google_wrappers.Spreadsheets(authed_session)
