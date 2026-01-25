@@ -27,7 +27,10 @@ def cf_test(request: Optional[flask.Request], _) -> str:
         print(f'{request_json=}')
         print(f'{request_args=}')
     # More scopes? Re-run gcloud auth application-default login
-    scopes = ['https://www.googleapis.com/auth/spreadsheets']
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive.file",
+    ]
     creds = google.auth.default(scopes=scopes)[0]  # type: ignore
     authed_session = AuthorizedSession(creds)  # type: ignore
     sheets = mlbstandings.light_google_wrappers.Spreadsheets(authed_session)

@@ -134,5 +134,7 @@ class Files(FilesLike):
         post_resp = self.session.post(
             post_url, params={"alt": "json"}, json={"name": name, "parents": parents}
         )
+        if not post_resp.ok:
+            print(f"Error response: {post_resp.text}")
         post_resp.raise_for_status()
         return cast(str, post_resp.json()["id"])
