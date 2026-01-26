@@ -150,11 +150,9 @@ class Secrets:
     @backoff_on_retryable()
     def create_secret(self, secret_id: str) -> None:
         url = f"https://secretmanager.googleapis.com/v1/projects/{self.project_id}/secrets"
-        payload = {  # pyright:ignore[reportUnknownVariableType]
-            "secretId": secret_id,
-            "secret": {"replication": {"automatic": {}}},
-        }
-        resp = self.session.post(url, json=payload)  # pyright:ignore[reportUnknownArgumentType]
+        params = {"secretId": secret_id}
+        payload = {"replication": {"automatic": {}}}
+        resp = self.session.post(url, params=params, json=payload)
         resp.raise_for_status()
 
     @backoff_on_retryable()
