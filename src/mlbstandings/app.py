@@ -1,11 +1,13 @@
+import json
 import logging
 from datetime import datetime
 from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
 
 import flask
-import google.auth
 from google.auth.transport.requests import AuthorizedSession
+from google.cloud.secretmanager import SecretManagerServiceClient
+from google.oauth2.credentials import Credentials
 
 
 if TYPE_CHECKING:
@@ -42,11 +44,19 @@ def update() -> ResponseReturnValue:
     #        backfill = True
     #    else:
     d = datetime.now(tz=ZoneInfo("Etc/UTC"))
-    # More scopes? Re-run gcloud auth application-default login.
-    # But not working locally :(
-    # How did I update scopes for the cloud function esp auth/drive ?
-    creds = google.auth.default(scopes=SCOPES)[0]  # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
-    authed_session = AuthorizedSession(creds)  # pyright: ignore[reportUnknownArgumentType]
+    client = SecretManagerServiceClient()
+    secret_name = f"projects/{PROJECT_ID}/secrets/{SECRET_ID}/versions/latest"
+    response = client.access_secret_version(request={"name": secret_name})  # pyright: ignore[reportUnknownMemberType]
+    creds_data = json.loads(response.payload.data.decode("UTF-8"))  # pyright: ignore[reportAny]
+    installed = creds_data["installed_secret"]  # pyright: ignore[reportAny]
+    creds = Credentials(
+        None,
+        refresh_token=creds_data["refresh_token"],  # pyright: ignore[reportAny]
+        token_uri=installed["token_uri"],  # pyright: ignore[reportAny]
+        client_id=installed["client_id"],  # pyright: ignore[reportAny]
+        client_secret=installed["client_secret"],  # pyright: ignore[reportAny]
+    )
+    authed_session = AuthorizedSession(creds)
     files = light_google_wrappers.Files(authed_session)
     sheets: SpreadsheetsLike = light_google_wrappers.Spreadsheets(authed_session)
     base_web = web.Web()

@@ -17,10 +17,8 @@ SCOPES = [
 def main():
     client = SecretManagerServiceClient()
     secret_name = f"projects/{PROJECT_ID}/secrets/{SECRET_ID}/versions/latest"
-
     response = client.access_secret_version(request={"name": secret_name})  # pyright: ignore[reportUnknownMemberType]
-    payload = response.payload.data.decode("UTF-8")
-    creds_data = json.loads(payload)  # pyright: ignore[reportAny]
+    creds_data = json.loads(response.payload.data.decode("UTF-8"))  # pyright: ignore[reportAny]
 
     if (
         "installed_secret" not in creds_data
