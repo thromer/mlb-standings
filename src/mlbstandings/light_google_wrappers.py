@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import base64
 from typing import TYPE_CHECKING, Any, Callable, TypeVar, cast, final, override
 from urllib.parse import quote  # TODO: remove probably
 
-import base64
 import backoff
 from requests.exceptions import HTTPError, Timeout
 
@@ -150,22 +150,18 @@ class Secrets:
     @backoff_on_retryable()
     def create_secret(self, secret_id: str) -> None:
         url = f"https://secretmanager.googleapis.com/v1/projects/{self.project_id}/secrets"
-        payload = {
+        payload = {  # pyright:ignore[reportUnknownVariableType]
             "secretId": secret_id,
-            "secret": {
-                "replication": {"automatic": {}}
-            }
+            "secret": {"replication": {"automatic": {}}},
         }
-        resp = self.session.post(url, json=payload)
+        resp = self.session.post(url, json=payload)  # pyright:ignore[reportUnknownArgumentType]
         resp.raise_for_status()
 
     @backoff_on_retryable()
     def add_secret_version(self, secret_id: str, data: str) -> str:
         url = f"https://secretmanager.googleapis.com/v1/projects/{self.project_id}/secrets/{secret_id}:addVersion"
         payload = {
-            "payload": {
-                "data": base64.b64encode(data.encode("utf-8")).decode("ascii")
-            }
+            "payload": {"data": base64.b64encode(data.encode("utf-8")).decode("ascii")}
         }
         resp = self.session.post(url, json=payload)
         resp.raise_for_status()
