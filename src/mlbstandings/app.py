@@ -49,21 +49,21 @@ def update() -> ResponseReturnValue:
         AuthorizedSession(google.auth.default()[0]),  # pyright:ignore[reportUnknownMemberType,reportUnknownArgumentType]
         PROJECT_ID,
     )
-    creds_data = json.loads(secrets.access_secret_version(SECRET_ID))
-    installed = creds_data["installed_secret"]  # pyright: ignore[reportAny]
+    creds_data = json.loads(secrets.access_secret_version(SECRET_ID))  # pyright:ignore[reportAny]
+    installed = creds_data["installed_secret"]  # pyright:ignore[reportAny]
     creds = Credentials(
         None,
-        refresh_token=creds_data["refresh_token"],  # pyright: ignore[reportAny]
-        token_uri=installed["token_uri"],  # pyright: ignore[reportAny]
-        client_id=installed["client_id"],  # pyright: ignore[reportAny]
-        client_secret=installed["client_secret"],  # pyright: ignore[reportAny]
+        refresh_token=creds_data["refresh_token"],  # pyright:ignore[reportAny]
+        token_uri=installed["token_uri"],  # pyright:ignore[reportAny]
+        client_id=installed["client_id"],  # pyright:ignore[reportAny]
+        client_secret=installed["client_secret"],  # pyright:ignore[reportAny]
     )
     authed_session = AuthorizedSession(creds)
     files = light_google_wrappers.Files(authed_session)
     sheets: SpreadsheetsLike = light_google_wrappers.Spreadsheets(authed_session)
     base_web = web.Web()
     w = AbstractRateLimitedWeb(base_web, SimpleRateLimiter(15))
-    u = updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, w)
+    u = updater.Updater(d, files, sheets, CONTENTS_SPREADSHEET_ID, w, secrets)
     while True:
         status = u.update()
         if status is None or status == updater.SeasonStatus.OVER or not backfill:

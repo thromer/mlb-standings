@@ -7,8 +7,6 @@ FROM us-west1-docker.pkg.dev/serverless-runtimes/google-24/runtimes/python314 AS
 # Sorta hacky solution to being able to write to /workspace
 USER root
 
-RUN apt-get update && apt-get install -y build-essential
-
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 WORKDIR /workspace
@@ -16,9 +14,6 @@ WORKDIR /workspace
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     UV_NO_MANAGED_PYTHON=1
-
-COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev --no-editable --no-install-project
 
 COPY . .
 RUN uv sync --frozen --no-dev --no-editable

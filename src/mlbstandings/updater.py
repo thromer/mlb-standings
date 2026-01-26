@@ -6,8 +6,6 @@ from enum import Enum
 from typing import TYPE_CHECKING, cast, final
 from zoneinfo import ZoneInfo
 
-from google.cloud.secretmanager_v1 import SecretManagerServiceClient
-
 from mlbstandings.baseballref import BaseballReference, BaseballRefException
 from mlbstandings.helpers import (
     date_from_excel_date,
@@ -18,6 +16,7 @@ from mlbstandings.shared_types import SheetArray, SheetValue
 
 
 if TYPE_CHECKING:
+    from mlbstandings.light_google_wrappers import Secrets
     from mlbstandings.typing_protocols import (
         FilesLike,
         SpreadsheetLike,
@@ -39,7 +38,7 @@ Loosely speaking:
 * Supporting function: W-L as of date. We just use whatever baseball-reference tells us.
 """
 
-GMAIL_SMTP_SECRET_NAME = "projects/mlb-standings-001/secrets/gmail-smtp/versions/latest"
+GMAIL_SMTP_SECRET_NAME = "gmail-smtp"
 
 _FIRST_DAY = "first_day"
 _LAST_DAY = "last_day"
@@ -65,6 +64,7 @@ class Updater:
         spreadsheets: SpreadsheetsLike,
         contents_id: str,
         web: WebLike,
+        secrets: Secrets,
     ) -> None:
         if now.tzinfo is None or now.tzinfo.utcoffset(now) is None:
             msg = "now should not be naive"
@@ -79,6 +79,7 @@ class Updater:
         spreadsheet_id = self.get_spreadsheet_id_for_year(self.now.year)
         self.spreadsheet = self.spreadsheets.spreadsheet(spreadsheet_id)
         self.baseballref = BaseballReference(web)
+        self.secrets = secrets
 
     @staticmethod
     def _build_contents(contents_spreadsheet: SpreadsheetLike) -> dict[int, str]:
@@ -333,11 +334,7 @@ class Updater:
         msg.set_content(f"See {url}")
         msg.add_alternative(html_content, subtype="html")
 
-        secret_manager_client = SecretManagerServiceClient()
-        # Has retry built-in.
-        password = secret_manager_client.access_secret_version(  # pyright: ignore[reportUnknownMemberType]
-            request={"name": GMAIL_SMTP_SECRET_NAME}
-        ).payload.data.decode()
+        password = self.secrets.access_secret_version(GMAIL_SMTP_SECRET_NAME)
         # We would need to do our own retry.
         with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
             _ = smtp.ehlo()

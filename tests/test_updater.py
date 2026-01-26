@@ -37,7 +37,12 @@ def test_empty_before_opening_day(datafiles: pathlib.Path) -> None:
     web = FakeWeb(TEST_DATA_DIR)
     try:
         updater = mlbstandings.updater.Updater(
-            now, files, spreadsheets, CONTENTS_SHEET_ID, web
+            now,
+            files,
+            spreadsheets,
+            CONTENTS_SHEET_ID,
+            web,
+            None,  # pyright: ignore[reportArgumentType]
         )
         _ = updater.update()
     finally:
@@ -68,7 +73,12 @@ def test_zero_row_multiple_days_done(datafiles: pathlib.Path) -> None:
     web = FakeWeb(TEST_DATA_DIR)
     try:
         updater = mlbstandings.updater.Updater(
-            now, files, spreadsheets, CONTENTS_SHEET_ID, web
+            now,
+            files,
+            spreadsheets,
+            CONTENTS_SHEET_ID,
+            web,
+            None,  # pyright: ignore[reportArgumentType]
         )
         _ = updater.update()
     finally:

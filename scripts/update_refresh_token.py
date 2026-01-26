@@ -23,7 +23,7 @@ def main():
         AuthorizedSession(google.auth.default()[0]),  # pyright:ignore[reportUnknownMemberType,reportUnknownArgumentType]
         PROJECT_ID,
     )
-    creds_data = json.loads(secrets.access_secret_version(SECRET_ID))
+    creds_data = json.loads(secrets.access_secret_version(SECRET_ID))  # pyright:ignore[reportAny]
 
     if (
         "installed_secret" not in creds_data
