@@ -138,3 +138,42 @@ class Files(FilesLike):
             print(f"Error response: {post_resp.text}")
         post_resp.raise_for_status()
         return cast(str, post_resp.json()["id"])
+
+
+@final
+class Secrets:
+    def __init__(self, session: Session, project_id: str) -> None:
+        self.session = session
+        self.project_id = project_id
+
+    @backoff_on_retryable()
+    def create_secret(self, secret_id: str) -> None:
+        url = f"https://secretmanager.googleapis.com/v1/projects/{self.project_id}/secrets"
+        payload = {
+            "secretId": secret_id,
+            "secret": {
+                "replication": {"automatic": {}}
+            }
+        }
+        resp = self.session.post(url, json=payload)
+        resp.raise_for_status()
+
+    @backoff_on_retryable()
+    def add_secret_version(self, secret_id: str, data: str) -> str:
+        url = f"https://secretmanager.googleapis.com/v1/projects/{self.project_id}/secrets/{secret_id}:addVersion"
+        payload = {
+            "payload": {
+                "data": data.encode("utf-8").hex()
+            }
+        }
+        resp = self.session.post(url, json=payload)
+        resp.raise_for_status()
+        return cast(str, resp.json()["name"])
+
+    @backoff_on_retryable()
+    def access_secret_version(self, secret_id: str, version: str = "latest") -> str:
+        url = f"https://secretmanager.googleapis.com/v1/projects/{self.project_id}/secrets/{secret_id}/versions/{version}:access"
+        resp = self.session.get(url)
+        resp.raise_for_status()
+        data_hex = cast(str, resp.json()["payload"]["data"])
+        return bytes.fromhex(data_hex).decode("utf-8")
