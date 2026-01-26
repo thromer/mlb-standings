@@ -335,6 +335,7 @@ dependencies = [
     { name = "google-auth" },
     { name = "google-auth-oauthlib" },
     { name = "google-cloud-secret-manager" },
+    { name = "grpcio" },
     { name = "requests" },
 ]
 
@@ -359,6 +360,7 @@ requires-dist = [
     { name = "google-auth", specifier = ">=2.40.3,<3" },
     { name = "google-auth-oauthlib", specifier = ">=1.2.4" },
     { name = "google-cloud-secret-manager", specifier = ">=2.24.0,<3" },
+    { name = "grpcio", specifier = ">=1.73.1" },
     { name = "requests", specifier = ">=2.32.4,<3" },
 ]
 
