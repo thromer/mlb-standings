@@ -40,8 +40,7 @@ def main():
     except AlreadyExists:
         pass
     _ = secrets.add_secret_version(
-        SECRET_ID,
-        json.dumps({"installed_secret": local_json["installed"]}, indent=2)
+        SECRET_ID, json.dumps({"installed_secret": local_json["installed"]}, indent=2)
     )
 
 
