@@ -3,8 +3,8 @@ import json
 from typing import cast
 
 import google.auth
-from google.api_core.exceptions import AlreadyExists
 from google.auth.transport.requests import AuthorizedSession
+from requests.exceptions import HTTPError
 
 from mlbstandings import light_google_wrappers
 
@@ -37,8 +37,9 @@ def main():
     try:
         # Create the Secret Container if it doesn't already exist
         secrets.create_secret(SECRET_ID)
-    except AlreadyExists:
-        pass
+    except HTTPError as e:
+        if e.response.status_code != 409:  # 409 = Conflict (already exists)
+            raise
     _ = secrets.add_secret_version(
         SECRET_ID, json.dumps({"installed_secret": local_json["installed"]}, indent=2)
     )
