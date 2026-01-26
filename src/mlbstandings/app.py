@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
 
 import flask
+import google.auth
 from google.auth.transport.requests import AuthorizedSession
 from google.cloud.secretmanager import SecretManagerServiceClient
 from google.oauth2.credentials import Credentials
@@ -45,9 +46,13 @@ def update() -> ResponseReturnValue:
     #        backfill = True
     #    else:
     d = datetime.now(tz=ZoneInfo("Etc/UTC"))
-    client = SecretManagerServiceClient()
+    sm_client = SecretManagerServiceClient()
+    secrets = light_google_wrappers.Secrets(
+        AuthorizedSession(google.auth.default()[0]),  # pyright:ignore[reportUnknownMemberType,reportUnknownArgumentType]
+        PROJECT_ID,
+    )
     secret_name = f"projects/{PROJECT_ID}/secrets/{SECRET_ID}/versions/latest"
-    response = client.access_secret_version(request={"name": secret_name})  # pyright: ignore[reportUnknownMemberType]
+    response = sm_client.access_secret_version(request={"name": secret_name})  # pyright: ignore[reportUnknownMemberType]
     creds_data = json.loads(response.payload.data.decode("UTF-8"))  # pyright: ignore[reportAny]
     installed = creds_data["installed_secret"]  # pyright: ignore[reportAny]
     creds = Credentials(
