@@ -32,7 +32,8 @@ CONTENTS_SPREADSHEET_ID = "1aPybqeHZ1o1v0Z1z2v8Ieg6CT_O6BwknIXBOndH22oo"
 PROJECT_ID = "mlb-standings-001"
 SECRET_ID = "creds"
 SCOPES = [
-    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive",  # Need broad scope to copy
+    "https://www.googleapis.com/auth/spreadsheets",
 ]
 
 

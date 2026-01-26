@@ -10,7 +10,8 @@ from google_auth_oauthlib.flow import (  # pyright: ignore[reportMissingTypeStub
 PROJECT_ID = "mlb-standings-001"
 SECRET_ID = "creds"
 SCOPES = [
-    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive",  # Need broad scope to copy
+    "https://www.googleapis.com/auth/spreadsheets",
 ]
 
 
