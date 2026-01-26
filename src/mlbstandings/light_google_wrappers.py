@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, Callable, TypeVar, cast, final, override
 from urllib.parse import quote  # TODO: remove probably
 
+import base64
 import backoff
 from requests.exceptions import HTTPError, Timeout
 
@@ -163,7 +164,7 @@ class Secrets:
         url = f"https://secretmanager.googleapis.com/v1/projects/{self.project_id}/secrets/{secret_id}:addVersion"
         payload = {
             "payload": {
-                "data": data.encode("utf-8").hex()
+                "data": base64.b64encode(data.encode("utf-8")).decode("ascii")
             }
         }
         resp = self.session.post(url, json=payload)
@@ -175,5 +176,5 @@ class Secrets:
         url = f"https://secretmanager.googleapis.com/v1/projects/{self.project_id}/secrets/{secret_id}/versions/{version}:access"
         resp = self.session.get(url)
         resp.raise_for_status()
-        data_hex = cast(str, resp.json()["payload"]["data"])
-        return bytes.fromhex(data_hex).decode("utf-8")
+        data_b64 = cast(str, resp.json()["payload"]["data"])
+        return base64.b64decode(data_b64).decode("utf-8")
