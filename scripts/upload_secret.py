@@ -5,7 +5,6 @@ from typing import cast
 import google.auth
 from google.api_core.exceptions import AlreadyExists
 from google.auth.transport.requests import AuthorizedSession
-from google.cloud.secretmanager import SecretManagerServiceClient
 
 from mlbstandings import light_google_wrappers
 
@@ -31,31 +30,18 @@ def main():
     if "installed" not in local_json:
         msg = "Error: ${file_path} file missing 'installed' key."
         raise RuntimeError(msg)
-    sm_client = SecretManagerServiceClient()
     secrets = light_google_wrappers.Secrets(
         AuthorizedSession(google.auth.default()[0]),  # pyright:ignore[reportUnknownMemberType,reportUnknownArgumentType]
         PROJECT_ID,
     )
     try:
         # Create the Secret Container if it doesn't already exist
-        _ = sm_client.create_secret(  # pyright: ignore[reportUnknownMemberType]
-            request={
-                "parent": f"projects/{PROJECT_ID}",
-                "secret_id": SECRET_ID,
-                "secret": {"replication": {"automatic": {}}},
-            }
-        )
+        secrets.create_secret(SECRET_ID)
     except AlreadyExists:
         pass
-    _ = sm_client.add_secret_version(  # pyright: ignore[reportUnknownMemberType]
-        request={
-            "parent": f"projects/{PROJECT_ID}/secrets/{SECRET_ID}",
-            "payload": {
-                "data": json.dumps(
-                    {"installed_secret": local_json["installed"]}, indent=2
-                ).encode("UTF-8")
-            },
-        }
+    _ = secrets.add_secret_version(
+        SECRET_ID,
+        json.dumps({"installed_secret": local_json["installed"]}, indent=2)
     )
 
 
