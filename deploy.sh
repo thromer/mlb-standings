@@ -41,5 +41,5 @@ cd "$(realpath "$(dirname "${BASH_SOURCE[0]}")")" &&
 	   --cpu-boost \
 	   ${SERVICE} |& ts |& tee "${DEPLOY_LOG}" &&
     gcloud --project=${PROJECT} storage cp --gzip-local-all "${DEPLOY_LOG}" ${LOGS_BUCKET}/ &&
-    docker image ls -f "reference=${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/${SERVICE}*" |
-    	tail -n +2 | awk '$2 != "latest" {print $3}' | xargs -r docker image rm
+    docker image ls --format json -f "reference=${LOCATION}-docker.pkg.dev/${PROJECT}/artifacts/${SERVICE}*" |
+	jq -r 'select(.Tag != "latest") | .ID' | xargs -r echo docker image rm
