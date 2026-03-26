@@ -10,7 +10,7 @@ Running locally one a new machine for the first time:
 
 ** gcloud --project=mlb-standings-001 auth application-default set-quota-project mlb-standings-001
 
-* src/run_main.py update
+* uv run update
 
 
 
