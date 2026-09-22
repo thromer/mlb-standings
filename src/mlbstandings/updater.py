@@ -126,10 +126,9 @@ class Updater:
         # clear fields
         spreadsheet = self.spreadsheets.spreadsheet(new_id)
         spreadsheet.clear_range("data_values")
-        for sheet_name in [self._upload_sheet_name(league) for league in _LEAGUES] + [
-            "playoff_upload"
-        ]:
+        for sheet_name in [self._upload_sheet_name(league) for league in _LEAGUES]:
             spreadsheet.clear_sheet(sheet_name)
+        spreadsheet.clear_range("playoff_upload_input")
 
         # add to contents
         _ = self.contents_spreadsheet.append_to_range("contents", [[year, new_id]])
