@@ -28,7 +28,7 @@ dev = [
 
 [project.scripts]
 serve = "mlbstandings.service:serve"
-update = "mlbstandings.app:update"
+update = "mlbstandings.app:main"
 
 [build-system]
 requires = ["hatchling"]

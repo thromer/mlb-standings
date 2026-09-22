@@ -1,5 +1,6 @@
 import json
 import logging
+import sys
 from datetime import datetime
 from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
@@ -37,14 +38,12 @@ SCOPES = [
 ]
 
 
-@app.route("/", methods=["GET", "POST"])
-def update() -> ResponseReturnValue:
-    backfill = False
-    #    if len(args) > 0:
-    #        d = datetime(int(args[0]), 12, 31, 0, 0, 0, 0, ZoneInfo('Etc/UTC'))
-    #        backfill = True
-    #    else:
-    d = datetime.now(tz=ZoneInfo("Etc/UTC"))
+def run_update(backfill_year: int | None) -> None:
+    backfill = backfill_year is not None
+    if backfill_year is not None:
+        d = datetime(backfill_year, 12, 31, tzinfo=ZoneInfo("Etc/UTC"))
+    else:
+        d = datetime.now(tz=ZoneInfo("Etc/UTC"))
     secrets = light_google_wrappers.Secrets(
         AuthorizedSession(google.auth.default()[0]),  # pyright:ignore[reportUnknownMemberType,reportUnknownArgumentType]
         PROJECT_ID,
@@ -68,4 +67,13 @@ def update() -> ResponseReturnValue:
         status = u.update()
         if status is None or status == updater.SeasonStatus.OVER or not backfill:
             break
+
+
+@app.route("/", methods=["GET", "POST"])
+def update() -> ResponseReturnValue:
+    run_update(None)
     return "Done\n"
+
+
+def main() -> None:
+    run_update(int(sys.argv[1]) if len(sys.argv) >= 2 else None)
