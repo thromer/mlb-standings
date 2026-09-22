@@ -261,24 +261,19 @@ class Updater:
         if last_post_season_day is not None and last_post_season_day < self.now.date():
             return SeasonStatus.OVER
         post_season = self.baseballref.grab_post_season(self.now)
-        previous_md5 = self.spreadsheet.get_cell(_POST_SEASON_MD5)
         in_progress = post_season.last_scheduled_day >= self.now.date()
         result = SeasonStatus.IN_PROGRESS if in_progress else SeasonStatus.OVER
-        if post_season.md5 == previous_md5:
-            # ugh
-            self.spreadsheet.set_cell(
-                _LAST_POST_SEASON_DAY,
-                date_to_excel_date(post_season.last_scheduled_day),
-            )
-            return result
-        table: SheetArray = [post_season.header] + post_season.rows
-        self.spreadsheet.set_range("playoff_upload!A:H", table)
+        if post_season.md5 != self.spreadsheet.get_cell(_POST_SEASON_MD5):
+            table: SheetArray = [post_season.header] + post_season.rows
+            self.spreadsheet.set_range("playoff_upload!A:H", table)
+            self.spreadsheet.set_cell(_POST_SEASON_MD5, post_season.md5)
+        # Only mark the post-season done once it's over; mid-post-season,
+        # last_scheduled_day may not yet include later rounds.
         if not in_progress:
             self.spreadsheet.set_cell(
                 _LAST_POST_SEASON_DAY,
                 date_to_excel_date(post_season.last_scheduled_day),
             )
-        self.spreadsheet.set_cell(_POST_SEASON_MD5, post_season.md5)
         return result
 
     def update(self) -> SeasonStatus | None:
